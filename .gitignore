@@ -1,0 +1,27 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Models (太大不上传 Git)
+*.gguf
+*.bin
+*.safetensors
+models/
+
+# Logs
+*.log
+
+# Docker volumes
+monitoring/grafana-data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
