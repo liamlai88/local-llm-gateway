@@ -201,6 +201,14 @@ ai-gateway/
 
 ---
 
+## 🧪 实验报告
+
+基于本网关做的小型实证研究（持续更新）：
+
+- [Prompt Engineering ROI 实证报告](experiments/prompt-engineering-roi.md) — 用同一道数学题对比本地 1.5B / 百炼 Turbo / 百炼 Max 的准确率，揭示"模型容量是地板，Prompt 是天花板"的核心规律
+
+---
+
 ## 📚 参考资料
 
 - [Ollama 官方文档](https://ollama.ai/)
