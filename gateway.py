@@ -2,6 +2,7 @@
 企业级 AI Gateway v2 - 模拟阿里云百炼 MaaS 架构
 新增: 流式输出 / 限流 / 监控面板 / 历史记录
 """
+import os
 import time
 import json
 import logging
@@ -296,8 +297,55 @@ def metrics():
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 
+# ========== 健康检查 ==========
+@app.get("/v1/health")
+def health():
+    """完整健康检查：依赖、API Key、模型路由"""
+    deps = rag.check_deps()
+    rag_ready = all([deps["chromadb"], deps["dashscope"]])
+    bm25_ready = all([deps["rank_bm25"], deps["jieba"]])
+    has_dashscope_key = bool(os.getenv("DASHSCOPE_API_KEY"))
+
+    issues = []
+    if not rag_ready:
+        missing = [k for k, v in deps.items() if not v and k in ("chromadb", "dashscope")]
+        issues.append(f"RAG 不可用，缺依赖: {missing} → pip install {' '.join(missing)}")
+    if not bm25_ready:
+        missing = [k for k, v in deps.items() if not v and k in ("rank_bm25", "jieba")]
+        issues.append(f"BM25 不可用，缺依赖: {missing} → pip install rank-bm25 jieba")
+    if rag_ready and not has_dashscope_key:
+        issues.append("DASHSCOPE_API_KEY 未设置 → 重启时加 prefix")
+
+    return {
+        "status": "ok" if not issues else "degraded",
+        "features": {
+            "chat": True,
+            "rag_vector": rag_ready and has_dashscope_key,
+            "rag_bm25": bm25_ready,
+            "rag_hybrid": rag_ready and bm25_ready and has_dashscope_key,
+        },
+        "dependencies": deps,
+        "env": {"DASHSCOPE_API_KEY": "set" if has_dashscope_key else "missing"},
+        "issues": issues,
+        "models": list(MODEL_ROUTES.keys()),
+    }
+
+
 # ========== RAG 接口 ==========
+def _rag_safe(func):
+    """装饰器：把 RAG 的 RuntimeError 转成 503 + 友好提示"""
+    from functools import wraps
+    @wraps(func)
+    async def wrapper(*args, **kwargs):
+        try:
+            return await func(*args, **kwargs)
+        except RuntimeError as e:
+            raise HTTPException(503, str(e))
+    return wrapper
+
+
 @app.post("/v1/rag/documents")
+@_rag_safe
 async def rag_upload(request: Request, authorization: Optional[str] = Header(None)):
     """上传文档到知识库（自动切块+向量化）"""
     auth(authorization)
@@ -307,18 +355,20 @@ async def rag_upload(request: Request, authorization: Optional[str] = Header(Non
 
 
 @app.post("/v1/rag/query")
+@_rag_safe
 async def rag_query(request: Request, authorization: Optional[str] = Header(None)):
     """RAG 查询：检索 + 增强生成"""
     key, user = auth(authorization)
     body = await request.json()
     question = body["question"]
     top_k = body.get("top_k", 3)
+    mode = body.get("mode", "hybrid")  # vector / bm25 / hybrid
     requested_model = body.get("model", "fast")
     actual_model = resolve_model(requested_model)
 
     # Step 1: 检索
     start = time.time()
-    chunks = rag.search(question, top_k=top_k)
+    chunks = rag.search(question, top_k=top_k, mode=mode)
     retrieval_ms = (time.time() - start) * 1000
 
     # Step 2: 拼接增强 Prompt
@@ -361,6 +411,7 @@ async def rag_query(request: Request, authorization: Optional[str] = Header(None
         "answer": data["choices"][0]["message"]["content"],
         "sources": chunks,
         "stats": {
+            "retrieval_mode": mode,
             "retrieval_ms": round(retrieval_ms, 1),
             "generation_ms": round(gen_ms, 1),
             "total_ms": round(retrieval_ms + gen_ms, 1),
@@ -377,6 +428,7 @@ def rag_stats():
 
 
 @app.delete("/v1/rag/documents")
+@_rag_safe
 async def rag_clear(authorization: Optional[str] = Header(None)):
     auth(authorization)
     rag.clear_all()
