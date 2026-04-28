@@ -14,6 +14,7 @@ from fastapi.responses import StreamingResponse, HTMLResponse, Response
 import httpx
 from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
 import rag  # RAG 模块
+import agent as agent_mod  # Agent 模块
 
 # ========== 配置 ==========
 OLLAMA_BASE = "http://localhost:11434"
@@ -435,6 +436,46 @@ async def rag_clear(authorization: Optional[str] = Header(None)):
     auth(authorization)
     rag.clear_all()
     return {"status": "cleared"}
+
+
+# ========== Agent 接口 ==========
+@app.get("/v1/agent/tools")
+def agent_list_tools():
+    """列出所有可用工具"""
+    return {"tools": agent_mod.list_tools()}
+
+
+@app.post("/v1/agent/run")
+async def agent_run(request: Request, authorization: Optional[str] = Header(None)):
+    """
+    运行 ReAct Agent
+    body: {"question": str, "max_iterations": int (默认5), "model": str}
+    """
+    key, user = auth(authorization)
+    body = await request.json()
+    question = body["question"]
+    max_iter = body.get("max_iterations", 5)
+    provider = body.get("provider", "local")  # local / bailian
+    few_shot = body.get("few_shot", True)
+    model_label = body.get("model", "fast")
+    actual_model = model_label if provider == "bailian" else resolve_model(model_label)
+
+    start = time.time()
+    result = agent_mod.run_agent(
+        question, max_iterations=max_iter, model=actual_model,
+        provider=provider, few_shot=few_shot,
+    )
+    total_ms = (time.time() - start) * 1000
+
+    # Prometheus 指标
+    m_requests.labels(user=user["name"], model=actual_model, status=f"agent_{result['status']}").inc()
+    record_request(user, "agent", actual_model, 0, 0, 0, total_ms / 1000, status=f"agent:{result['status']}")
+
+    return {
+        **result,
+        "model": actual_model,
+        "tools_available": [t["name"] for t in agent_mod.list_tools()],
+    }
 
 
 # ========== 监控面板 ==========

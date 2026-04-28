@@ -30,6 +30,8 @@
 
 - **沉淀 4 份递进式 RAG 实证报告**：从 Prompt 工程 → RAG 价值 → Hybrid 失败 → Rerank 突破，提炼出三条被低估的工程真理：**Tokenization 决定检索上限 / Chunking 边界稀释语义信号 / Hybrid 不能救同质化错误**，可直接作为客户技术方案咨询素材
 
+- **实现 ReAct Agent + 12 次对照实验找到能力边界**：自实现 ReAct 循环框架（System Prompt + Action 解析 + 工具执行 + 错误重试），集成 calculator/weather/kb_search 三类工具（其中 kb_search 复用本项目 RAG 接口），通过本地 1.5B vs 百炼 Qwen-Turbo + Few-shot 三组对照实验揭示三个反直觉真相：**Few-shot 是双刃剑（分布偏移让 1.5B 准确率从 50% 跌到 25%）/ Tool Use Laziness（Qwen-Turbo 在禁令下仍跳过工具）/ ReAct 在 3 工具以上任务的天花板就是 25%**。基于实证给出"单工具用 ReAct、多步用 Plan-Execute、密集调用用原生 Tool Calling" 的企业选型建议
+
 ---
 
 ## 英文版（精简，用于英文简历 / LinkedIn）
@@ -50,6 +52,8 @@
 - **Built production-grade RAG stack**: Vector (Bailian Embedding) + BM25 (jieba) + Hybrid (RRF) + Rerank (Bailian gte-rerank) — a complete recall-rerank-generate architecture. Conducted 4 controlled experiments on a custom domain corpus: pure LLM 0% accuracy → naive RAG 100% (closed QA) → simple Hybrid only 50% → **Hybrid+Rerank breakthrough to 100%** with just 252ms added latency
 
 - **Authored 4 progressive RAG empirical reports** documenting the journey from Prompt Engineering ROI → RAG value → Hybrid failure → Rerank breakthrough. Distilled three under-appreciated engineering truths: **tokenization caps retrieval ceiling / chunking boundaries dilute semantic signals / Hybrid cannot rescue homogeneous errors** — directly reusable as customer consulting collateral
+
+- **Built ReAct Agent + 12 controlled experiments mapping its capability boundary**: hand-rolled ReAct framework (system prompt + action parser + tool executor + retry loop) integrating 3 tools (calculator, weather, RAG kb_search). Three-way comparison (1.5B vs 1.5B+Few-shot vs Qwen-Turbo) revealed counter-intuitive findings: **Few-shot examples cause distribution shift (1.5B accuracy dropped 50% → 25%) / Tool Use Laziness persists in larger models (Turbo skips tools even with explicit ban) / ReAct caps at 25% for 3+ tool tasks regardless of model size**. Translated into actionable enterprise guidance: ReAct for single-tool, Plan-Execute for multi-step, native Tool Calling for high-frequency
 
 ---
 
@@ -125,8 +129,9 @@
 | 可观测性 | Prometheus + Grafana |
 | 海外社交内容审核 (Demo #1) | 内容审核中间件已具备 |
 | RAG 应用开发 | ✅ 完整三层架构 (Vector/BM25/Hybrid/Rerank) |
-| 失败案例分析能力 | ✅ Hybrid 失败实验报告 (反直觉洞察) |
-| 客户方案咨询素材 | ✅ 4 份递进式实证报告 |
+| Agent + Tool Calling | ✅ 自实现 ReAct 框架 + 3 工具集成 + 边界实测 |
+| 失败案例分析能力 | ✅ Hybrid 失败 + ReAct 边界两份反直觉报告 |
+| 客户方案咨询素材 | ✅ 5 份递进式实证报告 |
 | 英文沟通 | 英文版简历 + 后续 Demo 视频 |
 
 ---

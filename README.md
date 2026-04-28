@@ -56,6 +56,7 @@
 | **Token 计费** | 按输入/输出分别计费，对标百炼定价 |
 | **可观测性** | Prometheus 8 个指标 + Grafana 5 个仪表盘 |
 | **RAG 检索增强** | ChromaDB + 百炼 Embedding，让小模型答对闭域问题 |
+| **ReAct Agent** | 工具调用循环 + Tool Calling 抽象，集成 calculator/weather/RAG 三类工具 |
 
 ---
 
@@ -210,6 +211,7 @@ ai-gateway/
 - [RAG vs 纯 LLM 实证报告](experiments/rag-vs-pure-llm.md) — 验证 RAG 让 1.5B 小模型在闭域知识问答上准确率从 0% 提升到 100%，揭示"拒答 ≠ 安全，幻觉才是杀手"
 - [Hybrid Search 实证报告](experiments/hybrid-search-reality.md) — 一次"失败"实验：Vector / BM25 / Hybrid 三种方法准确率均仅 50%，揭示 Tokenization、Chunking、Rerank 三大被低估的 RAG 工程难点
 - [Rerank 突破实验](experiments/rerank-breakthrough.md) — 加上百炼 gte-rerank 精排层，准确率从 50% 跃升至 **100%**，验证生产级 RAG 三层架构（召回+精排+生成）
+- [ReAct Agent 能力边界实证](experiments/agent-react-boundaries.md) — 12 次对照实验找到 Agent 真实边界：单工具 90%+、多工具组合即使 Qwen-Turbo 也只有 25%。揭示 Few-shot 双刃剑 + Tool Use Laziness + ReAct 天花板三个反直觉真相
 
 ---
 
