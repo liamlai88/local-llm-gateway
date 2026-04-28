@@ -204,7 +204,61 @@ def search_hybrid(query: str, top_k: int = 5, k: int = 60) -> List[Dict]:
     ]
 
 
-def search(query: str, top_k: int = 3, mode: str = "hybrid") -> List[Dict]:
+def rerank(query: str, candidates: List[Dict], top_k: int = 3) -> List[Dict]:
+    """
+    用百炼 gte-rerank 对候选文档精排
+    candidates: 召回阶段的 Top-N 候选 (来自 vector/bm25/hybrid)
+    返回: 重排后的 Top-K
+    """
+    if not candidates:
+        return []
+    require("dashscope")
+    dashscope = _lazy_import("dashscope")
+    if not os.getenv("DASHSCOPE_API_KEY"):
+        raise RuntimeError("DASHSCOPE_API_KEY 未设置")
+    dashscope.api_key = os.getenv("DASHSCOPE_API_KEY")
+
+    docs = [c["content"] for c in candidates]
+    resp = dashscope.TextReRank.call(
+        model="gte-rerank",
+        query=query,
+        documents=docs,
+        top_n=top_k,
+        return_documents=False,
+    )
+    if resp.status_code != 200:
+        raise RuntimeError(f"Rerank failed: {resp.message}")
+
+    # gte-rerank 返回 [{index: 0, relevance_score: 0.98}, ...]
+    results = []
+    for item in resp.output["results"]:
+        idx = item["index"]
+        cand = candidates[idx].copy()
+        cand["rerank_score"] = item["relevance_score"]
+        cand["original_score"] = cand.get("score", 0)
+        cand["score"] = item["relevance_score"]
+        cand["method"] = cand.get("method", "?") + "+rerank"
+        results.append(cand)
+    return results
+
+
+def search(query: str, top_k: int = 3, mode: str = "hybrid", use_rerank: bool = False) -> List[Dict]:
+    """
+    统一检索入口
+    - mode: vector / bm25 / hybrid
+    - use_rerank: True 则召回 Top-10 后精排到 top_k
+    """
+    if use_rerank:
+        # 召回更多候选给 Rerank
+        recall_k = max(top_k * 3, 10)
+        if mode == "vector":
+            cands = search_vector(query, recall_k)
+        elif mode == "bm25":
+            cands = search_bm25(query, recall_k)
+        else:
+            cands = search_hybrid(query, recall_k)
+        return rerank(query, cands, top_k=top_k)
+
     if mode == "vector":
         return search_vector(query, top_k)
     elif mode == "bm25":

@@ -209,6 +209,7 @@ ai-gateway/
 - [Prompt Engineering ROI 实证报告](experiments/prompt-engineering-roi.md) — 用同一道数学题对比本地 1.5B / 百炼 Turbo / 百炼 Max 的准确率，揭示"模型容量是地板，Prompt 是天花板"的核心规律
 - [RAG vs 纯 LLM 实证报告](experiments/rag-vs-pure-llm.md) — 验证 RAG 让 1.5B 小模型在闭域知识问答上准确率从 0% 提升到 100%，揭示"拒答 ≠ 安全，幻觉才是杀手"
 - [Hybrid Search 实证报告](experiments/hybrid-search-reality.md) — 一次"失败"实验：Vector / BM25 / Hybrid 三种方法准确率均仅 50%，揭示 Tokenization、Chunking、Rerank 三大被低估的 RAG 工程难点
+- [Rerank 突破实验](experiments/rerank-breakthrough.md) — 加上百炼 gte-rerank 精排层，准确率从 50% 跃升至 **100%**，验证生产级 RAG 三层架构（召回+精排+生成）
 
 ---
 

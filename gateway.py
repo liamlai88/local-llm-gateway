@@ -363,12 +363,13 @@ async def rag_query(request: Request, authorization: Optional[str] = Header(None
     question = body["question"]
     top_k = body.get("top_k", 3)
     mode = body.get("mode", "hybrid")  # vector / bm25 / hybrid
+    use_rerank = body.get("rerank", False)
     requested_model = body.get("model", "fast")
     actual_model = resolve_model(requested_model)
 
-    # Step 1: 检索
+    # Step 1: 检索（可选 Rerank 精排）
     start = time.time()
-    chunks = rag.search(question, top_k=top_k, mode=mode)
+    chunks = rag.search(question, top_k=top_k, mode=mode, use_rerank=use_rerank)
     retrieval_ms = (time.time() - start) * 1000
 
     # Step 2: 拼接增强 Prompt
@@ -412,6 +413,7 @@ async def rag_query(request: Request, authorization: Optional[str] = Header(None
         "sources": chunks,
         "stats": {
             "retrieval_mode": mode,
+            "rerank": use_rerank,
             "retrieval_ms": round(retrieval_ms, 1),
             "generation_ms": round(gen_ms, 1),
             "total_ms": round(retrieval_ms + gen_ms, 1),
