@@ -8,7 +8,8 @@
 
 **项目名称**：本地大模型 MaaS 网关原型 — 模拟阿里云百炼平台架构  
 **项目时间**：2026.04 (个人项目)  
-**技术栈**：Ollama / FastAPI / Qwen2.5 / Prometheus / Grafana / Locust / Docker
+**GitHub**：https://github.com/liamlai88/local-llm-gateway  
+**技术栈**：Ollama / FastAPI / Qwen2.5 / 百炼 Embedding+Rerank / ChromaDB / BM25 / Prometheus / Grafana / Locust / Docker
 
 **项目背景**：  
 为深度理解 GenAI 基础设施与 MaaS 商业化逻辑，独立设计并实现企业级 AI 推理网关，对标阿里云百炼平台核心能力，可作为客户 POC 演示与技术方案设计的基础原型。
@@ -24,6 +25,10 @@
 - 使用 **Locust 完成多轮压测**，建立完整性能基线：单实例稳定承载 8.8 RPS（混合流量），P99 延迟 < 2.5s；缓存层使热点请求 P99 从 690ms 降至 89ms（**11 倍优化**）；通过 1→5→20 用户阶梯压测，发现并量化 Q8 模型在高并发下的尾延迟问题（P99 达 7.8s，建议独立部署）
 
 - 基于真实压测数据，建立**客户业务容量评估模型**：50 万 DAU 内容审核场景需 7 个 M5 等价实例，启用 30% 缓存命中后实例需求降至 5 个，节省 28% 算力成本，可直接用于售前 TCO 测算
+
+- **构建生产级 RAG 全栈**：Vector (百炼 Embedding) + BM25 (jieba 中文分词) + Hybrid (RRF 融合) + Rerank (百炼 gte-rerank)，对应**召回-精排-生成**三层架构。在自建专业文档语料上做 4 组对照实验：纯 LLM 准确率 0%、简单 RAG 100%（闭域问答）、Hybrid 仅 50%（暴露同质化错误问题）、**Hybrid+Rerank 突破到 100%**（延迟仅增加 252ms）
+
+- **沉淀 4 份递进式 RAG 实证报告**：从 Prompt 工程 → RAG 价值 → Hybrid 失败 → Rerank 突破，提炼出三条被低估的工程真理：**Tokenization 决定检索上限 / Chunking 边界稀释语义信号 / Hybrid 不能救同质化错误**，可直接作为客户技术方案咨询素材
 
 ---
 
@@ -41,6 +46,10 @@
 - Conducted **Locust load tests** at 1/5/20 concurrent users; established a performance baseline of **8.8 RPS sustained** with P99 < 2.5s; cache layer reduced hot-path P99 latency from 690ms to 89ms (**11× improvement**)
 
 - Translated benchmark data into a **customer capacity model**: a 500K-DAU content moderation use case requires 7 M5-equivalent instances; with 30% cache hits, the requirement drops to 5 instances (28% cost savings) — directly usable for TCO calculations in pre-sales scenarios
+
+- **Built production-grade RAG stack**: Vector (Bailian Embedding) + BM25 (jieba) + Hybrid (RRF) + Rerank (Bailian gte-rerank) — a complete recall-rerank-generate architecture. Conducted 4 controlled experiments on a custom domain corpus: pure LLM 0% accuracy → naive RAG 100% (closed QA) → simple Hybrid only 50% → **Hybrid+Rerank breakthrough to 100%** with just 252ms added latency
+
+- **Authored 4 progressive RAG empirical reports** documenting the journey from Prompt Engineering ROI → RAG value → Hybrid failure → Rerank breakthrough. Distilled three under-appreciated engineering truths: **tokenization caps retrieval ceiling / chunking boundaries dilute semantic signals / Hybrid cannot rescue homogeneous errors** — directly reusable as customer consulting collateral
 
 ---
 
@@ -73,6 +82,32 @@
 
 ---
 
+### Q: "你怎么看 RAG，做过吗？"
+
+**Situation（背景）**：
+"我不仅做过 RAG，还专门做了 4 组递进式对照实验来理解它的边界。我发现网上的 RAG 教程都太简化，跟生产场景的差距很大。"
+
+**Task（任务）**：
+"目标是搞清楚：什么时候 RAG 真的有用？Hybrid Search 是不是银弹？小语料下检索为什么经常失败？"
+
+**Action（行动）**：
+
+1. **基础 RAG**：百炼 Embedding + ChromaDB + Top-K 检索，做了一个虚构的内部知识库，让 1.5B 小模型回答闭域问题
+2. **Hybrid Search**：加 BM25 (jieba 中文分词) + RRF 倒数排名融合，验证生产标配方案
+3. **失败分析**：在 4 份阿里云 GPU 产品文档上跑对照实验，发现 Vector/BM25/Hybrid 三种方法准确率都只有 50%
+4. **Rerank 突破**：加百炼 gte-rerank 精排层，准确率跃升到 100%
+
+**Result（结果）**：
+
+- 准确率曲线：纯 LLM 0% → 简单 RAG 100%（闭域）→ Hybrid 50%（专业文档）→ **Hybrid+Rerank 100%**
+- 提炼三条 RAG 工程真理（写成报告）：
+  - **Tokenization 决定检索上限**：jieba 默认词典对 "A100" 这种短英数字串很弱
+  - **Chunking 边界稀释语义信号**：长杂文档会"吃掉"短专业文档的相关性
+  - **Hybrid 不能救同质化错误**：必须有 Rerank 这一层
+- **可以给客户讲完整的三层架构方案**：召回（Hybrid）+ 精排（Rerank）+ 生成（LLM），延迟代价 252ms 换准确率 50% 提升，是企业 RAG 的标配 ROI
+
+---
+
 ## 关键词对照表（JD → 项目能力）
 
 | JD 关键词 | 项目对应模块 |
@@ -89,6 +124,9 @@
 | AI 解决方案设计 | 容量评估模型 |
 | 可观测性 | Prometheus + Grafana |
 | 海外社交内容审核 (Demo #1) | 内容审核中间件已具备 |
+| RAG 应用开发 | ✅ 完整三层架构 (Vector/BM25/Hybrid/Rerank) |
+| 失败案例分析能力 | ✅ Hybrid 失败实验报告 (反直觉洞察) |
+| 客户方案咨询素材 | ✅ 4 份递进式实证报告 |
 | 英文沟通 | 英文版简历 + 后续 Demo 视频 |
 
 ---
