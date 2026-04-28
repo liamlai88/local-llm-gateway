@@ -229,7 +229,7 @@ Turbo: "Final Answer: 15 乘以 0.6 等于 9.0"
 
 ## 后续优化方向
 
-- [ ] **Plan-and-Execute 模式**：先用 LLM 生成完整执行计划，再按 step 执行
+- [x] ✅ **Plan-and-Execute 模式** — 已完成，详见 [Plan-Execute 突破实验](agent-plan-execute-breakthrough.md)
 - [ ] **OpenAI Tool Calling 原生模式**：用 Qwen-Turbo 的 `tools` 参数，看 Q1 是否破解 Tool Laziness
 - [ ] **强制工具检测中间件**：解析 LLM 输出后，如果 Final Answer 包含数字但没调过 calculator，强制重试
 - [ ] **LangGraph 集成**：用 state machine 显式建模 Agent 状态转移

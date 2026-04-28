@@ -457,14 +457,20 @@ async def agent_run(request: Request, authorization: Optional[str] = Header(None
     max_iter = body.get("max_iterations", 5)
     provider = body.get("provider", "local")  # local / bailian
     few_shot = body.get("few_shot", True)
+    mode = body.get("mode", "react")  # react / plan_execute
     model_label = body.get("model", "fast")
     actual_model = model_label if provider == "bailian" else resolve_model(model_label)
 
     start = time.time()
-    result = agent_mod.run_agent(
-        question, max_iterations=max_iter, model=actual_model,
-        provider=provider, few_shot=few_shot,
-    )
+    if mode == "plan_execute":
+        result = agent_mod.run_plan_execute_agent(
+            question, max_iterations=max_iter, model=actual_model, provider=provider,
+        )
+    else:
+        result = agent_mod.run_agent(
+            question, max_iterations=max_iter, model=actual_model,
+            provider=provider, few_shot=few_shot,
+        )
     total_ms = (time.time() - start) * 1000
 
     # Prometheus 指标

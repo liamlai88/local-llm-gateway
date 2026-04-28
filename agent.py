@@ -329,3 +329,170 @@ def list_tools() -> List[Dict]:
         {"name": t["name"], "description": t["description"], "parameters": t["parameters"]}
         for t in TOOLS.values()
     ]
+
+
+# ========== Plan-and-Execute 模式 ==========
+def build_planner_prompt() -> str:
+    """规划器 Prompt - 让 LLM 输出完整执行计划"""
+    tools_desc = "\n".join([
+        f"- {t['name']}({', '.join(f'{k}: {v}' for k, v in t['parameters'].items())}): {t['description']}"
+        for t in TOOLS.values()
+    ])
+
+    return f"""你是一个任务规划器。给定用户问题，你需要输出**完整的执行计划**（不实际执行）。
+
+【可用工具】
+{tools_desc}
+
+【输出格式 - 严格 JSON】
+{{
+  "plan": [
+    {{"step": 1, "tool": "工具名", "args": {{...}}, "purpose": "本步目的"}},
+    {{"step": 2, "tool": "工具名", "args": {{...}}, "purpose": "..."}},
+    ...
+  ]
+}}
+
+【关键规则】
+1. 必须考虑任务的所有步骤，不要遗漏
+2. 涉及数字/价格/天气等具体信息，必须先用工具查询，再用 calculator 计算
+3. 即使某步参数依赖前一步结果，也要列出，用 "<step1_result>" 占位
+4. 只输出 JSON，不要任何其他文字
+
+【示例】
+
+User: 杭州气温减北京气温多少？
+
+{{
+  "plan": [
+    {{"step": 1, "tool": "get_weather", "args": {{"city": "杭州"}}, "purpose": "查杭州气温"}},
+    {{"step": 2, "tool": "get_weather", "args": {{"city": "北京"}}, "purpose": "查北京气温"}},
+    {{"step": 3, "tool": "calculator", "args": {{"expression": "<step1_temp> - <step2_temp>"}}, "purpose": "计算差值"}}
+  ]
+}}"""
+
+
+def build_executor_prompt(question: str, plan: List[Dict], step_idx: int,
+                          previous_results: List[Dict]) -> str:
+    """执行器 Prompt - 给定计划和已执行结果，决定当前 step 的具体参数"""
+    history = "\n".join([
+        f"Step {r['step']} ({r['tool']}): {r['observation']}"
+        for r in previous_results
+    ])
+    current = plan[step_idx]
+    return f"""任务: {question}
+
+【完整计划】
+{json.dumps(plan, ensure_ascii=False, indent=2)}
+
+【已执行结果】
+{history if history else '(无)'}
+
+【当前步骤】
+Step {current['step']}: 调用 {current['tool']}
+原计划参数: {json.dumps(current['args'], ensure_ascii=False)}
+本步目的: {current['purpose']}
+
+【你的任务】
+基于已执行结果，输出当前 step 的最终参数。如果原计划参数包含 <stepN_xxx> 占位符，请用前面 step 的实际结果替换。
+
+【输出格式 - 严格 JSON】
+{{"args": {{...}}}}
+
+只输出 JSON，不要任何其他文字。"""
+
+
+def run_plan_execute_agent(question: str, max_iterations: int = 8,
+                           model: str = "qwen2.5-1.5b", provider: str = "local") -> Dict:
+    """Plan-and-Execute Agent 主循环"""
+    trace = []
+    start = time.time()
+
+    # ===== Phase 1: 规划 =====
+    planner_messages = [
+        {"role": "system", "content": build_planner_prompt()},
+        {"role": "user", "content": question},
+    ]
+    planner_output = call_llm(planner_messages, model=model, provider=provider)
+
+    # 解析计划
+    try:
+        # 尝试提取 JSON
+        json_match = re.search(r"\{.*\}", planner_output, re.DOTALL)
+        if not json_match:
+            raise ValueError("未找到 JSON")
+        plan_data = json.loads(json_match.group(0))
+        plan = plan_data["plan"]
+    except Exception as e:
+        return {
+            "answer": f"规划失败: {e}",
+            "trace": [{"step": 0, "type": "plan_error", "raw_output": planner_output, "error": str(e)}],
+            "iterations": 0,
+            "latency_ms": round((time.time() - start) * 1000, 1),
+            "status": "plan_failed",
+            "mode": "plan_execute",
+        }
+
+    trace.append({"step": 0, "type": "plan", "plan": plan, "raw_output": planner_output})
+
+    # ===== Phase 2: 逐步执行 =====
+    previous_results = []
+    for idx, step in enumerate(plan):
+        if idx >= max_iterations:
+            break
+
+        # 让 LLM 决定当前 step 的实际参数（处理占位符替换）
+        executor_messages = [
+            {"role": "system", "content": "你是任务执行器，根据上下文输出工具参数 JSON"},
+            {"role": "user", "content": build_executor_prompt(question, plan, idx, previous_results)},
+        ]
+        executor_output = call_llm(executor_messages, model=model, provider=provider)
+
+        # 解析参数
+        try:
+            json_match = re.search(r"\{.*\}", executor_output, re.DOTALL)
+            args_data = json.loads(json_match.group(0))
+            actual_args = args_data.get("args", step["args"])
+        except Exception:
+            # fallback：用计划里的原参数
+            actual_args = step["args"]
+
+        # 执行工具
+        tool_name = step["tool"]
+        observation = execute_tool(tool_name, actual_args)
+
+        previous_results.append({
+            "step": step["step"],
+            "tool": tool_name,
+            "observation": observation,
+        })
+        trace.append({
+            "step": step["step"],
+            "type": "execute",
+            "tool": tool_name,
+            "planned_args": step["args"],
+            "actual_args": actual_args,
+            "observation": observation,
+        })
+
+    # ===== Phase 3: 生成最终答案 =====
+    summary_messages = [
+        {"role": "system", "content": "你是任务总结器。基于执行结果给出简洁的最终答案，包含关键数字。"},
+        {"role": "user", "content": f"""任务: {question}
+
+执行结果:
+{json.dumps(previous_results, ensure_ascii=False, indent=2)}
+
+请直接给出最终答案，不要重复执行过程。"""},
+    ]
+    final_answer = call_llm(summary_messages, model=model, provider=provider)
+    trace.append({"step": len(plan) + 1, "type": "final", "answer": final_answer})
+
+    return {
+        "answer": final_answer.strip(),
+        "trace": trace,
+        "iterations": len(plan),
+        "latency_ms": round((time.time() - start) * 1000, 1),
+        "status": "success",
+        "mode": "plan_execute",
+    }

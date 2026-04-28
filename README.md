@@ -212,6 +212,7 @@ ai-gateway/
 - [Hybrid Search 实证报告](experiments/hybrid-search-reality.md) — 一次"失败"实验：Vector / BM25 / Hybrid 三种方法准确率均仅 50%，揭示 Tokenization、Chunking、Rerank 三大被低估的 RAG 工程难点
 - [Rerank 突破实验](experiments/rerank-breakthrough.md) — 加上百炼 gte-rerank 精排层，准确率从 50% 跃升至 **100%**，验证生产级 RAG 三层架构（召回+精排+生成）
 - [ReAct Agent 能力边界实证](experiments/agent-react-boundaries.md) — 12 次对照实验找到 Agent 真实边界：单工具 90%+、多工具组合即使 Qwen-Turbo 也只有 25%。揭示 Few-shot 双刃剑 + Tool Use Laziness + ReAct 天花板三个反直觉真相
+- [Plan-Execute 突破实验](experiments/agent-plan-execute-breakthrough.md) — 切换到 Plan-and-Execute 范式，准确率从 25% 跃升至 **75%**，证明"范式选择比模型选择重要 3 倍"。同时揭示新挑战：延迟暴涨 6×、跨 Step 数据传递难题
 
 ---
 
