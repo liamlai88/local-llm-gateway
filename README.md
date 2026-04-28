@@ -55,6 +55,7 @@
 | **流式输出** | SSE 协议，OpenAI 兼容 |
 | **Token 计费** | 按输入/输出分别计费，对标百炼定价 |
 | **可观测性** | Prometheus 8 个指标 + Grafana 5 个仪表盘 |
+| **RAG 检索增强** | ChromaDB + 百炼 Embedding，让小模型答对闭域问题 |
 
 ---
 
@@ -206,6 +207,7 @@ ai-gateway/
 基于本网关做的小型实证研究（持续更新）：
 
 - [Prompt Engineering ROI 实证报告](experiments/prompt-engineering-roi.md) — 用同一道数学题对比本地 1.5B / 百炼 Turbo / 百炼 Max 的准确率，揭示"模型容量是地板，Prompt 是天花板"的核心规律
+- [RAG vs 纯 LLM 实证报告](experiments/rag-vs-pure-llm.md) — 验证 RAG 让 1.5B 小模型在闭域知识问答上准确率从 0% 提升到 100%，揭示"拒答 ≠ 安全，幻觉才是杀手"
 
 ---
 

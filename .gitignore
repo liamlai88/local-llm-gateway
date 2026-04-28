@@ -17,6 +17,9 @@ models/
 # Docker volumes
 monitoring/grafana-data/
 
+# Vector DB
+chroma_data/
+
 # OS
 .DS_Store
 Thumbs.db

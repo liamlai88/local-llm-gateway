@@ -12,6 +12,7 @@ from fastapi import FastAPI, Request, HTTPException, Header
 from fastapi.responses import StreamingResponse, HTMLResponse, Response
 import httpx
 from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
+import rag  # RAG 模块
 
 # ========== 配置 ==========
 OLLAMA_BASE = "http://localhost:11434"
@@ -293,6 +294,93 @@ def get_stats():
 def metrics():
     """Prometheus 抓取端点"""
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
+
+
+# ========== RAG 接口 ==========
+@app.post("/v1/rag/documents")
+async def rag_upload(request: Request, authorization: Optional[str] = Header(None)):
+    """上传文档到知识库（自动切块+向量化）"""
+    auth(authorization)
+    body = await request.json()
+    doc_id = body.get("doc_id") or hashlib.md5(body.get("content", "").encode()).hexdigest()[:8]
+    return rag.add_document(doc_id, body["content"], body.get("metadata"))
+
+
+@app.post("/v1/rag/query")
+async def rag_query(request: Request, authorization: Optional[str] = Header(None)):
+    """RAG 查询：检索 + 增强生成"""
+    key, user = auth(authorization)
+    body = await request.json()
+    question = body["question"]
+    top_k = body.get("top_k", 3)
+    requested_model = body.get("model", "fast")
+    actual_model = resolve_model(requested_model)
+
+    # Step 1: 检索
+    start = time.time()
+    chunks = rag.search(question, top_k=top_k)
+    retrieval_ms = (time.time() - start) * 1000
+
+    # Step 2: 拼接增强 Prompt
+    context = "\n\n".join([f"[文档片段{i+1}] {c['content']}" for i, c in enumerate(chunks)])
+    augmented_prompt = f"""请基于以下文档内容回答用户问题。如果文档中没有相关信息，请明确说明"文档中没有相关信息"，不要编造。
+
+{context}
+
+用户问题：{question}
+
+请回答："""
+
+    # Step 3: 调用 LLM
+    gen_start = time.time()
+    async with httpx.AsyncClient(timeout=120) as client:
+        resp = await client.post(
+            f"{OLLAMA_BASE}/v1/chat/completions",
+            json={
+                "model": actual_model,
+                "messages": [{"role": "user", "content": augmented_prompt}],
+            },
+        )
+        data = resp.json()
+    gen_ms = (time.time() - gen_start) * 1000
+
+    # 提取统计
+    usage = data.get("usage", {})
+    p_tok = usage.get("prompt_tokens", 0)
+    c_tok = usage.get("completion_tokens", 0)
+    cost = calc_cost(actual_model, p_tok, c_tok)
+
+    # Prometheus 指标
+    m_requests.labels(user=user["name"], model=actual_model, status="rag").inc()
+    m_tokens.labels(direction="input", model=actual_model).inc(p_tok)
+    m_tokens.labels(direction="output", model=actual_model).inc(c_tok)
+    m_cost.labels(model=actual_model).inc(cost)
+    record_request(user, "rag", actual_model, p_tok, c_tok, cost, (retrieval_ms + gen_ms) / 1000, status="rag")
+
+    return {
+        "answer": data["choices"][0]["message"]["content"],
+        "sources": chunks,
+        "stats": {
+            "retrieval_ms": round(retrieval_ms, 1),
+            "generation_ms": round(gen_ms, 1),
+            "total_ms": round(retrieval_ms + gen_ms, 1),
+            "tokens": p_tok + c_tok,
+            "cost_cny": round(cost, 6),
+            "model": actual_model,
+        },
+    }
+
+
+@app.get("/v1/rag/stats")
+def rag_stats():
+    return rag.stats()
+
+
+@app.delete("/v1/rag/documents")
+async def rag_clear(authorization: Optional[str] = Header(None)):
+    auth(authorization)
+    rag.clear_all()
+    return {"status": "cleared"}
 
 
 # ========== 监控面板 ==========
