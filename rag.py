@@ -56,12 +56,16 @@ _bm25_metadatas = []
 
 
 def _get_collection():
-    """延迟初始化 ChromaDB"""
+    """延迟初始化 ChromaDB（使用绝对路径，不受 cwd 影响）"""
     global _chroma_client, _collection
     if _collection is None:
         require("chromadb")
         chromadb = _lazy_import("chromadb")
-        _chroma_client = chromadb.PersistentClient(path="./chroma_data")
+        # 用项目根目录的绝对路径，避免子进程 cwd 不同导致读不到数据
+        chroma_path = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "chroma_data")
+        )
+        _chroma_client = chromadb.PersistentClient(path=chroma_path)
         _collection = _chroma_client.get_or_create_collection(name="knowledge_base")
     return _collection
 

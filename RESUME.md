@@ -32,6 +32,8 @@
 
 - **实现 ReAct + Plan-Execute 双范式 Agent + 30+ 次对照实验**：自实现两种主流 Agent 范式，设计 4 类工具（calculator/weather/kb_search/extract_number），其中 kb_search 复用本项目 RAG 接口。通过严格评判（防"假成功"）发现 **ReAct 准确率仅 1/4，且 ReAct Turbo 的"成功"是模型记忆作弊（跳过工具调用直接幻觉答案）**。**Plan-Execute Turbo + 工具集设计实现 4/4 真实成功（含跨 RAG → 数字提取 → 计算的多步任务）**。揭示三个反直觉真相：**模型规模没变（都是 7B），靠范式 + 工具设计实现 4 倍提升 / Tool Use Laziness 让大模型在简单题上"记忆作弊" / 评判 Agent 必须做"工具调用审计"，否则上线必出事故**
 
+- **实现自定义 MCP Server，对接 Anthropic 标准协议**：用 FastMCP SDK 把 Agent 工具集（4 Tools + 1 Resource + 1 Prompt 模板）按 MCP 协议规范暴露，可被 Claude Desktop / Cursor / 任意 MCP Client 直接调用。实施过程中发现并解决两个生产级 SDK 陷阱：**StdioServerParameters 的 `env=None` 实际是清空环境变量（不是继承父进程）/ ChromaDB 相对路径在 stdio 子进程下失效**。给客户的核心价值主张：**MCP 是 AI 工具的 USB 标准，企业内部 IT 写一个 Server，市场/开发/运营多部门跨厂商共享，避免厂商锁定**
+
 ---
 
 ## 英文版（精简，用于英文简历 / LinkedIn）
@@ -130,6 +132,7 @@
 | 海外社交内容审核 (Demo #1) | 内容审核中间件已具备 |
 | RAG 应用开发 | ✅ 完整三层架构 (Vector/BM25/Hybrid/Rerank) |
 | Agent + Tool Calling | ✅ 自实现 ReAct 框架 + 3 工具集成 + 边界实测 |
+| MCP 协议 | ✅ 实现自定义 MCP Server (4 Tools + 1 Resource + 1 Prompt) |
 | 失败案例分析能力 | ✅ Hybrid 失败 + ReAct 边界两份反直觉报告 |
 | 客户方案咨询素材 | ✅ 5 份递进式实证报告 |
 | 英文沟通 | 英文版简历 + 后续 Demo 视频 |
