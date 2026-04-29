@@ -30,7 +30,7 @@
 
 - **沉淀 4 份递进式 RAG 实证报告**：从 Prompt 工程 → RAG 价值 → Hybrid 失败 → Rerank 突破，提炼出三条被低估的工程真理：**Tokenization 决定检索上限 / Chunking 边界稀释语义信号 / Hybrid 不能救同质化错误**，可直接作为客户技术方案咨询素材
 
-- **实现 ReAct + Plan-Execute 双范式 Agent + 28 次对照实验**：自实现两种主流 Agent 范式，集成 calculator/weather/kb_search 三类工具（其中 kb_search 复用本项目 RAG 接口）。通过本地 1.5B vs 百炼 Qwen-Turbo × 两种范式 × Few-shot 等多维对照，得到核心结论：**ReAct 在 3 工具以上任务有 25% 天花板（无论模型大小），切换 Plan-Execute 范式让 Qwen-Turbo 准确率跃升到 75%（3 倍提升）**。揭示三个反直觉真相：Few-shot 分布偏移 / Tool Use Laziness / **范式比模型大 3 倍**。给客户的可量化方案：**Plan-Execute + Qwen-Turbo 月成本 ¥150、准确率 75%，相比 ReAct + GPT-4 (估算 $30K/月，25%) 是 100 倍 ROI**
+- **实现 ReAct + Plan-Execute 双范式 Agent + 30+ 次对照实验**：自实现两种主流 Agent 范式，设计 4 类工具（calculator/weather/kb_search/extract_number），其中 kb_search 复用本项目 RAG 接口。通过严格评判（防"假成功"）发现 **ReAct 准确率仅 1/4，且 ReAct Turbo 的"成功"是模型记忆作弊（跳过工具调用直接幻觉答案）**。**Plan-Execute Turbo + 工具集设计实现 4/4 真实成功（含跨 RAG → 数字提取 → 计算的多步任务）**。揭示三个反直觉真相：**模型规模没变（都是 7B），靠范式 + 工具设计实现 4 倍提升 / Tool Use Laziness 让大模型在简单题上"记忆作弊" / 评判 Agent 必须做"工具调用审计"，否则上线必出事故**
 
 ---
 

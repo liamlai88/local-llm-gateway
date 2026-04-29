@@ -167,9 +167,66 @@ Plan-Execute Turbo 在 Q4 的真实表现:
 **这是 Plan-Execute 的根本短板**：跨 step 的**数据格式转换**没有标准机制。
 
 **生产级解决方案**：
-1. **加 `extract` 工具**：从文本中提取特定字段
+1. **加 `extract` 工具**：从文本中提取特定字段（已验证 ✅，详见下文）
 2. **LangGraph State**：每个 step 输出有明确 schema
 3. **Multi-Agent 协作**：拆为 RAG Agent + 计算 Agent 各自专注
+
+---
+
+## 后续突破：加 extract_number 工具攻克 Q4 ⭐
+
+针对挑战 2 的"跨 Step 数据传递"问题，新增 `extract_number` 工具，专门把文本中的关键数字提取出来。
+
+### 修复后的 Q4 完整工具链（Plan-Execute Turbo）
+
+```
+计划:
+  Step 1: kb_search({"query": "A100 按量付费每小时价格"})
+  Step 2: extract_number({"text": "<step1_result>", "hint": "每小时价格"})
+  Step 3: calculator({"expression": "<step2_result> * 24"})
+
+执行（占位符全部正确替换）:
+  Step 1: kb_search → "...定价: 按量付费 ¥68/小时..."
+  Step 2: extract_number(实际文本, hint) → "68"
+  Step 3: calculator("68 * 24") → "1632"
+
+最终答案: 1632 ✅ 真实成功
+```
+
+### 三组对比的真相（严格评判，防假成功）
+
+| 配置 | 表面 | **严格评判** | 关键观察 |
+|------|------|--------------|----------|
+| ReAct Turbo (对照组) | "1632" | ❌ **假成功** | **完全没调任何工具，纯记忆作弊** |
+| Plan-Execute 1.5B | "1632" | ❌ **假成功** | 跳过 extract_number，1.5B 规划能力不足 |
+| **Plan-Execute Turbo + 新工具** | "1632" | **✅ 真实成功** | 完整工具链 kb→extract→calc |
+
+### 第二个反直觉发现: ReAct Turbo "记忆作弊"
+
+ReAct Turbo 在 Q4 上：
+- 表面看：1 步给出 "1632"
+- 真相：**没调 kb_search、没调 calculator，纯靠训练记忆**
+
+这是 Tool Use Laziness 的极端表现 —— 模型自信到完全跳过工具，靠"知道答案"作弊。
+
+**生产风险**：
+- 如果客户问的是**训练集里没有的私有数据**，ReAct Turbo 100% 失败
+- 表面可用的 Demo，上线后必然出事故
+
+**SA 视角**：
+> "评判 Agent 不能只看最终答案。必须做'工具调用审计'：每个必须的工具是否真正被调用且返回正确？这是面试官区分'调过 LangChain'和'真懂 Agent 工程'的核心问题。"
+
+### 完整能力光谱（最终版）
+
+| 任务 | ReAct 1.5B | ReAct Turbo | Plan-Exec 1.5B | **Plan-Exec Turbo + 新工具** |
+|------|------------|-------------|----------------|------------------------------|
+| Q1 单步计算 | ❌ | ❌ Tool Lazy | ✅ | ✅ |
+| Q2 单工具 | ✅ | ✅ | ❌ JSON 错 | ✅ |
+| Q3 多工具组合 | ❌ | ❌ | ❌ | ✅ |
+| **Q4 RAG+计算+提取** | ❌ | ❌ 假成功 | ❌ | **✅ 真实** ⭐ |
+| **总分** | **1/4** | **1/4** | **1/4** | **4/4** |
+
+**关键洞察**：从 ReAct 1/4 到 Plan-Execute Turbo + 工具设计 4/4 的飞跃，**模型规模没变（都是 ~7B），靠的是范式 + 工具设计**。
 
 ---
 

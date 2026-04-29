@@ -71,28 +71,52 @@ def get_weather(city: str) -> str:
 
 
 @register_tool(
+    name="extract_number",
+    description="从一段文本中提取指定字段的数字（用于把 kb_search 返回的文本转成 calculator 能用的纯数字）",
+    parameters={
+        "text": "string, 包含数字的文本片段",
+        "hint": "string, 提示要提取什么数字，如'按量付费每小时价格'、'温度'、'GPU显存'",
+    },
+)
+def extract_number(text: str, hint: str = "") -> str:
+    """用正则 + 简单启发式提取数字"""
+    # 优先匹配 ¥/$ 后面的数字
+    if "价" in hint or "钱" in hint or "费" in hint:
+        m = re.search(r"[¥$￥]\s*(\d+(?:\.\d+)?)", text)
+        if m:
+            return m.group(1)
+    # 匹配温度
+    if "温度" in hint or "气温" in hint or "°C" in hint:
+        m = re.search(r"(-?\d+(?:\.\d+)?)\s*°?[Cc]?", text)
+        if m:
+            return m.group(1)
+    # 通用：返回所有数字，并标注位置
+    nums = re.findall(r"-?\d+(?:\.\d+)?", text)
+    if not nums:
+        return f"未在文本中找到数字。原文: {text[:100]}"
+    if len(nums) == 1:
+        return nums[0]
+    # 多个数字，列出来让 LLM 选
+    return f"找到多个数字: {nums}。请根据 hint='{hint}' 选择正确的一个，或重新调用并提供更精确的 hint。文本: {text[:200]}"
+
+
+@register_tool(
     name="kb_search",
     description="在企业知识库中检索相关文档（用于回答闭域问题）",
     parameters={"query": "string, 检索问题"},
 )
 def kb_search(query: str) -> str:
-    """调自己 Gateway 的 RAG 接口"""
+    """直接调 rag 模块，跳过 LLM 生成阶段（更快更稳）"""
     try:
-        resp = requests.post(
-            "http://localhost:8000/v1/rag/query",
-            headers={"Authorization": f"Bearer {DEFAULT_API_KEY}",
-                     "Content-Type": "application/json"},
-            json={"question": query, "mode": "hybrid", "rerank": True, "top_k": 2, "model": "fast"},
-            timeout=30,
-        )
-        data = resp.json()
-        if "sources" in data and data["sources"]:
-            # 返回检索到的内容片段（精炼）
-            snippets = [s["content"][:200] for s in data["sources"][:2]]
-            return "\n---\n".join(snippets)
-        return "知识库中未找到相关信息"
+        import rag  # 延迟导入避免循环依赖
+        chunks = rag.search(query, top_k=2, mode="hybrid", use_rerank=True)
+        if not chunks:
+            return "知识库中未找到相关信息"
+        # 返回精炼内容片段
+        snippets = [c["content"][:300] for c in chunks]
+        return "\n---\n".join(snippets)
     except Exception as e:
-        return f"知识库调用失败: {e}"
+        return f"知识库检索失败: {e}"
 
 
 # ========== ReAct Prompt ==========
