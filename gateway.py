@@ -6,15 +6,18 @@ import os
 import time
 import json
 import logging
+import hashlib
 from collections import defaultdict, deque
 from datetime import datetime
 from typing import Optional
 from fastapi import FastAPI, Request, HTTPException, Header
 from fastapi.responses import StreamingResponse, HTMLResponse, Response
+from pydantic import BaseModel
 import httpx
 from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
 import rag  # RAG 模块
 import agent as agent_mod  # Agent 模块
+import multi_agent as multi_agent_mod  # Multi-Agent 模块
 
 # ========== 配置 ==========
 OLLAMA_BASE = "http://localhost:11434"
@@ -482,6 +485,56 @@ async def agent_run(request: Request, authorization: Optional[str] = Header(None
         "model": actual_model,
         "tools_available": [t["name"] for t in agent_mod.list_tools()],
     }
+
+
+
+class MultiAgentRunBody(BaseModel):
+    question: str
+    model: str = "fast"
+    provider: str = "local"
+    llm_final: bool = False
+
+
+# ========== Multi-Agent 接口 ==========
+@app.post("/v1/multi-agent/run")
+async def multi_agent_run(body: MultiAgentRunBody, authorization: Optional[str] = Header(None)):
+    """
+    运行 Supervisor/Worker multi-agent demo.
+    body: {"question": str, "model": str, "provider": "local|bailian", "llm_final": bool}
+    """
+    key, user = auth(authorization)
+    question = body.question
+    provider = body.provider
+    model_label = body.model
+    actual_model = model_label if provider == "bailian" else resolve_model(model_label)
+    use_llm_final = body.llm_final
+
+    start = time.time()
+    result = multi_agent_mod.run_multi_agent(
+        question,
+        model=actual_model,
+        provider=provider,
+        use_llm_final=use_llm_final,
+    )
+    total_ms = (time.time() - start) * 1000
+
+    m_requests.labels(
+        user=user["name"],
+        model=actual_model,
+        status=f"multi_agent_{result['status']}",
+    ).inc()
+    record_request(
+        user,
+        "multi_agent",
+        actual_model,
+        0,
+        0,
+        0,
+        total_ms / 1000,
+        status=f"multi_agent:{result['status']}",
+    )
+
+    return {**result, "model": actual_model}
 
 
 # ========== 监控面板 ==========

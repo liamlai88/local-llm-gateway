@@ -58,6 +58,7 @@
 | **RAG 检索增强** | ChromaDB + 百炼 Embedding，让小模型答对闭域问题 |
 | **ReAct Agent** | 工具调用循环 + Tool Calling 抽象，集成 calculator/weather/RAG 三类工具 |
 | **MCP Server** | 按 Anthropic MCP 标准协议暴露 4 工具+1 资源+1 Prompt，可被 Claude Desktop/Cursor/任意 MCP Client 调用 |
+| **Multi-Agent 编排** | Supervisor/Worker 协作流，拆出 Coordinator/Retriever/Calculator/Solution/Critic/Finalizer 多角色，支持 trace 审计 |
 
 ---
 
