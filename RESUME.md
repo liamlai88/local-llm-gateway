@@ -34,6 +34,8 @@
 
 - **实现自定义 MCP Server，对接 Anthropic 标准协议**：用 FastMCP SDK 把 Agent 工具集（4 Tools + 1 Resource + 1 Prompt 模板）按 MCP 协议规范暴露，可被 Claude Desktop / Cursor / 任意 MCP Client 直接调用。实施过程中发现并解决两个生产级 SDK 陷阱：**StdioServerParameters 的 `env=None` 实际是清空环境变量（不是继承父进程）/ ChromaDB 相对路径在 stdio 子进程下失效**。给客户的核心价值主张：**MCP 是 AI 工具的 USB 标准，企业内部 IT 写一个 Server，市场/开发/运营多部门跨厂商共享，避免厂商锁定**
 
+- **完成 LoRA 微调实战 + 对照实验**：在 Apple M5 上用 MLX-LM 框架对 Qwen2.5-1.5B-Instruct 做 LoRA 微调（8 层 / 200 iters / 25 分钟），用 100 条手工模板生成的高质量样本（覆盖 6 类工具调用场景）训练模型学会标准 Plan-Execute JSON 协议。**对比实验结果**：基础模型工具规划正确率 40%，**微调后跃升至 100%**，在多步任务（Q3/Q4）上完整生成 5 步链式工具调用，**效果超过未微调的 Qwen-Turbo（云端 7B 模型）**。**核心商业洞察**：在固定业务场景下，LoRA + 小模型可以以本地零成本实现对云端大模型的降维打击，月成本从 ¥10000 降至 ¥0
+
 ---
 
 ## 英文版（精简，用于英文简历 / LinkedIn）
@@ -133,6 +135,7 @@
 | RAG 应用开发 | ✅ 完整三层架构 (Vector/BM25/Hybrid/Rerank) |
 | Agent + Tool Calling | ✅ 自实现 ReAct 框架 + 3 工具集成 + 边界实测 |
 | MCP 协议 | ✅ 实现自定义 MCP Server (4 Tools + 1 Resource + 1 Prompt) |
+| LoRA 微调（JD 加分项）| ✅ MLX-LM 在 M5 完成 Qwen2.5-1.5B 微调，工具规划任务 40%→100% |
 | 失败案例分析能力 | ✅ Hybrid 失败 + ReAct 边界两份反直觉报告 |
 | 客户方案咨询素材 | ✅ 5 份递进式实证报告 |
 | 英文沟通 | 英文版简历 + 后续 Demo 视频 |

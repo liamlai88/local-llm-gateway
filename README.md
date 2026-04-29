@@ -215,6 +215,7 @@ ai-gateway/
 - [ReAct Agent 能力边界实证](experiments/agent-react-boundaries.md) — 12 次对照实验找到 Agent 真实边界：单工具 90%+、多工具组合即使 Qwen-Turbo 也只有 25%。揭示 Few-shot 双刃剑 + Tool Use Laziness + ReAct 天花板三个反直觉真相
 - [Plan-Execute 突破实验](experiments/agent-plan-execute-breakthrough.md) — 切换到 Plan-and-Execute 范式，准确率从 25% 跃升至 **75%**，证明"范式选择比模型选择重要 3 倍"。同时揭示新挑战：延迟暴涨 6×、跨 Step 数据传递难题
 - [MCP Server 实现报告](experiments/mcp-server-implementation.md) — 把 Agent 工具集按 Anthropic MCP 标准协议包装成跨平台 Server（4 工具+1 资源+1 Prompt），实现"一次开发，Claude Desktop/Cursor/自建 Agent 都能用"。踩过两个真坑：env=None 陷阱、相对路径失效
+- [LoRA 微调突破报告](experiments/lora-finetune-breakthrough.md) — 100 条手工样本 + 25 分钟 MLX-LM LoRA 微调，让本地 1.5B 模型在 Agent 工具规划任务上准确率从 40% → **100%**，超过未微调的 Qwen-Turbo。揭示"LoRA 让模型变专科" + "边界感比能力更重要"两个核心规律
 
 ---
 

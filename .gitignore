@@ -11,6 +11,13 @@ venv/
 *.safetensors
 models/
 
+# LoRA 微调（基础模型几个 GB，不上传）
+finetune/model_base/
+# 只保留最终 adapters.safetensors，不要中间 checkpoint
+finetune/lora_adapter/0*_adapters.safetensors
+# 例外：保留最终的 adapters.safetensors（让别人能复现 LoRA）
+!finetune/lora_adapter/adapters.safetensors
+
 # Logs
 *.log
 
