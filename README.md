@@ -133,7 +133,35 @@ curl http://localhost:8000/v1/chat/completions \
   }'
 ```
 
-### 5. 压测
+### 5. 测试 Multi-Agent 编排
+
+不依赖真实 LLM 生成的轻量链路（天气查询 + 数字计算 + 审计）：
+
+```bash
+curl -s -X POST http://localhost:8000/v1/multi-agent/run \
+  -H "Authorization: Bearer sk-demo-002" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "question": "杭州现在的气温减去北京气温是多少度？",
+    "model": "fast",
+    "provider": "local",
+    "llm_final": false
+  }' | python -c 'import sys,json; print(json.dumps(json.load(sys.stdin), ensure_ascii=False, indent=2))'
+```
+
+完整链路 Demo（RAG 检索 + 成本计算 + 方案判断 + 审计）：
+
+```bash
+python experiments/multi_agent_demo.py
+```
+
+典型执行链：
+
+```
+CoordinatorAgent → RetrieverAgent → CalculatorAgent → SolutionAgent → CriticAgent → FinalizerAgent
+```
+
+### 6. 压测
 
 ```bash
 locust -f locustfile.py --host http://localhost:8000
@@ -180,10 +208,21 @@ sum by (direction, model) (rate(ai_gateway_tokens_total[1m]))
 ```
 ai-gateway/
 ├── gateway.py              # 网关主程序
+├── rag.py                  # RAG 检索模块 (Vector/BM25/Hybrid/Rerank)
+├── agent.py                # ReAct + Plan-Execute Agent
+├── multi_agent.py          # Supervisor/Worker Multi-Agent 编排
+├── mcp_server.py           # MCP Server 入口
 ├── locustfile.py           # 压测脚本
 ├── Modelfile               # Ollama 模型配置 (Q4)
 ├── Modelfile-q8            # Q8 版本
 ├── Modelfile-32k           # 32K 上下文版本
+├── experiments/
+│   ├── multi_agent_demo.py # Multi-Agent 可复现 Demo
+│   └── *.md                # Prompt/RAG/Agent/MCP/LoRA 实证报告
+├── finetune/
+│   ├── generate_data.py    # LoRA 工具规划数据生成
+│   ├── train.sh            # MLX-LM LoRA 训练脚本
+│   └── compare.py          # 微调前后对比评测
 ├── monitoring/
 │   ├── docker-compose.yml  # Prom + Grafana
 │   ├── prometheus.yml      # 抓取配置
@@ -217,6 +256,7 @@ ai-gateway/
 - [Plan-Execute 突破实验](experiments/agent-plan-execute-breakthrough.md) — 切换到 Plan-and-Execute 范式，准确率从 25% 跃升至 **75%**，证明"范式选择比模型选择重要 3 倍"。同时揭示新挑战：延迟暴涨 6×、跨 Step 数据传递难题
 - [MCP Server 实现报告](experiments/mcp-server-implementation.md) — 把 Agent 工具集按 Anthropic MCP 标准协议包装成跨平台 Server（4 工具+1 资源+1 Prompt），实现"一次开发，Claude Desktop/Cursor/自建 Agent 都能用"。踩过两个真坑：env=None 陷阱、相对路径失效
 - [LoRA 微调突破报告](experiments/lora-finetune-breakthrough.md) — 100 条手工样本 + 25 分钟 MLX-LM LoRA 微调，让本地 1.5B 模型在 Agent 工具规划任务上准确率从 40% → **100%**，超过未微调的 Qwen-Turbo。揭示"LoRA 让模型变专科" + "边界感比能力更重要"两个核心规律
+- [Multi-Agent 编排 Demo](experiments/multi_agent_demo.py) — 把单 Agent 升级为 Supervisor/Worker 多角色协作流，拆分检索、计算、方案判断、审计和总结职责，支持完整 trace 回放，验证复杂任务可审计执行
 
 ---
 
