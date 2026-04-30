@@ -259,7 +259,12 @@ def call_llm(messages: List[Dict], model: str = "qwen2.5-1.5b", provider: str = 
             json={"model": model, "messages": messages, "max_tokens": 500},
             timeout=60,
         )
-    return resp.json()["choices"][0]["message"]["content"]
+    data = resp.json()
+    # 错误处理：百炼/Ollama 返回错误时给清晰报错而不是 KeyError
+    if "choices" not in data:
+        err = data.get("error", data.get("message", str(data)[:200]))
+        raise RuntimeError(f"LLM call failed (provider={provider}, model={model}): {err}")
+    return data["choices"][0]["message"]["content"]
 
 
 # ========== 执行工具 ==========

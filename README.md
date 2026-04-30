@@ -58,6 +58,7 @@
 | **RAG 检索增强** | ChromaDB + 百炼 Embedding，让小模型答对闭域问题 |
 | **ReAct Agent** | 工具调用循环 + Tool Calling 抽象，集成 calculator/weather/RAG 三类工具 |
 | **MCP Server** | 按 Anthropic MCP 标准协议暴露 4 工具+1 资源+1 Prompt，可被 Claude Desktop/Cursor/任意 MCP Client 调用 |
+| **Multi-Agent 编排** | Supervisor/Worker 协作流，拆出 Coordinator/Retriever/Calculator/Solution/Critic/Finalizer 多角色，支持 trace 审计 |
 
 ---
 
@@ -216,6 +217,7 @@ ai-gateway/
 - [Plan-Execute 突破实验](experiments/agent-plan-execute-breakthrough.md) — 切换到 Plan-and-Execute 范式，准确率从 25% 跃升至 **75%**，证明"范式选择比模型选择重要 3 倍"。同时揭示新挑战：延迟暴涨 6×、跨 Step 数据传递难题
 - [MCP Server 实现报告](experiments/mcp-server-implementation.md) — 把 Agent 工具集按 Anthropic MCP 标准协议包装成跨平台 Server（4 工具+1 资源+1 Prompt），实现"一次开发，Claude Desktop/Cursor/自建 Agent 都能用"。踩过两个真坑：env=None 陷阱、相对路径失效
 - [LoRA 微调突破报告](experiments/lora-finetune-breakthrough.md) — 100 条手工样本 + 25 分钟 MLX-LM LoRA 微调，让本地 1.5B 模型在 Agent 工具规划任务上准确率从 40% → **100%**，超过未微调的 Qwen-Turbo。揭示"LoRA 让模型变专科" + "边界感比能力更重要"两个核心规律
+- [Multi-Agent 混合架构](experiments/multi-agent-hybrid-architecture.md) — 实现"规则快路径 + LLM 兜底慢路径"混合架构，**准确率 4/4 等同 Plan-Execute Turbo，平均延迟 1.2s（仅 1/8）**，命中题毫秒级、盲区题 LLM 自动兜底。核心创新：升级 Critic 为质量裁判（空话检测、资源利用检测），日均成本仅同行的 5%
 
 ---
 

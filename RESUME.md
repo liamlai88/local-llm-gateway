@@ -36,6 +36,8 @@
 
 - **完成 LoRA 微调实战 + 对照实验**：在 Apple M5 上用 MLX-LM 框架对 Qwen2.5-1.5B-Instruct 做 LoRA 微调（8 层 / 200 iters / 25 分钟），用 100 条手工模板生成的高质量样本（覆盖 6 类工具调用场景）训练模型学会标准 Plan-Execute JSON 协议。**对比实验结果**：基础模型工具规划正确率 40%，**微调后跃升至 100%**，在多步任务（Q3/Q4）上完整生成 5 步链式工具调用，**效果超过未微调的 Qwen-Turbo（云端 7B 模型）**。**核心商业洞察**：在固定业务场景下，LoRA + 小模型可以以本地零成本实现对云端大模型的降维打击，月成本从 ¥10000 降至 ¥0
 
+- **设计 Multi-Agent 混合架构（规则快路径 + LLM 兜底慢路径）**：在已有 Plan-Execute 单 Agent 基础上构建 Manager-Worker + Critic + Fallback 6 Agent 协作系统，核心创新是**升级 Critic 为"质量裁判"**（空话检测 + 资源利用检测），自动判断走快路径（毫秒级规则路由）还是慢路径（百炼 Qwen-Turbo 兜底）。**对照实验结果**：4 道测试题（2 命中 + 2 盲区）准确率 4/4 等同 Plan-Execute Turbo，但**平均延迟仅 1.2s（vs 9.8s，**8 倍提升**），日均 LLM 调用量减少 95%**。给客户的真实经济模型：80% 高频请求 0 LLM 成本，20% 低频复杂请求才走 LLM 兜底，日均成本仅纯 LLM Multi-Agent 同行的 5%
+
 ---
 
 ## 英文版（精简，用于英文简历 / LinkedIn）
@@ -133,7 +135,8 @@
 | 可观测性 | Prometheus + Grafana |
 | 海外社交内容审核 (Demo #1) | 内容审核中间件已具备 |
 | RAG 应用开发 | ✅ 完整三层架构 (Vector/BM25/Hybrid/Rerank) |
-| Agent + Tool Calling | ✅ 自实现 ReAct 框架 + 3 工具集成 + 边界实测 |
+| Agent + Tool Calling | ✅ ReAct + Plan-Execute + Multi-Agent 三种范式实操 |
+| Multi-Agent 协作 | ✅ 6 Agent 混合架构（规则+LLM兜底）, 延迟 1/8 成本 1/20 |
 | MCP 协议 | ✅ 实现自定义 MCP Server (4 Tools + 1 Resource + 1 Prompt) |
 | LoRA 微调（JD 加分项）| ✅ MLX-LM 在 M5 完成 Qwen2.5-1.5B 微调，工具规划任务 40%→100% |
 | 失败案例分析能力 | ✅ Hybrid 失败 + ReAct 边界两份反直觉报告 |
