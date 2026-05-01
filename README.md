@@ -258,6 +258,7 @@ ai-gateway/
 - [LoRA 微调突破报告](experiments/lora-finetune-breakthrough.md) — 100 条手工样本 + 25 分钟 MLX-LM LoRA 微调，让本地 1.5B 模型在 Agent 工具规划任务上准确率从 40% → **100%**，超过未微调的 Qwen-Turbo。揭示"LoRA 让模型变专科" + "边界感比能力更重要"两个核心规律
 - [Multi-Agent 编排 Demo](experiments/multi_agent_demo.py) — 把单 Agent 升级为 Supervisor/Worker 多角色协作流，拆分检索、计算、方案判断、审计和总结职责，支持完整 trace 回放，验证复杂任务可审计执行
 - [Multi-Agent 混合架构](experiments/multi-agent-hybrid-architecture.md) — 实现"规则快路径 + LLM 兜底慢路径"混合架构，**准确率 4/4 等同 Plan-Execute Turbo，平均延迟 1.2s（仅 1/8）**，命中题毫秒级、盲区题 LLM 自动兜底。核心创新：升级 Critic 为质量裁判（空话检测、资源利用检测），日均成本仅同行的 5%
+- [Dify 实战 vs 手写](experiments/dify-vs-handcoded.md) — 1 小时用 Dify 拖出"海外社交内容审核"Workflow（对应 8 周计划 Demo #1），4 题全对，API 延迟 1 秒。揭示 Dify 真实定位：**不是替代代码，是组织效率工具——让业务部门自己验证创新，尝试成本降低 10 倍**
 
 ---
 

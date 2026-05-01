@@ -38,6 +38,8 @@
 
 - **设计 Multi-Agent 混合架构（规则快路径 + LLM 兜底慢路径）**：在已有 Plan-Execute 单 Agent 基础上构建 Manager-Worker + Critic + Fallback 6 Agent 协作系统，核心创新是**升级 Critic 为"质量裁判"**（空话检测 + 资源利用检测），自动判断走快路径（毫秒级规则路由）还是慢路径（百炼 Qwen-Turbo 兜底）。**对照实验结果**：4 道测试题（2 命中 + 2 盲区）准确率 4/4 等同 Plan-Execute Turbo，但**平均延迟仅 1.2s（vs 9.8s，**8 倍提升**），日均 LLM 调用量减少 95%**。给客户的真实经济模型：80% 高频请求 0 LLM 成本，20% 低频复杂请求才走 LLM 兜底，日均成本仅纯 LLM Multi-Agent 同行的 5%
 
+- **Dify 平台实战 + 第 3 周 Demo #1 真实交付**：本地 Docker 部署 Dify（11 容器，含 Postgres/Weaviate/Redis），接入 Ollama 本地 1.5B 模型 + 百炼 Embedding，**1 小时**拖出"海外社交内容审核 API"完整 Workflow（Start → 知识检索 → LLM → IF/ELSE → 双 End），4 道测试题准确率 100%、API 延迟 1 秒、JSON 格式 100% 合法。**核心商业洞察**：Dify 真实价值不是性能（与手写持平），而是**让业务部门自己验证 idea，尝试成本降低 10 倍——这是国内 SA 客户场景被严重低估的能力**
+
 ---
 
 ## 英文版（精简，用于英文简历 / LinkedIn）
@@ -139,6 +141,7 @@
 | Multi-Agent 协作 | ✅ 6 Agent 混合架构（规则+LLM兜底）, 延迟 1/8 成本 1/20 |
 | MCP 协议 | ✅ 实现自定义 MCP Server (4 Tools + 1 Resource + 1 Prompt) |
 | LoRA 微调（JD 加分项）| ✅ MLX-LM 在 M5 完成 Qwen2.5-1.5B 微调，工具规划任务 40%→100% |
+| Dify 平台 | ✅ 本地部署 + 拖拽搭出内容审核 Workflow + API 调用 |
 | 失败案例分析能力 | ✅ Hybrid 失败 + ReAct 边界两份反直觉报告 |
 | 客户方案咨询素材 | ✅ 5 份递进式实证报告 |
 | 英文沟通 | 英文版简历 + 后续 Demo 视频 |
