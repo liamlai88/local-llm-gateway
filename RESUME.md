@@ -40,6 +40,8 @@
 
 - **Dify 平台实战 + 第 3 周 Demo #1 真实交付**：本地 Docker 部署 Dify（11 容器，含 Postgres/Weaviate/Redis），接入 Ollama 本地 1.5B 模型 + 百炼 Embedding，**1 小时**拖出"海外社交内容审核 API"完整 Workflow（Start → 知识检索 → LLM → IF/ELSE → 双 End），4 道测试题准确率 100%、API 延迟 1 秒、JSON 格式 100% 合法。**核心商业洞察**：Dify 真实价值不是性能（与手写持平），而是**让业务部门自己验证 idea，尝试成本降低 10 倍——这是国内 SA 客户场景被严重低估的能力**
 
+- **LangChain + LangGraph 全栈实战 + 三组对照实验**：用 LangChain 重写 RAG（80 行 vs 手写 250 行）、LangGraph prebuilt 重写 ReAct Agent（30 行 vs 200 行）、LangGraph StateGraph 重写 Multi-Agent 混合架构（150 行 vs 400 行）。**关键发现**：**StateGraph 版准确率 4/4 持平手写，平均延迟 533ms 反而快 2 倍**。同时验证两个边界：**LangGraph 抛弃所有不支持 OpenAI tool_calls 协议的本地小模型**（Ollama 1.5B 直接报错 0/4）/ **框架做 80%，剩下 20% Critic+Fallback 创新仍需手写**。给客户的真实选型决策：PoC 用 Dify、简单场景 LangChain、Multi-Agent 用 LangGraph、本地小模型只能手写或 LoRA 微调
+
 ---
 
 ## 英文版（精简，用于英文简历 / LinkedIn）
@@ -142,6 +144,7 @@
 | MCP 协议 | ✅ 实现自定义 MCP Server (4 Tools + 1 Resource + 1 Prompt) |
 | LoRA 微调（JD 加分项）| ✅ MLX-LM 在 M5 完成 Qwen2.5-1.5B 微调，工具规划任务 40%→100% |
 | Dify 平台 | ✅ 本地部署 + 拖拽搭出内容审核 Workflow + API 调用 |
+| LangChain + LangGraph | ✅ 三组对照实验，StateGraph Multi-Agent 4/4 + 代码减 62% |
 | 失败案例分析能力 | ✅ Hybrid 失败 + ReAct 边界两份反直觉报告 |
 | 客户方案咨询素材 | ✅ 5 份递进式实证报告 |
 | 英文沟通 | 英文版简历 + 后续 Demo 视频 |

@@ -259,6 +259,7 @@ ai-gateway/
 - [Multi-Agent 编排 Demo](experiments/multi_agent_demo.py) — 把单 Agent 升级为 Supervisor/Worker 多角色协作流，拆分检索、计算、方案判断、审计和总结职责，支持完整 trace 回放，验证复杂任务可审计执行
 - [Multi-Agent 混合架构](experiments/multi-agent-hybrid-architecture.md) — 实现"规则快路径 + LLM 兜底慢路径"混合架构，**准确率 4/4 等同 Plan-Execute Turbo，平均延迟 1.2s（仅 1/8）**，命中题毫秒级、盲区题 LLM 自动兜底。核心创新：升级 Critic 为质量裁判（空话检测、资源利用检测），日均成本仅同行的 5%
 - [Dify 实战 vs 手写](experiments/dify-vs-handcoded.md) — 1 小时用 Dify 拖出"海外社交内容审核"Workflow（对应 8 周计划 Demo #1），4 题全对，API 延迟 1 秒。揭示 Dify 真实定位：**不是替代代码，是组织效率工具——让业务部门自己验证创新，尝试成本降低 10 倍**
+- [LangChain & LangGraph 实战对比](experiments/langchain-langgraph-comparison.md) — 用 LangChain 重写 RAG（80 行 vs 250 行）、LangGraph prebuilt 重写 ReAct（30 行 vs 200 行）、LangGraph StateGraph 重写 Multi-Agent（150 行 vs 400 行）。**StateGraph 版准确率 4/4 持平手写，延迟 533ms 反而快 2 倍**。揭示框架抛弃小模型 + 创新仍在剩下 20%
 
 ---
 
