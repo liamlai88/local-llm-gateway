@@ -238,11 +238,13 @@ class LLMFallbackAgent:
     """
     name = "LLMFallbackAgent"
 
-    # 兜底用强模型：硬编码百炼 Qwen-Turbo（开放问题需要好推理）
+    # 兜底用强模型：默认百炼 Qwen-Turbo（如果 model="" 则跟随调用方）
     FALLBACK_MODEL = "qwen-turbo"
     FALLBACK_PROVIDER = "bailian"
 
-    def run(self, question: str, artifacts: Dict, model: str, provider: str) -> Dict:
+    def run(self, question: str, artifacts: Dict, model: str, provider: str,
+            force_caller_model: bool = False) -> Dict:
+        """force_caller_model=True 时跳过 turbo 默认，直接用调用方的 model/provider"""
         retrieval = artifacts.get("retrieval", {}).get("observation", "")
         weather = artifacts.get("weather", {}).get("observations", {})
         critic_issues = artifacts.get("critic", {}).get("issues", [])
@@ -271,6 +273,22 @@ class LLMFallbackAgent:
 {context}
 
 请给出专业回答："""
+
+        # 如果调用方明确要求用自己的模型 (本地测试场景), 跳过 Turbo 默认
+        if force_caller_model:
+            try:
+                answer = agent_mod.call_llm(
+                    [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt},
+                    ],
+                    model=model, provider=provider,
+                )
+                return {"answer": answer.strip(), "mode": f"llm_fallback_caller_{provider}_{model}",
+                        "context_used": bool(context_parts)}
+            except Exception as exc:
+                return {"answer": f"LLM 兜底失败 ({provider}/{model}): {exc}",
+                        "mode": "llm_fallback_error"}
 
         # 优先用百炼 Qwen-Turbo 兜底；失败则降级到调用方的 model/provider
         try:
@@ -360,6 +378,7 @@ def run_multi_agent(
     provider: str = "local",
     use_llm_final: bool = False,
     enable_fallback: bool = True,
+    force_caller_model: bool = False,
 ) -> Dict:
     """
     Multi-Agent 主流程（混合架构）：
@@ -399,7 +418,8 @@ def run_multi_agent(
     # 慢路径：LLM 兜底
     if not rule_path_passed and enable_fallback:
         fallback = LLMFallbackAgent()
-        fb_result = fallback.run(question, artifacts, model=model, provider=provider)
+        fb_result = fallback.run(question, artifacts, model=model, provider=provider,
+                                 force_caller_model=force_caller_model)
         artifacts["fallback"] = fb_result
         trace.append(_step(fallback.name, "llm_fallback", fb_result, {"reason": "critic_warning"}))
         plan["agents"].append("LLMFallbackAgent")

@@ -114,18 +114,30 @@ def chunk_text(text: str, chunk_size: int = 300, overlap: int = 50) -> List[str]
 
 # ========== Embedding ==========
 def embed(texts: List[str]) -> List[List[float]]:
-    require("dashscope")
-    dashscope = _lazy_import("dashscope")
+    """绕开 dashscope SDK 的编码 bug, 用 OpenAI 兼容模式调百炼"""
     if not os.getenv("DASHSCOPE_API_KEY"):
-        raise RuntimeError("DASHSCOPE_API_KEY 未设置（启动时需要 export 或 prefix 到 uvicorn）")
-    dashscope.api_key = os.getenv("DASHSCOPE_API_KEY")
+        raise RuntimeError("DASHSCOPE_API_KEY 未设置")
+
+    import requests
+    api_key = os.getenv("DASHSCOPE_API_KEY")
+    url = "https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
 
     all_embeds = []
-    for i in range(0, len(texts), 25):
-        resp = dashscope.TextEmbedding.call(model="text-embedding-v2", input=texts[i:i + 25])
-        if resp.status_code != 200:
-            raise RuntimeError(f"Embedding failed: {resp.message}")
-        for item in resp.output["embeddings"]:
+    for i in range(0, len(texts), 10):
+        batch = texts[i:i + 10]
+        resp = requests.post(
+            url, headers=headers,
+            json={"model": "text-embedding-v2", "input": batch, "encoding_format": "float"},
+            timeout=30,
+        )
+        data = resp.json()
+        if "data" not in data:
+            raise RuntimeError(f"Embedding failed: {data.get('error', data)}")
+        for item in data["data"]:
             all_embeds.append(item["embedding"])
     return all_embeds
 
@@ -216,26 +228,35 @@ def rerank(query: str, candidates: List[Dict], top_k: int = 3) -> List[Dict]:
     """
     if not candidates:
         return []
-    require("dashscope")
-    dashscope = _lazy_import("dashscope")
     if not os.getenv("DASHSCOPE_API_KEY"):
         raise RuntimeError("DASHSCOPE_API_KEY 未设置")
-    dashscope.api_key = os.getenv("DASHSCOPE_API_KEY")
+
+    # 用 dashscope native API (rerank 没有 OpenAI 兼容模式), 用 requests 直接调避免 SDK 编码 bug
+    import requests
+    api_key = os.getenv("DASHSCOPE_API_KEY")
+    url = "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json",
+    }
 
     docs = [c["content"] for c in candidates]
-    resp = dashscope.TextReRank.call(
-        model="gte-rerank",
-        query=query,
-        documents=docs,
-        top_n=top_k,
-        return_documents=False,
+    resp = requests.post(
+        url, headers=headers,
+        json={
+            "model": "gte-rerank",
+            "input": {"query": query, "documents": docs},
+            "parameters": {"top_n": top_k, "return_documents": False},
+        },
+        timeout=30,
     )
-    if resp.status_code != 200:
-        raise RuntimeError(f"Rerank failed: {resp.message}")
+    data = resp.json()
+    if "output" not in data:
+        raise RuntimeError(f"Rerank failed: {data}")
 
     # gte-rerank 返回 [{index: 0, relevance_score: 0.98}, ...]
     results = []
-    for item in resp.output["results"]:
+    for item in data["output"]["results"]:
         idx = item["index"]
         cand = candidates[idx].copy()
         cand["rerank_score"] = item["relevance_score"]

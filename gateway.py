@@ -494,6 +494,7 @@ class MultiAgentRunBody(BaseModel):
     provider: str = "local"
     llm_final: bool = False
     enable_fallback: bool = True  # 默认开启 LLM 兜底
+    force_caller_model: bool = False  # True 时 fallback 用 caller 的 model 而非 turbo
 
 
 # ========== Multi-Agent 接口 ==========
@@ -517,6 +518,7 @@ async def multi_agent_run(body: MultiAgentRunBody, authorization: Optional[str] 
         provider=provider,
         use_llm_final=use_llm_final,
         enable_fallback=body.enable_fallback,
+        force_caller_model=body.force_caller_model,
     )
     total_ms = (time.time() - start) * 1000
 
