@@ -248,18 +248,18 @@ ai-gateway/
 
 基于本网关做的小型实证研究（持续更新）：
 
-- [Prompt Engineering ROI 实证报告](experiments/prompt-engineering-roi.md) — 用同一道数学题对比本地 1.5B / 百炼 Turbo / 百炼 Max 的准确率，揭示"模型容量是地板，Prompt 是天花板"的核心规律
-- [RAG vs 纯 LLM 实证报告](experiments/rag-vs-pure-llm.md) — 验证 RAG 让 1.5B 小模型在闭域知识问答上准确率从 0% 提升到 100%，揭示"拒答 ≠ 安全，幻觉才是杀手"
-- [Hybrid Search 实证报告](experiments/hybrid-search-reality.md) — 一次"失败"实验：Vector / BM25 / Hybrid 三种方法准确率均仅 50%，揭示 Tokenization、Chunking、Rerank 三大被低估的 RAG 工程难点
-- [Rerank 突破实验](experiments/rerank-breakthrough.md) — 加上百炼 gte-rerank 精排层，准确率从 50% 跃升至 **100%**，验证生产级 RAG 三层架构（召回+精排+生成）
-- [ReAct Agent 能力边界实证](experiments/agent-react-boundaries.md) — 12 次对照实验找到 Agent 真实边界：单工具 90%+、多工具组合即使 Qwen-Turbo 也只有 25%。揭示 Few-shot 双刃剑 + Tool Use Laziness + ReAct 天花板三个反直觉真相
-- [Plan-Execute 突破实验](experiments/agent-plan-execute-breakthrough.md) — 切换到 Plan-and-Execute 范式，准确率从 25% 跃升至 **75%**，证明"范式选择比模型选择重要 3 倍"。同时揭示新挑战：延迟暴涨 6×、跨 Step 数据传递难题
-- [MCP Server 实现报告](experiments/mcp-server-implementation.md) — 把 Agent 工具集按 Anthropic MCP 标准协议包装成跨平台 Server（4 工具+1 资源+1 Prompt），实现"一次开发，Claude Desktop/Cursor/自建 Agent 都能用"。踩过两个真坑：env=None 陷阱、相对路径失效
-- [LoRA 微调突破报告](experiments/lora-finetune-breakthrough.md) — 100 条手工样本 + 25 分钟 MLX-LM LoRA 微调，让本地 1.5B 模型在 Agent 工具规划任务上准确率从 40% → **100%**，超过未微调的 Qwen-Turbo。揭示"LoRA 让模型变专科" + "边界感比能力更重要"两个核心规律
+- [Prompt Engineering ROI 实证报告](experiments/01-Prompt工程ROI.md) — 用同一道数学题对比本地 1.5B / 百炼 Turbo / 百炼 Max 的准确率，揭示"模型容量是地板，Prompt 是天花板"的核心规律
+- [RAG vs 纯 LLM 实证报告](experiments/02-RAG对比纯LLM.md) — 验证 RAG 让 1.5B 小模型在闭域知识问答上准确率从 0% 提升到 100%，揭示"拒答 ≠ 安全，幻觉才是杀手"
+- [Hybrid Search 实证报告](experiments/03-Hybrid检索失败实验.md) — 一次"失败"实验：Vector / BM25 / Hybrid 三种方法准确率均仅 50%，揭示 Tokenization、Chunking、Rerank 三大被低估的 RAG 工程难点
+- [Rerank 突破实验](experiments/04-Rerank突破.md) — 加上百炼 gte-rerank 精排层，准确率从 50% 跃升至 **100%**，验证生产级 RAG 三层架构（召回+精排+生成）
+- [ReAct Agent 能力边界实证](experiments/05-ReAct智能体能力边界.md) — 12 次对照实验找到 Agent 真实边界：单工具 90%+、多工具组合即使 Qwen-Turbo 也只有 25%。揭示 Few-shot 双刃剑 + Tool Use Laziness + ReAct 天花板三个反直觉真相
+- [Plan-Execute 突破实验](experiments/06-PlanExecute范式突破.md) — 切换到 Plan-and-Execute 范式，准确率从 25% 跃升至 **75%**，证明"范式选择比模型选择重要 3 倍"。同时揭示新挑战：延迟暴涨 6×、跨 Step 数据传递难题
+- [MCP Server 实现报告](experiments/07-MCP协议实现.md) — 把 Agent 工具集按 Anthropic MCP 标准协议包装成跨平台 Server（4 工具+1 资源+1 Prompt），实现"一次开发，Claude Desktop/Cursor/自建 Agent 都能用"。踩过两个真坑：env=None 陷阱、相对路径失效
+- [LoRA 微调突破报告](experiments/08-LoRA微调突破.md) — 100 条手工样本 + 25 分钟 MLX-LM LoRA 微调，让本地 1.5B 模型在 Agent 工具规划任务上准确率从 40% → **100%**，超过未微调的 Qwen-Turbo。揭示"LoRA 让模型变专科" + "边界感比能力更重要"两个核心规律
 - [Multi-Agent 编排 Demo](experiments/multi_agent_demo.py) — 把单 Agent 升级为 Supervisor/Worker 多角色协作流，拆分检索、计算、方案判断、审计和总结职责，支持完整 trace 回放，验证复杂任务可审计执行
-- [Multi-Agent 混合架构](experiments/multi-agent-hybrid-architecture.md) — 实现"规则快路径 + LLM 兜底慢路径"混合架构，**准确率 4/4 等同 Plan-Execute Turbo，平均延迟 1.2s（仅 1/8）**，命中题毫秒级、盲区题 LLM 自动兜底。核心创新：升级 Critic 为质量裁判（空话检测、资源利用检测），日均成本仅同行的 5%
-- [Dify 实战 vs 手写](experiments/dify-vs-handcoded.md) — 1 小时用 Dify 拖出"海外社交内容审核"Workflow（对应 8 周计划 Demo #1），4 题全对，API 延迟 1 秒。揭示 Dify 真实定位：**不是替代代码，是组织效率工具——让业务部门自己验证创新，尝试成本降低 10 倍**
-- [LangChain & LangGraph 实战对比](experiments/langchain-langgraph-comparison.md) — 用 LangChain 重写 RAG（80 行 vs 250 行）、LangGraph prebuilt 重写 ReAct（30 行 vs 200 行）、LangGraph StateGraph 重写 Multi-Agent（150 行 vs 400 行）。**StateGraph 版准确率 4/4 持平手写，延迟 533ms 反而快 2 倍**。揭示框架抛弃小模型 + 创新仍在剩下 20%
+- [Multi-Agent 混合架构](experiments/09-MultiAgent混合架构.md) — 实现"规则快路径 + LLM 兜底慢路径"混合架构，**准确率 4/4 等同 Plan-Execute Turbo，平均延迟 1.2s（仅 1/8）**，命中题毫秒级、盲区题 LLM 自动兜底。核心创新：升级 Critic 为质量裁判（空话检测、资源利用检测），日均成本仅同行的 5%
+- [Dify 实战 vs 手写](experiments/10-Dify对比手写.md) — 1 小时用 Dify 拖出"海外社交内容审核"Workflow（对应 8 周计划 Demo #1），4 题全对，API 延迟 1 秒。揭示 Dify 真实定位：**不是替代代码，是组织效率工具——让业务部门自己验证创新，尝试成本降低 10 倍**
+- [LangChain & LangGraph 实战对比](experiments/11-LangChain与LangGraph对比.md) — 用 LangChain 重写 RAG（80 行 vs 250 行）、LangGraph prebuilt 重写 ReAct（30 行 vs 200 行）、LangGraph StateGraph 重写 Multi-Agent（150 行 vs 400 行）。**StateGraph 版准确率 4/4 持平手写，延迟 533ms 反而快 2 倍**。揭示框架抛弃小模型 + 创新仍在剩下 20%
 
 ---
 
