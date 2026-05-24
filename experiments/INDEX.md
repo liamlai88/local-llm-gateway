@@ -19,6 +19,7 @@
 | 09 | [Multi-Agent 混合架构](09-MultiAgent混合架构.md) | 4/4 准确率，1.2s 延迟，1/20 成本 | **架构创新 > 模型升级** |
 | 10 | [Dify 对比手写](10-Dify对比手写.md) | 1 小时拖出审核 API，4/4 | Dify ≠ 替代代码，是组织效率 |
 | 11 | [LangChain 与 LangGraph 对比](11-LangChain与LangGraph对比.md) | StateGraph 4/4 / 533ms / -62% 代码 | 框架做 80% + 创新做剩下的 20% |
+| 12 | [Reflection 范式负面验证](12-Reflection范式负面验证.md) | 87.5% → 87.5%，+38% 延迟 | Reflection 只能修推理错，修不了事实错 |
 
 **核心叙事链**：
 ```

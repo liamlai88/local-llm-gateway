@@ -1,0 +1,204 @@
+{
+  "provider": "bailian",
+  "model": "qwen-turbo",
+  "results": {
+    "react": [
+      {
+        "q": "计算 (15 + 27) * 3",
+        "answer": "(15 + 27) * 3 等于 126",
+        "ok": true,
+        "latency_ms": 1902.1,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "上海气温减去北京气温是多少摄氏度？",
+        "answer": "上海比北京高 4°C",
+        "ok": true,
+        "latency_ms": 3235.0,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "迪拜的湿度比新加坡低多少个百分点？",
+        "answer": "迪拜的湿度比新加坡低 60 个百分点",
+        "ok": false,
+        "latency_ms": 2206.4,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "杭州气温加上北京气温再乘以 2 等于多少？",
+        "answer": "杭州气温加上北京气温再乘以 2 等于 86°C",
+        "ok": false,
+        "latency_ms": 2749.4,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "从知识库查 X 产品包月价格并算 6 个月总价",
+        "answer": "X 产品 6 个月的总价是 ¥6000。",
+        "ok": true,
+        "latency_ms": 3240.6,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "3 加 5 等于多少？",
+        "answer": "3 加 5 等于 8。",
+        "ok": true,
+        "latency_ms": 3337.5,
+        "iterations": 2,
+        "attempts": 1
+      },
+      {
+        "q": "把 '价格 ¥198' 中的数字提出来乘以 10",
+        "answer": "1980",
+        "ok": true,
+        "latency_ms": 3509.3,
+        "iterations": 2,
+        "attempts": 1
+      },
+      {
+        "q": "新加坡气温减杭州气温的结果再加 5 是多少？",
+        "answer": "新加坡气温减杭州气温的结果再加 5 是 9°C",
+        "ok": false,
+        "latency_ms": 2865.3,
+        "iterations": 1,
+        "attempts": 1
+      }
+    ],
+    "plan_execute": [
+      {
+        "q": "计算 (15 + 27) * 3",
+        "answer": "(15 + 27) * 3 = 126",
+        "ok": true,
+        "latency_ms": 5571.4,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "上海气温减去北京气温是多少摄氏度？",
+        "answer": "上海气温减去北京气温是4摄氏度。",
+        "ok": true,
+        "latency_ms": 8903.0,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "迪拜的湿度比新加坡低多少个百分点？",
+        "answer": "迪拜的湿度比新加坡低55个百分点。",
+        "ok": true,
+        "latency_ms": 8870.1,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "杭州气温加上北京气温再乘以 2 等于多少？",
+        "answer": "杭州气温为22°C，北京气温为15°C，计算结果为：(22 + 15) × 2 = 74。",
+        "ok": true,
+        "latency_ms": 9595.0,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "从知识库查 X 产品包月价格并算 6 个月总价",
+        "answer": "X 产品包月价格为 ¥35000，6 个月总价为 ¥210000。",
+        "ok": false,
+        "latency_ms": 24602.6,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "3 加 5 等于多少？",
+        "answer": "3 加 5 等于 8。",
+        "ok": true,
+        "latency_ms": 5233.5,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "把 '价格 ¥198' 中的数字提出来乘以 10",
+        "answer": "最终答案：1980",
+        "ok": true,
+        "latency_ms": 8531.9,
+        "iterations": 2,
+        "attempts": 1
+      },
+      {
+        "q": "新加坡气温减杭州气温的结果再加 5 是多少？",
+        "answer": "新加坡气温减杭州气温的结果再加 5 是 13。",
+        "ok": true,
+        "latency_ms": 12407.7,
+        "iterations": 4,
+        "attempts": 1
+      }
+    ],
+    "reflection": [
+      {
+        "q": "计算 (15 + 27) * 3",
+        "answer": "(15 + 27) * 3 = 126",
+        "ok": true,
+        "latency_ms": 8539.3,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "上海气温减去北京气温是多少摄氏度？",
+        "answer": "上海气温减去北京气温是4摄氏度。",
+        "ok": true,
+        "latency_ms": 13364.1,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "迪拜的湿度比新加坡低多少个百分点？",
+        "answer": "迪拜的湿度比新加坡低55个百分点。",
+        "ok": true,
+        "latency_ms": 18798.5,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "杭州气温加上北京气温再乘以 2 等于多少？",
+        "answer": "杭州气温为22°C，北京气温为15°C，计算结果为：(22 + 15) × 2 = 74。",
+        "ok": true,
+        "latency_ms": 10787.3,
+        "iterations": 3,
+        "attempts": 1
+      },
+      {
+        "q": "从知识库查 X 产品包月价格并算 6 个月总价",
+        "answer": "X 产品包月价格为 ¥35000，6 个月总价为 ¥210000。",
+        "ok": false,
+        "latency_ms": 29316.6,
+        "iterations": 2,
+        "attempts": 2
+      },
+      {
+        "q": "3 加 5 等于多少？",
+        "answer": "3 加 5 等于 8。",
+        "ok": true,
+        "latency_ms": 7063.8,
+        "iterations": 1,
+        "attempts": 1
+      },
+      {
+        "q": "把 '价格 ¥198' 中的数字提出来乘以 10",
+        "answer": "最终答案：1980",
+        "ok": true,
+        "latency_ms": 14160.7,
+        "iterations": 2,
+        "attempts": 1
+      },
+      {
+        "q": "新加坡气温减杭州气温的结果再加 5 是多少？",
+        "answer": "新加坡气温减杭州气温的结果再加 5 是 13。",
+        "ok": true,
+        "latency_ms": 12767.9,
+        "iterations": 4,
+        "attempts": 1
+      }
+    ]
+  }
+}

@@ -4,13 +4,14 @@ Agent 模块 - ReAct 模式实现
 - ReAct 循环（Thought → Action → Observation）
 - 解析 + 错误兜底
 """
+
 import os
 import re
 import json
 import time
 import logging
 import requests
-from typing import Dict, List, Callable, Any
+from typing import Dict, List, Callable
 
 log = logging.getLogger("agent")
 
@@ -25,6 +26,7 @@ TOOLS: Dict[str, Dict] = {}
 
 def register_tool(name: str, description: str, parameters: Dict):
     """装饰器：注册一个工具"""
+
     def decorator(func: Callable):
         TOOLS[name] = {
             "name": name,
@@ -33,6 +35,7 @@ def register_tool(name: str, description: str, parameters: Dict):
             "func": func,
         }
         return func
+
     return decorator
 
 
@@ -109,6 +112,7 @@ def kb_search(query: str) -> str:
     """直接调 rag 模块，跳过 LLM 生成阶段（更快更稳）"""
     try:
         import rag  # 延迟导入避免循环依赖
+
         chunks = rag.search(query, top_k=2, mode="hybrid", use_rerank=True)
         if not chunks:
             return "知识库中未找到相关信息"
@@ -121,10 +125,12 @@ def kb_search(query: str) -> str:
 
 # ========== ReAct Prompt ==========
 def build_system_prompt(few_shot: bool = True) -> str:
-    tools_desc = "\n".join([
-        f"- {t['name']}({', '.join(f'{k}: {v}' for k, v in t['parameters'].items())}): {t['description']}"
-        for t in TOOLS.values()
-    ])
+    tools_desc = "\n".join(
+        [
+            f"- {t['name']}({', '.join(f'{k}: {v}' for k, v in t['parameters'].items())}): {t['description']}"
+            for t in TOOLS.values()
+        ]
+    )
 
     base = f"""你是一个严格遵守纪律的 AI 助手。
 
@@ -241,7 +247,9 @@ def parse_response(text: str) -> Dict:
 
 
 # ========== 调用 LLM ==========
-def call_llm(messages: List[Dict], model: str = "qwen2.5-1.5b", provider: str = "local") -> str:
+def call_llm(
+    messages: List[Dict], model: str = "qwen2.5-1.5b", provider: str = "local"
+) -> str:
     """provider: 'local' (Ollama) 或 'bailian' (百炼)"""
     if provider == "bailian":
         api_key = os.getenv("DASHSCOPE_API_KEY")
@@ -249,7 +257,10 @@ def call_llm(messages: List[Dict], model: str = "qwen2.5-1.5b", provider: str = 
             raise RuntimeError("DASHSCOPE_API_KEY 未设置")
         resp = requests.post(
             BAILIAN_URL,
-            headers={"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"},
+            headers={
+                "Authorization": f"Bearer {api_key}",
+                "Content-Type": "application/json",
+            },
             json={"model": model, "messages": messages, "max_tokens": 500},
             timeout=60,
         )
@@ -263,7 +274,9 @@ def call_llm(messages: List[Dict], model: str = "qwen2.5-1.5b", provider: str = 
     # 错误处理：百炼/Ollama 返回错误时给清晰报错而不是 KeyError
     if "choices" not in data:
         err = data.get("error", data.get("message", str(data)[:200]))
-        raise RuntimeError(f"LLM call failed (provider={provider}, model={model}): {err}")
+        raise RuntimeError(
+            f"LLM call failed (provider={provider}, model={model}): {err}"
+        )
     return data["choices"][0]["message"]["content"]
 
 
@@ -278,8 +291,13 @@ def execute_tool(name: str, args: Dict) -> str:
 
 
 # ========== ReAct 主循环 ==========
-def run_agent(question: str, max_iterations: int = 5, model: str = "qwen2.5-1.5b",
-              provider: str = "local", few_shot: bool = True) -> Dict:
+def run_agent(
+    question: str,
+    max_iterations: int = 5,
+    model: str = "qwen2.5-1.5b",
+    provider: str = "local",
+    few_shot: bool = True,
+) -> Dict:
     """
     返回 {answer, trace, iterations, latency_ms}
     """
@@ -293,18 +311,20 @@ def run_agent(question: str, max_iterations: int = 5, model: str = "qwen2.5-1.5b
     for i in range(max_iterations):
         # 调用 LLM
         llm_output = call_llm(messages, model=model, provider=provider)
-        log.info(f"[Iter {i+1}] LLM output: {llm_output[:200]}...")
+        log.info(f"[Iter {i + 1}] LLM output: {llm_output[:200]}...")
 
         # 解析
         parsed = parse_response(llm_output)
 
         if parsed["type"] == "final":
-            trace.append({
-                "step": i + 1,
-                "type": "final",
-                "raw_output": llm_output,
-                "answer": parsed["answer"],
-            })
+            trace.append(
+                {
+                    "step": i + 1,
+                    "type": "final",
+                    "raw_output": llm_output,
+                    "answer": parsed["answer"],
+                }
+            )
             return {
                 "answer": parsed["answer"],
                 "trace": trace,
@@ -314,15 +334,22 @@ def run_agent(question: str, max_iterations: int = 5, model: str = "qwen2.5-1.5b
             }
 
         if parsed["type"] == "error":
-            trace.append({
-                "step": i + 1,
-                "type": "error",
-                "raw_output": llm_output,
-                "error": parsed["error"],
-            })
+            trace.append(
+                {
+                    "step": i + 1,
+                    "type": "error",
+                    "raw_output": llm_output,
+                    "error": parsed["error"],
+                }
+            )
             # 让模型再试一次（把错误反馈回去）
             messages.append({"role": "assistant", "content": llm_output})
-            messages.append({"role": "user", "content": f"格式错误: {parsed['error']}\n请严格按 Thought/Action/Args 或 Final Answer 格式重新响应。"})
+            messages.append(
+                {
+                    "role": "user",
+                    "content": f"格式错误: {parsed['error']}\n请严格按 Thought/Action/Args 或 Final Answer 格式重新响应。",
+                }
+            )
             continue
 
         # parsed["type"] == "action"
@@ -330,14 +357,16 @@ def run_agent(question: str, max_iterations: int = 5, model: str = "qwen2.5-1.5b
         tool_args = parsed["args"]
         observation = execute_tool(tool_name, tool_args)
 
-        trace.append({
-            "step": i + 1,
-            "type": "action",
-            "tool": tool_name,
-            "args": tool_args,
-            "observation": observation,
-            "raw_output": llm_output,
-        })
+        trace.append(
+            {
+                "step": i + 1,
+                "type": "action",
+                "tool": tool_name,
+                "args": tool_args,
+                "observation": observation,
+                "raw_output": llm_output,
+            }
+        )
 
         # 拼接对话历史
         messages.append({"role": "assistant", "content": llm_output})
@@ -355,7 +384,11 @@ def run_agent(question: str, max_iterations: int = 5, model: str = "qwen2.5-1.5b
 
 def list_tools() -> List[Dict]:
     return [
-        {"name": t["name"], "description": t["description"], "parameters": t["parameters"]}
+        {
+            "name": t["name"],
+            "description": t["description"],
+            "parameters": t["parameters"],
+        }
         for t in TOOLS.values()
     ]
 
@@ -363,10 +396,12 @@ def list_tools() -> List[Dict]:
 # ========== Plan-and-Execute 模式 ==========
 def build_planner_prompt() -> str:
     """规划器 Prompt - 让 LLM 输出完整执行计划"""
-    tools_desc = "\n".join([
-        f"- {t['name']}({', '.join(f'{k}: {v}' for k, v in t['parameters'].items())}): {t['description']}"
-        for t in TOOLS.values()
-    ])
+    tools_desc = "\n".join(
+        [
+            f"- {t['name']}({', '.join(f'{k}: {v}' for k, v in t['parameters'].items())}): {t['description']}"
+            for t in TOOLS.values()
+        ]
+    )
 
     return f"""你是一个任务规划器。给定用户问题，你需要输出**完整的执行计划**（不实际执行）。
 
@@ -401,13 +436,16 @@ User: 杭州气温减北京气温多少？
 }}"""
 
 
-def build_executor_prompt(question: str, plan: List[Dict], step_idx: int,
-                          previous_results: List[Dict]) -> str:
+def build_executor_prompt(
+    question: str, plan: List[Dict], step_idx: int, previous_results: List[Dict]
+) -> str:
     """执行器 Prompt - 给定计划和已执行结果，决定当前 step 的具体参数"""
-    history = "\n".join([
-        f"Step {r['step']} ({r['tool']}): {r['observation']}"
-        for r in previous_results
-    ])
+    history = "\n".join(
+        [
+            f"Step {r['step']} ({r['tool']}): {r['observation']}"
+            for r in previous_results
+        ]
+    )
     current = plan[step_idx]
     return f"""任务: {question}
 
@@ -415,12 +453,12 @@ def build_executor_prompt(question: str, plan: List[Dict], step_idx: int,
 {json.dumps(plan, ensure_ascii=False, indent=2)}
 
 【已执行结果】
-{history if history else '(无)'}
+{history if history else "(无)"}
 
 【当前步骤】
-Step {current['step']}: 调用 {current['tool']}
-原计划参数: {json.dumps(current['args'], ensure_ascii=False)}
-本步目的: {current['purpose']}
+Step {current["step"]}: 调用 {current["tool"]}
+原计划参数: {json.dumps(current["args"], ensure_ascii=False)}
+本步目的: {current["purpose"]}
 
 【你的任务】
 基于已执行结果，输出当前 step 的最终参数。如果原计划参数包含 <stepN_xxx> 占位符，请用前面 step 的实际结果替换。
@@ -431,8 +469,12 @@ Step {current['step']}: 调用 {current['tool']}
 只输出 JSON，不要任何其他文字。"""
 
 
-def run_plan_execute_agent(question: str, max_iterations: int = 8,
-                           model: str = "qwen2.5-1.5b", provider: str = "local") -> Dict:
+def run_plan_execute_agent(
+    question: str,
+    max_iterations: int = 8,
+    model: str = "qwen2.5-1.5b",
+    provider: str = "local",
+) -> Dict:
     """Plan-and-Execute Agent 主循环"""
     trace = []
     start = time.time()
@@ -455,14 +497,23 @@ def run_plan_execute_agent(question: str, max_iterations: int = 8,
     except Exception as e:
         return {
             "answer": f"规划失败: {e}",
-            "trace": [{"step": 0, "type": "plan_error", "raw_output": planner_output, "error": str(e)}],
+            "trace": [
+                {
+                    "step": 0,
+                    "type": "plan_error",
+                    "raw_output": planner_output,
+                    "error": str(e),
+                }
+            ],
             "iterations": 0,
             "latency_ms": round((time.time() - start) * 1000, 1),
             "status": "plan_failed",
             "mode": "plan_execute",
         }
 
-    trace.append({"step": 0, "type": "plan", "plan": plan, "raw_output": planner_output})
+    trace.append(
+        {"step": 0, "type": "plan", "plan": plan, "raw_output": planner_output}
+    )
 
     # ===== Phase 2: 逐步执行 =====
     previous_results = []
@@ -472,8 +523,14 @@ def run_plan_execute_agent(question: str, max_iterations: int = 8,
 
         # 让 LLM 决定当前 step 的实际参数（处理占位符替换）
         executor_messages = [
-            {"role": "system", "content": "你是任务执行器，根据上下文输出工具参数 JSON"},
-            {"role": "user", "content": build_executor_prompt(question, plan, idx, previous_results)},
+            {
+                "role": "system",
+                "content": "你是任务执行器，根据上下文输出工具参数 JSON",
+            },
+            {
+                "role": "user",
+                "content": build_executor_prompt(question, plan, idx, previous_results),
+            },
         ]
         executor_output = call_llm(executor_messages, model=model, provider=provider)
 
@@ -490,29 +547,39 @@ def run_plan_execute_agent(question: str, max_iterations: int = 8,
         tool_name = step["tool"]
         observation = execute_tool(tool_name, actual_args)
 
-        previous_results.append({
-            "step": step["step"],
-            "tool": tool_name,
-            "observation": observation,
-        })
-        trace.append({
-            "step": step["step"],
-            "type": "execute",
-            "tool": tool_name,
-            "planned_args": step["args"],
-            "actual_args": actual_args,
-            "observation": observation,
-        })
+        previous_results.append(
+            {
+                "step": step["step"],
+                "tool": tool_name,
+                "observation": observation,
+            }
+        )
+        trace.append(
+            {
+                "step": step["step"],
+                "type": "execute",
+                "tool": tool_name,
+                "planned_args": step["args"],
+                "actual_args": actual_args,
+                "observation": observation,
+            }
+        )
 
     # ===== Phase 3: 生成最终答案 =====
     summary_messages = [
-        {"role": "system", "content": "你是任务总结器。基于执行结果给出简洁的最终答案，包含关键数字。"},
-        {"role": "user", "content": f"""任务: {question}
+        {
+            "role": "system",
+            "content": "你是任务总结器。基于执行结果给出简洁的最终答案，包含关键数字。",
+        },
+        {
+            "role": "user",
+            "content": f"""任务: {question}
 
 执行结果:
 {json.dumps(previous_results, ensure_ascii=False, indent=2)}
 
-请直接给出最终答案，不要重复执行过程。"""},
+请直接给出最终答案，不要重复执行过程。""",
+        },
     ]
     final_answer = call_llm(summary_messages, model=model, provider=provider)
     trace.append({"step": len(plan) + 1, "type": "final", "answer": final_answer})
@@ -524,4 +591,101 @@ def run_plan_execute_agent(question: str, max_iterations: int = 8,
         "latency_ms": round((time.time() - start) * 1000, 1),
         "status": "success",
         "mode": "plan_execute",
+    }
+
+
+# ========== Reflection 模式（Plan-Execute + Critic 回路） ==========
+def build_critic_prompt() -> str:
+    return """你是严格的答案审查员。给定原始问题、执行步骤、最终答案，判断答案是否：
+1. 充分基于执行步骤的实际观测（observation），而非凭空编造
+2. 没有遗漏问题问到的关键信息
+3. 关键数字与 observation 一致
+
+【输出格式 - 严格 JSON】
+{"verdict": "pass" 或 "fail", "reason": "简要原因（30 字内）", "fix_hint": "如果 fail，给重做时的提示（否则空串）"}
+
+只输出 JSON。"""
+
+
+def run_reflection_agent(
+    question: str,
+    max_retries: int = 1,
+    max_iterations: int = 8,
+    model: str = "qwen2.5-1.5b",
+    provider: str = "local",
+) -> Dict:
+    """Plan-Execute 外加 Critic 回路。max_retries=1 表示最多重做一次 plan。"""
+    start = time.time()
+    full_trace = []
+    critique_hint = ""
+
+    for attempt in range(max_retries + 1):
+        # 把 critique 提示注入到问题里（重试时生效）
+        augmented_question = (
+            question
+            if not critique_hint
+            else f"{question}\n\n[上一轮失败原因，重做时请避免]: {critique_hint}"
+        )
+
+        result = run_plan_execute_agent(
+            augmented_question,
+            max_iterations=max_iterations,
+            model=model,
+            provider=provider,
+        )
+        full_trace.append({"attempt": attempt + 1, "pe_result": result})
+
+        if result["status"] != "success":
+            critique_hint = f"上轮规划失败: {result['answer']}"
+            continue
+
+        # Critic 审查
+        critic_messages = [
+            {"role": "system", "content": build_critic_prompt()},
+            {
+                "role": "user",
+                "content": f"""问题: {question}
+
+执行步骤:
+{json.dumps([t for t in result["trace"] if t.get("type") == "execute"], ensure_ascii=False, indent=2)}
+
+最终答案: {result["answer"]}""",
+            },
+        ]
+        critic_output = call_llm(critic_messages, model=model, provider=provider)
+        try:
+            json_match = re.search(r"\{.*\}", critic_output, re.DOTALL)
+            verdict = json.loads(json_match.group(0))
+        except Exception:
+            verdict = {
+                "verdict": "pass",
+                "reason": "critic 解析失败默认通过",
+                "fix_hint": "",
+            }
+
+        full_trace.append(
+            {"attempt": attempt + 1, "critic": verdict, "critic_raw": critic_output}
+        )
+
+        if verdict.get("verdict") == "pass":
+            return {
+                "answer": result["answer"],
+                "trace": full_trace,
+                "iterations": result["iterations"],
+                "attempts": attempt + 1,
+                "latency_ms": round((time.time() - start) * 1000, 1),
+                "status": "success",
+                "mode": "reflection",
+            }
+        critique_hint = verdict.get("fix_hint", "") or verdict.get("reason", "")
+
+    # 用尽重试仍未通过，返回最后一次结果
+    return {
+        "answer": result["answer"],
+        "trace": full_trace,
+        "iterations": result["iterations"],
+        "attempts": max_retries + 1,
+        "latency_ms": round((time.time() - start) * 1000, 1),
+        "status": "critic_failed_but_returned",
+        "mode": "reflection",
     }
