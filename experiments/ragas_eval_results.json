@@ -1,0 +1,606 @@
+{
+  "naive_rag": [
+    {
+      "q": "A100 比 A10 多多少显存？",
+      "answer": "根据知识图谱事实，NVIDIA A100 显存为 80GB，NVIDIA A10 显存为 24GB。  \n计算 A100 比 A10 多的显存：  \n80GB - 24GB = 56GB  \n\n答案：A100 比 A10 多 56GB 显存。",
+      "metrics": {
+        "faithfulness": {
+          "score": 1.0,
+          "claims": [
+            "NVIDIA A100 显存为 80GB",
+            "NVIDIA A10 显存为 24GB",
+            "A100 比 A10 多 56GB 显存"
+          ],
+          "supported": [
+            true,
+            true,
+            true
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.956,
+          "generated": [
+            "A100 显存比 A10 多多少？",
+            "A100 和 A10 的显存差是多少？",
+            "A100 比 A10 多多少显存？"
+          ],
+          "sims": [
+            0.974,
+            0.894,
+            1.0
+          ]
+        },
+        "context_precision": {
+          "score": 0.2,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            false,
+            false,
+            false,
+            false
+          ],
+          "n_chunks": 10
+        },
+        "context_recall": {
+          "score": 1.0,
+          "claims": [
+            "NVIDIA A100 显存 80GB",
+            "NVIDIA A10 显存 24GB",
+            "A100 比 A10 多 56GB"
+          ],
+          "found": [
+            true,
+            true,
+            true
+          ]
+        }
+      }
+    },
+    {
+      "q": "ecs.gn7e 用的 GPU 比 ecs.gn7i 用的 GPU 多多少显存？",
+      "answer": "根据知识图谱事实，ecs.gn7e-c12g1.3xlarge 实例使用 NVIDIA A100 GPU，ecs.gn7i-c8g1.2xlarge 实例使用 NVIDIA A10 GPU。\n\nNVIDIA A100 GPU 显存为 80 GB，NVIDIA A10 GPU 显存为 24 GB。\n\n计算显存差值：  \n80 GB - 24 GB = **56 GB**\n\n答案：**56 GB**",
+      "metrics": {
+        "faithfulness": {
+          "score": 0.667,
+          "claims": [
+            "ecs.gn7e-c12g1.3xlarge 实例使用 NVIDIA A100 GPU。",
+            "ecs.gn7i-c8g1.2xlarge 实例使用 NVIDIA A10 GPU。",
+            "NVIDIA A100 GPU 显存为 80 GB。",
+            "NVIDIA A10 GPU 显存为 24 GB。",
+            "计算显存差值：80 GB - 24 GB = 56 GB。",
+            "答案：56 GB。"
+          ],
+          "supported": [
+            true,
+            true,
+            true,
+            true,
+            false,
+            false
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.658,
+          "generated": [
+            "ecs.gn7e-c12g1.3xlarge 和 ecs.gn7i-c8g1.2xlarge 实例的 GPU 显存差值是多少？",
+            "NVIDIA A100 和 NVIDIA A10 GPU 的显存差值是多少？",
+            "两个实例使用的 GPU 显存相差多少？"
+          ],
+          "sims": [
+            0.828,
+            0.504,
+            0.643
+          ]
+        },
+        "context_precision": {
+          "score": 0.6,
+          "useful": [
+            false,
+            false,
+            true,
+            true,
+            true,
+            true,
+            false,
+            false,
+            true,
+            true
+          ],
+          "n_chunks": 10
+        },
+        "context_recall": {
+          "score": 0.667,
+          "claims": [
+            "ecs.gn7e 用 A100 (80GB)",
+            "ecs.gn7i 用 A10 (24GB)",
+            "相差 56GB"
+          ],
+          "found": [
+            true,
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "q": "包月套餐 PRO 里的 GPU 实例按量付费每小时多少钱？",
+      "answer": "根据知识图谱事实，包月套餐 PRO 包含 ecs.gn7e-c12g1.3xlarge 实例，该实例的按量付费价格为 ¥68/小时。\n\n因此，包月套餐 PRO 里的 GPU 实例按量付费每小时价格为 **¥68**。",
+      "metrics": {
+        "faithfulness": {
+          "score": 0.667,
+          "claims": [
+            "根据知识图谱事实，包月套餐 PRO 包含 ecs.gn7e-c12g1.3xlarge 实例。",
+            "ecs.gn7e-c12g1.3xlarge 实例的按量付费价格为 ¥68/小时。",
+            "包月套餐 PRO 里的 GPU 实例按量付费每小时价格为 ¥68。"
+          ],
+          "supported": [
+            false,
+            true,
+            true
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.835,
+          "generated": [
+            "包月套餐 PRO 里的 GPU 实例按量付费价格是多少？",
+            "PRO 包含的 ecs.gn7e-c12g1.3xlarge 实例按量付费价格是多少？",
+            "GPU 实例在 PRO 包月套餐中的按量付费价格是多少钱？"
+          ],
+          "sims": [
+            0.963,
+            0.622,
+            0.92
+          ]
+        },
+        "context_precision": {
+          "score": 0.2,
+          "useful": [
+            true,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "n_chunks": 10
+        },
+        "context_recall": {
+          "score": 0.5,
+          "claims": [
+            "包月套餐 PRO 包含 ecs.gn7e",
+            "ecs.gn7e 按量付费 ¥68/小时"
+          ],
+          "found": [
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "q": "李四的上级负责什么 GPU 实例？",
+      "answer": "根据知识图谱事实：\n\n- 张三是技术 VP，李四是张三的下属。\n- 李四的上级是张三。\n\n但知识图谱中没有提到张三负责任何 GPU 实例。\n\n**答案：无法确定**",
+      "metrics": {
+        "faithfulness": {
+          "score": 1.0,
+          "claims": [
+            "张三是技术 VP",
+            "李四是张三的下属",
+            "李四的上级是张三",
+            "张三不负责任何 GPU 实例"
+          ],
+          "supported": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.498,
+          "generated": [
+            "张三是否负责任何 GPU 实例？",
+            "李四的上级是谁？",
+            "张三和李四之间的关系是什么？"
+          ],
+          "sims": [
+            0.652,
+            0.546,
+            0.296
+          ]
+        },
+        "context_precision": {
+          "score": 0.4,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "n_chunks": 10
+        },
+        "context_recall": {
+          "score": 0.75,
+          "claims": [
+            "李四的上级是张三",
+            "张三的职位是技术 VP",
+            "张三不直接负责具体 GPU 实例",
+            "无法确定"
+          ],
+          "found": [
+            true,
+            true,
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "q": "张三的下属的下属负责的产品包月多少钱？",
+      "answer": "根据知识图谱事实，张三是技术 VP，李四是张三的下属。但没有提供关于“李四的下属”或其负责的产品包月价格的信息。因此，无法确定张三的下属的下属负责的产品包月价格。\n\n答案：无法确定。",
+      "metrics": {
+        "faithfulness": {
+          "score": 0.8,
+          "claims": [
+            "张三是技术 VP。",
+            "李四是张三的下属。",
+            "没有提供关于李四的下属的信息。",
+            "没有提供关于李四负责的产品包月价格的信息。",
+            "无法确定张三的下属的下属负责的产品包月价格。"
+          ],
+          "supported": [
+            true,
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.645,
+          "generated": [
+            "张三的下属是谁？",
+            "李四负责的产品包月价格是多少？",
+            "张三的下属的下属负责什么产品？"
+          ],
+          "sims": [
+            0.571,
+            0.622,
+            0.744
+          ]
+        },
+        "context_precision": {
+          "score": 0.4,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            true,
+            true,
+            true
+          ],
+          "n_chunks": 10
+        },
+        "context_recall": {
+          "score": 0.75,
+          "claims": [
+            "张三的下属是李四",
+            "李四的下属是王五",
+            "王五负责 ecs.gn7e",
+            "王五包月 ¥35000"
+          ],
+          "found": [
+            true,
+            true,
+            true,
+            false
+          ]
+        }
+      }
+    }
+  ],
+  "graphrag": [
+    {
+      "q": "ecs.gn7e 用的 GPU 比 ecs.gn7i 用的 GPU 多多少显存？",
+      "answer": "根据知识图谱事实，可以推断出以下信息：\n\n- (ecs.gn7e-c12g1.3xlarge 实例) --[使用]--> (NVIDIA A100 GPU)\n- (ecs.gn7i-c8g1.2xlarge 实例) --[使用]--> (NVIDIA A10 GPU)\n\nNVIDIA A100 GPU 的显存为 80GB，而 NVIDIA A10 GPU 的显存为 24GB。\n\n因此，ecs.gn7e 使用的 GPU 比 ecs.gn7i 使用的 GPU 多出的显存为：  \n**80GB - 24GB = 56GB**\n\n答案：**56GB**",
+      "seeds": [
+        "ecs.gn7e 实例",
+        "ecs.gn7i 实例",
+        "NVIDIA A100 GPU",
+        "NVIDIA A10 GPU"
+      ],
+      "metrics": {
+        "faithfulness": {
+          "score": 0.4,
+          "claims": [
+            "(ecs.gn7e-c12g1.3xlarge 实例) --[使用]--> (NVIDIA A100 GPU)",
+            "(ecs.gn7i-c8g1.2xlarge 实例) --[使用]--> (NVIDIA A10 GPU)",
+            "NVIDIA A100 GPU 的显存为 80GB",
+            "NVIDIA A10 GPU 的显存为 24GB",
+            "ecs.gn7e 使用的 GPU 比 ecs.gn7i 使用的 GPU 多出的显存为 56GB"
+          ],
+          "supported": [
+            true,
+            true,
+            false,
+            false,
+            false
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.797,
+          "generated": [
+            "ecs.gn7e-c12g1.3xlarge 实例和 ecs.gn7i-c8g1.2xlarge 实例使用的 GPU 显存差多少？",
+            "NVIDIA A100 GPU 和 NVIDIA A10 GPU 的显存差是多少？",
+            "ecs.gn7e 使用的 GPU 比 ecs.gn7i 使用的 GPU 多多少显存？"
+          ],
+          "sims": [
+            0.851,
+            0.545,
+            0.995
+          ]
+        },
+        "context_precision": {
+          "score": 0.118,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false,
+            false,
+            false
+          ],
+          "n_chunks": 19
+        },
+        "context_recall": {
+          "score": 0.667,
+          "claims": [
+            "ecs.gn7e 用 A100 (80GB)",
+            "ecs.gn7i 用 A10 (24GB)",
+            "相差 56GB"
+          ],
+          "found": [
+            true,
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "q": "包月套餐 PRO 里的 GPU 实例按量付费每小时多少钱？",
+      "answer": "根据知识图谱事实，包月套餐 PRO 包含 (ecs.gn7e-c12g1.3xlarge 实例)，而 (ecs.gn7e-c12g1.3xlarge 实例) 的按量付费价格为 ¥68/小时。\n\n因此，包月套餐 PRO 里的 GPU 实例按量付费每小时的价格是 **¥68**。",
+      "seeds": [
+        "包月套餐 PRO",
+        "¥68/小时"
+      ],
+      "metrics": {
+        "faithfulness": {
+          "score": 0.333,
+          "claims": [
+            "根据知识图谱事实，包月套餐 PRO 包含 (ecs.gn7e-c12g1.3xlarge 实例)。",
+            "（ecs.gn7e-c12g1.3xlarge 实例）的按量付费价格为 ¥68/小时。",
+            "包月套餐 PRO 里的 GPU 实例按量付费每小时的价格是 ¥68。"
+          ],
+          "supported": [
+            false,
+            true,
+            false
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.822,
+          "generated": [
+            "包月套餐 PRO 包含的 GPU 实例按量付费价格是多少？",
+            "ecs.gn7e-c12g1.3xlarge 实例的按量付费价格是多少？",
+            "包月套餐 PRO 中的 GPU 实例每小时费用是多少？"
+          ],
+          "sims": [
+            0.953,
+            0.551,
+            0.963
+          ]
+        },
+        "context_precision": {
+          "score": 0.125,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false
+          ],
+          "n_chunks": 8
+        },
+        "context_recall": {
+          "score": 0.333,
+          "claims": [
+            "包月套餐 PRO 包含 ecs.gn7e",
+            "ecs.gn7e 按量付费",
+            "ecs.gn7e ¥68/小时"
+          ],
+          "found": [
+            true,
+            false,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "q": "李四的上级负责什么 GPU 实例？",
+      "answer": "根据知识图谱事实，(王五) --[是]--> (李四的下属)，因此李四的上级是王五的上级。但知识图谱中没有直接给出李四的上级是谁，因此无法确定李四的上级负责什么 GPU 实例。\n\n答案：无法确定。",
+      "seeds": [
+        "李四的下属",
+        "NVIDIA A100",
+        "NVIDIA A10"
+      ],
+      "metrics": {
+        "faithfulness": {
+          "score": 0.75,
+          "claims": [
+            "王五是李四的下属。",
+            "李四的上级是王五的上级。",
+            "知识图谱中没有直接给出李四的上级是谁。",
+            "无法确定李四的上级负责什么 GPU 实例。"
+          ],
+          "supported": [
+            true,
+            false,
+            true,
+            true
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.629,
+          "generated": [
+            "李四的上级是谁？",
+            "王五的上级负责什么 GPU 实例？",
+            "根据知识图谱，李四的上级是否可以被确定？"
+          ],
+          "sims": [
+            0.546,
+            0.777,
+            0.564
+          ]
+        },
+        "context_precision": {
+          "score": 0.333,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            true,
+            true
+          ],
+          "n_chunks": 6
+        },
+        "context_recall": {
+          "score": 0.25,
+          "claims": [
+            "李四的上级是张三",
+            "张三的职位是技术 VP",
+            "张三不直接负责具体 GPU 实例",
+            "无法确定"
+          ],
+          "found": [
+            false,
+            false,
+            false,
+            true
+          ]
+        }
+      }
+    },
+    {
+      "q": "张三的下属的下属负责的产品包月多少钱？",
+      "answer": "根据知识图谱事实，张三的下属是李四。李四负责的是 ecs.gn7i 实例，而 ecs.gn7i 实例属于包月套餐 LITE。包月套餐 LITE 的总价为 ¥12000/月。\n\n因此，张三的下属的下属负责的产品包月价格为：  \n**¥12000/月**",
+      "seeds": [
+        "张三的下属",
+        "包月套餐 PRO",
+        "包月套餐 LITE",
+        "¥40000/月",
+        "¥12000/月"
+      ],
+      "metrics": {
+        "faithfulness": {
+          "score": 1.0,
+          "claims": [
+            "张三的下属是李四。",
+            "李四负责的是 ecs.gn7i 实例。",
+            "ecs.gn7i 实例属于包月套餐 LITE。",
+            "包月套餐 LITE 的总价为 ¥12000/月。"
+          ],
+          "supported": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "answer_relevance": {
+          "score": 0.605,
+          "generated": [
+            "张三的下属负责的包月套餐价格是多少？",
+            "李四负责的实例属于哪个包月套餐？",
+            "包月套餐 LITE 的价格是多少？"
+          ],
+          "sims": [
+            0.835,
+            0.522,
+            0.458
+          ]
+        },
+        "context_precision": {
+          "score": 0.083,
+          "useful": [
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            false,
+            true,
+            false,
+            false,
+            false
+          ],
+          "n_chunks": 12
+        },
+        "context_recall": {
+          "score": 0.5,
+          "claims": [
+            "张三的下属是李四",
+            "李四的下属是王五",
+            "王五负责 ecs.gn7e",
+            "王五包月 ¥35000"
+          ],
+          "found": [
+            true,
+            false,
+            true,
+            false
+          ]
+        }
+      }
+    }
+  ]
+}

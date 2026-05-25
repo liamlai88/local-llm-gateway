@@ -22,6 +22,7 @@
 | 12 | [Reflection 范式负面验证](12-Reflection范式负面验证.md) | 87.5% → 87.5%，+38% 延迟 | Reflection 只能修推理错，修不了事实错 |
 | 13 | [GraphRAG 多跳检索负面验证](13-GraphRAG多跳检索负面验证.md) | Naive 100% > GraphRAG 75% | 抽取质量决定一切，小 KB 朴素 RAG 已够用 |
 | 14 | [Context Engineering 四策略](14-ContextEngineering四策略对照.md) | Write -70% token / 召回 4/6，Compress 召回 6/6 / -21% | 四策略无银弹，组合用才是工程解 |
+| 15 | [RAGAS 评测 GraphRAG](15-RAGAS评测GraphRAG.md) | Naive F=0.79/CP=0.40/CR=0.67 vs Graph F=0.62/CP=0.16/CR=0.44 | RAGAS 自动评测印证 #13 — 双重实证 |
 
 **核心叙事链**：
 ```
