@@ -1,0 +1,554 @@
+[
+  {
+    "name": "baseline",
+    "turns": [
+      {
+        "turn": 1,
+        "user": "你好，我叫王明，是 ACME 数据公司的 CTO，我们想做大模型推理服务。",
+        "assistant": "很高兴认识您，王明先生！我是阿里云的销售客服，非常感谢您对我们产品的关注。作为ACME数据公司的CTO，您对大模型推理服务的需求一定非常专业和具体。\n\n在开始之",
+        "input_tokens": 65,
+        "output_tokens": 116,
+        "overhead_tokens": 0,
+        "latency_ms": 2992.9
+      },
+      {
+        "turn": 2,
+        "user": "我们主要业务是金融风控，预计每天处理 100 万次推理请求。",
+        "assistant": "感谢您提供的信息，王明先生！\n\n了解到贵公司在金融风控领域有明确的业务场景，并且预计每天需要处理 100 万次推理请求，这属于高并发、低延迟的典型大模型推理应用",
+        "input_tokens": 211,
+        "output_tokens": 254,
+        "overhead_tokens": 0,
+        "latency_ms": 3704.3
+      },
+      {
+        "turn": 3,
+        "user": "请简单介绍下你们的 GPU 实例选项。",
+        "assistant": "好的，王明先生，以下是阿里云目前主要的 GPU 实例选项，适用于大模型推理场景，尤其是金融风控这类高并发、低延迟的需求：\n\n---\n\n### **1. GPU ",
+        "input_tokens": 486,
+        "output_tokens": 444,
+        "overhead_tokens": 0,
+        "latency_ms": 6696.4
+      },
+      {
+        "turn": 4,
+        "user": "ecs.gn7e 配 A100 是吧？显存多大？",
+        "assistant": "是的，王明先生，您提到的 **ECS.gn7e** 实例系列确实支持 **NVIDIA A100 GPU**。\n\n以下是 **ECS.gn7e** 系列的一些关",
+        "input_tokens": 959,
+        "output_tokens": 312,
+        "overhead_tokens": 0,
+        "latency_ms": 4754.6
+      },
+      {
+        "turn": 5,
+        "user": "对比 ecs.gn7i 的 A10，性能差距大吗？",
+        "assistant": "王明先生，感谢您的提问。\n\n我们来对比一下 **ECS.gn7e（A100）** 和 **ECS.gn7i（A10）** 的性能差异，特别是在大模型推理场景下，",
+        "input_tokens": 1297,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 7707.0
+      },
+      {
+        "turn": 6,
+        "user": "我倾向选 ecs.gn7e，包月价格是多少？",
+        "assistant": "王明先生，感谢您的确认。\n\n关于 **ECS.gn7e 实例** 的包月价格，需要根据您选择的 **实例规格** 和 **地域** 来确定。以下是以 **华东1",
+        "input_tokens": 1821,
+        "output_tokens": 489,
+        "overhead_tokens": 0,
+        "latency_ms": 5809.5
+      },
+      {
+        "turn": 7,
+        "user": "顺便聊下，你们公司最近的 AI 大会在哪个城市？",
+        "assistant": "王明先生，感谢您的关注。\n\n阿里云最近的 AI 大会是 **2024 年阿里云全球人工智能大会（AI Day）**，该活动于 **2024 年 6 月 5 日在",
+        "input_tokens": 2335,
+        "output_tokens": 139,
+        "overhead_tokens": 0,
+        "latency_ms": 3072.8
+      },
+      {
+        "turn": 8,
+        "user": "我们如果选了 ecs.gn7e，要怎么对接销售？",
+        "assistant": "王明先生，感谢您的信任。\n\n如果您决定使用 **ECS.gn7e 实例** 进行大模型推理服务部署，接下来的对接流程可以分为以下几个步骤，我会协助您完成：\n\n-",
+        "input_tokens": 2499,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 8613.0
+      },
+      {
+        "turn": 9,
+        "user": "好的，那帮我看看你们最近有什么活动。",
+        "assistant": "王明先生，感谢您的信任。\n\n目前阿里云针对大模型推理和 GPU 实例资源，有多个面向企业客户的 **促销活动** 和 **优惠方案**，特别是针对金融、风控等高",
+        "input_tokens": 3019,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 10743.3
+      },
+      {
+        "turn": 10,
+        "user": "我们今天聊了不少，帮我总结一下：(1) 我的名字和公司是什么？(2) 我们的业务是什么？(3) 我倾",
+        "assistant": "王明先生，感谢您今天的详细交流，以下是根据我们的对话为您整理的要点总结：\n\n---\n\n### ✅ **1. 您的名字和公司**  \n- **姓名**：王明  \n",
+        "input_tokens": 3595,
+        "output_tokens": 374,
+        "overhead_tokens": 0,
+        "latency_ms": 7674.0
+      }
+    ],
+    "total_input_tokens": 16287,
+    "total_output_tokens": 3628,
+    "overhead_tokens": 0,
+    "total_latency_ms": 61767.672061920166,
+    "final_answer": "王明先生，感谢您今天的详细交流，以下是根据我们的对话为您整理的要点总结：\n\n---\n\n### ✅ **1. 您的名字和公司**  \n- **姓名**：王明  \n- **公司**：ACME 数据公司  \n\n---\n\n### ✅ **2. 我们的业务**  \n- 金融风控领域  \n- 预计每天处理 **100 万次推理请求**  \n- 需要高并发、低延迟的大模型推理服务支持\n\n---\n\n### ✅ **3. 您倾向选的产品**  \n- **ECS.gn7e 实例**（基于 A100 GPU 的高性能计算实例）\n\n---\n\n### ✅ **4. 这个产品配的 GPU 型号和显存**  \n- **GPU 型号**：NVIDIA A100  \n- **显存**：80GB\n\n---\n\n### ✅ **5. 这个产品包月价格**  \n- **以华东1（杭州）为例**，典型配置价格如下（按包年包月计）：\n  - **gn7e.48xlarge**：约 **3,600 元/月**（32核 / 512GB内存 / A100 80GB）\n  - **gn7e.64xlarge**：约 **5,400 元/月**（48核 / 768GB内存 / A100 80GB）\n\n> 注：具体价格会根据地域、购买时长、优惠活动等有所变动。\n\n---\n\n如果您需要我帮您生成一份 **正式的资源规划建议书或报价单**，或者进一步对接销售团队，随时告诉我！祝您工作顺利！",
+    "recall_hits": [
+      [
+        "王明",
+        "姓名",
+        true
+      ],
+      [
+        "ACME",
+        "公司",
+        true
+      ],
+      [
+        "金融风控",
+        "业务",
+        true
+      ],
+      [
+        "ecs.gn7e",
+        "产品",
+        false
+      ],
+      [
+        "A100",
+        "GPU 型号",
+        true
+      ],
+      [
+        "80GB",
+        "显存",
+        true
+      ],
+      [
+        "35000",
+        "价格",
+        false
+      ]
+    ],
+    "recall_score": 5
+  },
+  {
+    "name": "write",
+    "turns": [
+      {
+        "turn": 1,
+        "user": "你好，我叫王明，是 ACME 数据公司的 CTO，我们想做大模型推理服务。",
+        "assistant": "你好，王明先生，很高兴认识您！我是阿里云的销售客服，非常感谢您对阿里云的关注。作为ACME数据公司的CTO，您对大模型推理服务有深入的需求，我们非常理解。\n\n阿",
+        "input_tokens": 65,
+        "output_tokens": 143,
+        "overhead_tokens": 295,
+        "latency_ms": 4200.4
+      },
+      {
+        "turn": 2,
+        "user": "我们主要业务是金融风控，预计每天处理 100 万次推理请求。",
+        "assistant": "好的，王明先生，感谢您的补充说明。了解到贵公司是金融风控领域，每天有100万次的推理请求，这对我们来说是一个非常重要的业务场景。\n\n针对这样的需求，我们可以提供",
+        "input_tokens": 90,
+        "output_tokens": 148,
+        "overhead_tokens": 322,
+        "latency_ms": 3687.1
+      },
+      {
+        "turn": 3,
+        "user": "请简单介绍下你们的 GPU 实例选项。",
+        "assistant": "我们提供多种GPU实例选项，以满足不同场景的需求。例如，针对深度学习训练和推理，我们有基于NVIDIA A100、T4和V100等高端GPU的实例类型，这些实例",
+        "input_tokens": 89,
+        "output_tokens": 103,
+        "overhead_tokens": 293,
+        "latency_ms": 5540.6
+      },
+      {
+        "turn": 4,
+        "user": "ecs.gn7e 配 A100 是吧？显存多大？",
+        "assistant": "是的，ECS GN7e 实例可以配置 NVIDIA A100 GPU。具体显存容量根据实例规格有所不同，常见的配置是 80GB 显存。如果您有特定的使用需求，我",
+        "input_tokens": 116,
+        "output_tokens": 54,
+        "overhead_tokens": 288,
+        "latency_ms": 2253.4
+      },
+      {
+        "turn": 5,
+        "user": "对比 ecs.gn7i 的 A10，性能差距大吗？",
+        "assistant": "ECS GN7i 实例主要配置的是 NVIDIA T4 GPU，而您提到的 A100 是更高端的 GPU。从性能上来说，A100 相比 T4 有显著提升，特别是",
+        "input_tokens": 133,
+        "output_tokens": 80,
+        "overhead_tokens": 358,
+        "latency_ms": 3685.3
+      },
+      {
+        "turn": 6,
+        "user": "我倾向选 ecs.gn7e，包月价格是多少？",
+        "assistant": "ECS GN7e 实例的包月价格会根据具体配置（如CPU、内存、GPU型号等）有所不同。您提到倾向选择 ECS GN7e 实例，该系列支持配置 NVIDIA A",
+        "input_tokens": 158,
+        "output_tokens": 125,
+        "overhead_tokens": 411,
+        "latency_ms": 3275.6
+      },
+      {
+        "turn": 7,
+        "user": "顺便聊下，你们公司最近的 AI 大会在哪个城市？",
+        "assistant": "您好，关于阿里云的AI大会具体举办城市，目前还没有正式公布。不过，阿里云每年都会在多个城市举办技术峰会和行业论坛，涵盖人工智能、大数据、云计算等前沿领域。如果您",
+        "input_tokens": 142,
+        "output_tokens": 74,
+        "overhead_tokens": 347,
+        "latency_ms": 2158.0
+      },
+      {
+        "turn": 8,
+        "user": "我们如果选了 ecs.gn7e，要怎么对接销售？",
+        "assistant": "如果您决定选择 ECS GN7e 实例，我们可以协助您对接销售团队以进一步确认配置、价格以及后续的部署和使用事宜。以下是具体的步骤：\n\n1. **联系阿里云官方",
+        "input_tokens": 142,
+        "output_tokens": 272,
+        "overhead_tokens": 523,
+        "latency_ms": 4683.9
+      },
+      {
+        "turn": 9,
+        "user": "好的，那帮我看看你们最近有什么活动。",
+        "assistant": "您好，王明先生！感谢您的咨询。我们最近有一个针对企业客户的特别活动，主要是为金融风控这类高并发、高性能需求的业务场景提供专属优惠。\n\n考虑到您每天处理100万次",
+        "input_tokens": 115,
+        "output_tokens": 175,
+        "overhead_tokens": 401,
+        "latency_ms": 3533.9
+      },
+      {
+        "turn": 10,
+        "user": "我们今天聊了不少，帮我总结一下：(1) 我的名字和公司是什么？(2) 我们的业务是什么？(3) 我倾",
+        "assistant": "好的，以下是根据我们今天的交流为您总结的信息：\n\n1. **您的名字和公司**：王明，ACME数据公司。  \n2. **我们的业务**：金融风控业务，每天处理1",
+        "input_tokens": 171,
+        "output_tokens": 146,
+        "overhead_tokens": 441,
+        "latency_ms": 2708.0
+      }
+    ],
+    "total_input_tokens": 1221,
+    "total_output_tokens": 1320,
+    "overhead_tokens": 3679,
+    "total_latency_ms": 35726.12118721008,
+    "final_answer": "好的，以下是根据我们今天的交流为您总结的信息：\n\n1. **您的名字和公司**：王明，ACME数据公司。  \n2. **我们的业务**：金融风控业务，每天处理100万次推理请求。  \n3. **您倾向选择的产品**：ECS GN7e 实例。  \n4. **这个产品配的 GPU 型号和显存**：GN7e 实例搭载的是 NVIDIA T4 GPU，显存为 16GB。  \n5. **这个产品包月价格**：具体价格会根据配置和使用时长有所不同，建议您联系阿里云销售团队获取详细报价。\n\n如有其他问题，欢迎随时咨询！",
+    "recall_hits": [
+      [
+        "王明",
+        "姓名",
+        true
+      ],
+      [
+        "ACME",
+        "公司",
+        true
+      ],
+      [
+        "金融风控",
+        "业务",
+        true
+      ],
+      [
+        "ecs.gn7e",
+        "产品",
+        false
+      ],
+      [
+        "A100",
+        "GPU 型号",
+        false
+      ],
+      [
+        "80GB",
+        "显存",
+        false
+      ],
+      [
+        "35000",
+        "价格",
+        false
+      ]
+    ],
+    "recall_score": 3
+  },
+  {
+    "name": "select",
+    "turns": [
+      {
+        "turn": 1,
+        "user": "你好，我叫王明，是 ACME 数据公司的 CTO，我们想做大模型推理服务。",
+        "assistant": "很高兴认识您，王明先生！我是阿里云的销售客服，非常感谢您对我们产品的关注。作为ACME数据公司的CTO，您对大模型推理服务的需求一定非常专业和具体。\n\n在开始之",
+        "input_tokens": 65,
+        "output_tokens": 125,
+        "overhead_tokens": 0,
+        "latency_ms": 3118.2
+      },
+      {
+        "turn": 2,
+        "user": "我们主要业务是金融风控，预计每天处理 100 万次推理请求。",
+        "assistant": "感谢您提供的信息，王明先生！\n\n了解到贵公司在金融风控领域有明确的业务场景，并且预计每天需要处理 100 万次推理请求，这属于典型的高并发、低延迟的推理需求。针",
+        "input_tokens": 220,
+        "output_tokens": 388,
+        "overhead_tokens": 0,
+        "latency_ms": 7108.3
+      },
+      {
+        "turn": 3,
+        "user": "请简单介绍下你们的 GPU 实例选项。",
+        "assistant": "好的，王明先生，以下是阿里云目前主要的 **GPU 实例选项**，适用于大模型推理、深度学习训练等高性能计算场景。这些实例基于NVIDIA GPU，具有强大的并",
+        "input_tokens": 629,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 8124.7
+      },
+      {
+        "turn": 4,
+        "user": "ecs.gn7e 配 A100 是吧？显存多大？",
+        "assistant": "是的，王明先生，您提到的 **ECS.GN7e** 实例确实搭载的是 **NVIDIA A100 GPU**，这是目前阿里云上性能最强的GPU实例之一。\n\n##",
+        "input_tokens": 1158,
+        "output_tokens": 291,
+        "overhead_tokens": 0,
+        "latency_ms": 9755.1
+      },
+      {
+        "turn": 5,
+        "user": "对比 ecs.gn7i 的 A10，性能差距大吗？",
+        "assistant": "王明先生，感谢您的提问。\n\n我们来对比一下 **ECS.GN7i（A10 GPU）** 和 **ECS.GN7e（A100 GPU）** 的性能差异，帮助您更好",
+        "input_tokens": 1318,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 8132.4
+      },
+      {
+        "turn": 6,
+        "user": "我倾向选 ecs.gn7e，包月价格是多少？",
+        "assistant": "王明先生，感谢您的确认。\n\n**ECS.GN7e** 实例是阿里云上性能非常强劲的 GPU 实例，适合高并发、大模型推理场景。关于 **包月价格**，具体会根据",
+        "input_tokens": 1424,
+        "output_tokens": 430,
+        "overhead_tokens": 0,
+        "latency_ms": 9051.5
+      },
+      {
+        "turn": 7,
+        "user": "顺便聊下，你们公司最近的 AI 大会在哪个城市？",
+        "assistant": "王明先生，感谢您的提问！\n\n阿里云最近的AI大会——**2025年阿里云全球人工智能大会（Apsara Conference 2025）**，将于 **中国杭州",
+        "input_tokens": 1154,
+        "output_tokens": 137,
+        "overhead_tokens": 0,
+        "latency_ms": 5740.0
+      },
+      {
+        "turn": 8,
+        "user": "我们如果选了 ecs.gn7e，要怎么对接销售？",
+        "assistant": "王明先生，感谢您的信任。\n\n如果您决定选择 **ECS.GN7e** 实例，并希望进一步对接销售或获取更详细的定制化服务（如资源规划、报价优化、合同签署等），可",
+        "input_tokens": 1358,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 9339.9
+      },
+      {
+        "turn": 9,
+        "user": "好的，那帮我看看你们最近有什么活动。",
+        "assistant": "王明先生，感谢您的关注！\n\n目前阿里云针对大模型推理服务和高性能计算场景（如ECS.GN7e实例）有以下几项**近期重点活动**，供您参考：\n\n---\n\n###",
+        "input_tokens": 897,
+        "output_tokens": 427,
+        "overhead_tokens": 0,
+        "latency_ms": 7987.4
+      },
+      {
+        "turn": 10,
+        "user": "我们今天聊了不少，帮我总结一下：(1) 我的名字和公司是什么？(2) 我们的业务是什么？(3) 我倾",
+        "assistant": "好的，王明先生，以下是您今天交流内容的总结：\n\n---\n\n### ✅ **1. 您的名字和公司是什么？**  \n- **姓名**：王明  \n- **公司**：贵",
+        "input_tokens": 1502,
+        "output_tokens": 401,
+        "overhead_tokens": 0,
+        "latency_ms": 8443.3
+      }
+    ],
+    "total_input_tokens": 9725,
+    "total_output_tokens": 3699,
+    "overhead_tokens": 0,
+    "total_latency_ms": 76800.78506469727,
+    "final_answer": "好的，王明先生，以下是您今天交流内容的总结：\n\n---\n\n### ✅ **1. 您的名字和公司是什么？**  \n- **姓名**：王明  \n- **公司**：贵公司名称（您尚未提供，如需后续沟通请补充）  \n\n---\n\n### ✅ **2. 您们的业务是什么？**  \n- 金融风控领域，预计每天处理 **100万次推理请求**。  \n- 主要用于实时风险评估、欺诈检测、用户行为分析等场景。\n\n---\n\n### ✅ **3. 您倾向选哪个产品？**  \n- **ECS.GN7e** 实例（基于 NVIDIA A100 GPU 的高性能 GPU 实例）。\n\n---\n\n### ✅ **4. 这个产品配的 GPU 型号和显存？**  \n- **GPU 型号**：NVIDIA A100  \n- **显存**：80GB\n\n---\n\n### ✅ **5. 这个产品包月价格？**  \n- 以标准配置为例（具体以阿里云官网为准）：  \n  - **ecs.gn7e.xlarge**：¥2,500~¥3,000/月  \n  - **ecs.gn7e.2xlarge**：¥4,500~¥5,500/月  \n  - **ecs.gn7e.4xlarge**：¥9,000~¥11,000/月  \n\n> ⚠️ 上述价格为估算值，实际价格可能因地区、可用区、购买时长等因素有所不同。\n\n---\n\n如您需要我帮您生成一份详细的 **资源规划建议书** 或 **报价方案**，请告知您的 **预算范围、并发量、模型类型** 等信息，我将为您进一步优化推荐。欢迎随时联系！",
+    "recall_hits": [
+      [
+        "王明",
+        "姓名",
+        true
+      ],
+      [
+        "ACME",
+        "公司",
+        false
+      ],
+      [
+        "金融风控",
+        "业务",
+        true
+      ],
+      [
+        "ecs.gn7e",
+        "产品",
+        true
+      ],
+      [
+        "A100",
+        "GPU 型号",
+        true
+      ],
+      [
+        "80GB",
+        "显存",
+        true
+      ],
+      [
+        "35000",
+        "价格",
+        false
+      ]
+    ],
+    "recall_score": 5
+  },
+  {
+    "name": "compress",
+    "turns": [
+      {
+        "turn": 1,
+        "user": "你好，我叫王明，是 ACME 数据公司的 CTO，我们想做大模型推理服务。",
+        "assistant": "很高兴认识您，王明先生！我是阿里云的销售客服，非常感谢您对我们产品的关注。作为ACME数据公司的CTO，您对大模型推理服务的需求一定非常具体和专业。\n\n在开始之",
+        "input_tokens": 65,
+        "output_tokens": 131,
+        "overhead_tokens": 0,
+        "latency_ms": 2826.3
+      },
+      {
+        "turn": 2,
+        "user": "我们主要业务是金融风控，预计每天处理 100 万次推理请求。",
+        "assistant": "感谢您提供的信息，王明先生！\n\n了解到贵公司主要业务是金融风控，并且预计每天处理 100 万次推理请求，这说明您的业务对大模型的稳定性、性能和实时性都有较高的要",
+        "input_tokens": 226,
+        "output_tokens": 232,
+        "overhead_tokens": 0,
+        "latency_ms": 5816.6
+      },
+      {
+        "turn": 3,
+        "user": "请简单介绍下你们的 GPU 实例选项。",
+        "assistant": "好的，王明先生，以下是阿里云目前主要的 **GPU 实例选项**，适用于大模型推理、训练等场景，尤其适合金融风控这类对算力要求较高的业务：\n\n---\n\n### ",
+        "input_tokens": 479,
+        "output_tokens": 500,
+        "overhead_tokens": 1123,
+        "latency_ms": 7269.8
+      },
+      {
+        "turn": 4,
+        "user": "ecs.gn7e 配 A100 是吧？显存多大？",
+        "assistant": "是的，**ECS.Gn7e 实例** 是阿里云提供的高性能计算型 GPU 实例，搭载的是 **NVIDIA A100 GPU**。\n\n### ECS.Gn7e ",
+        "input_tokens": 961,
+        "output_tokens": 211,
+        "overhead_tokens": 0,
+        "latency_ms": 5118.5
+      },
+      {
+        "turn": 5,
+        "user": "对比 ecs.gn7i 的 A10，性能差距大吗？",
+        "assistant": "您好，关于 **ECS.Gn7i** 实例与 **ECS.Gn7e** 实例的性能对比，您提到的“**A10**”可能是笔误，因为阿里云的 **Gn7i** 系",
+        "input_tokens": 936,
+        "output_tokens": 500,
+        "overhead_tokens": 0,
+        "latency_ms": 7268.4
+      },
+      {
+        "turn": 6,
+        "user": "我倾向选 ecs.gn7e，包月价格是多少？",
+        "assistant": "您好，关于 **ECS.Gn7e** 实例的包月价格，具体价格会根据实例规格（如 GPU 数量、CPU 核数、内存大小等）以及地域不同而有所差异。\n\n以下是一个",
+        "input_tokens": 939,
+        "output_tokens": 500,
+        "overhead_tokens": 1612,
+        "latency_ms": 7896.0
+      },
+      {
+        "turn": 7,
+        "user": "顺便聊下，你们公司最近的 AI 大会在哪个城市？",
+        "assistant": "您好，感谢您的关注！阿里云近期确实会举办多场与AI相关的技术大会和活动，具体城市和时间会根据不同的主题和区域安排。\n\n目前，**2024年阿里云AI技术大会（A",
+        "input_tokens": 1266,
+        "output_tokens": 192,
+        "overhead_tokens": 0,
+        "latency_ms": 3607.6
+      },
+      {
+        "turn": 8,
+        "user": "我们如果选了 ecs.gn7e，要怎么对接销售？",
+        "assistant": "您好，感谢您的信任！如果您决定使用 **ECS.Gn7e** 实例并希望进一步对接销售团队，可以按照以下步骤操作：\n\n---\n\n### ✅ 1. **通过阿里云",
+        "input_tokens": 957,
+        "output_tokens": 421,
+        "overhead_tokens": 0,
+        "latency_ms": 6446.0
+      },
+      {
+        "turn": 9,
+        "user": "好的，那帮我看看你们最近有什么活动。",
+        "assistant": "您好，感谢您的信任！阿里云近期为支持企业客户在AI、大数据、云计算等领域的创新与部署，推出了多项针对大模型推理、GPU实例采购以及企业级服务的优惠活动。以下是几",
+        "input_tokens": 874,
+        "output_tokens": 500,
+        "overhead_tokens": 1565,
+        "latency_ms": 7524.2
+      },
+      {
+        "turn": 10,
+        "user": "我们今天聊了不少，帮我总结一下：(1) 我的名字和公司是什么？(2) 我们的业务是什么？(3) 我倾",
+        "assistant": "好的，以下是根据我们今天的沟通内容为您整理的总结：\n\n---\n\n### ✅ **1. 您的名字和公司：**  \n- **姓名：** 王明  \n- **公司：**",
+        "input_tokens": 1245,
+        "output_tokens": 261,
+        "overhead_tokens": 0,
+        "latency_ms": 3591.1
+      }
+    ],
+    "total_input_tokens": 7948,
+    "total_output_tokens": 3448,
+    "overhead_tokens": 4300,
+    "total_latency_ms": 57364.3798828125,
+    "final_answer": "好的，以下是根据我们今天的沟通内容为您整理的总结：\n\n---\n\n### ✅ **1. 您的名字和公司：**  \n- **姓名：** 王明  \n- **公司：** ACME数据公司  \n\n---\n\n### ✅ **2. 您的业务：**  \n- 部署大模型推理服务用于**金融风控**场景。  \n- 预计每天处理**100万次请求**。\n\n---\n\n### ✅ **3. 您倾向选择的产品：**  \n- **ECS.Gn7e 系列 GPU 实例**\n\n---\n\n### ✅ **4. 该产品配备的 GPU 型号和显存：**  \n- **GPU 型号：** NVIDIA A100  \n- **显存：** 80GB\n\n---\n\n### ✅ **5. 该产品的包月价格：**  \n- 大致范围为 **¥6,500 ~ ¥7,600/月**（具体价格可能因配置、地区、折扣活动而有所不同）\n\n---\n\n如果您需要进一步的报价、商务支持或活动详情，我随时可以协助您推进。是否需要我帮您发送这份总结给您的团队或联系销售经理？",
+    "recall_hits": [
+      [
+        "王明",
+        "姓名",
+        true
+      ],
+      [
+        "ACME",
+        "公司",
+        true
+      ],
+      [
+        "金融风控",
+        "业务",
+        true
+      ],
+      [
+        "ecs.gn7e",
+        "产品",
+        false
+      ],
+      [
+        "A100",
+        "GPU 型号",
+        true
+      ],
+      [
+        "80GB",
+        "显存",
+        true
+      ],
+      [
+        "35000",
+        "价格",
+        false
+      ]
+    ],
+    "recall_score": 5
+  }
+]
