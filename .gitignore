@@ -18,6 +18,10 @@ finetune/lora_adapter/0*_adapters.safetensors
 # 例外：保留最终的 adapters.safetensors（让别人能复现 LoRA）
 !finetune/lora_adapter/adapters.safetensors
 
+# DPO adapter: 排除 checkpoint，保留最终 adapter
+finetune/dpo_adapter/checkpoint-*/
+!finetune/dpo_adapter/adapter_model.safetensors
+
 # Logs
 *.log
 

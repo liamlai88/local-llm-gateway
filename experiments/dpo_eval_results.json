@@ -1,0 +1,224 @@
+{
+  "base": {
+    "summary": {
+      "json_rate": 1.0,
+      "plan_rate": 1.0,
+      "markdown_rate": 0.2,
+      "preamble_rate": 0.0,
+      "avg_length": 183.4
+    },
+    "results": [
+      {
+        "i": 1,
+        "user": "21 减去 15 等于多少？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 148,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"calculator\",\n      \"args\": {\"expression\": \"21 - 15\"},\n      \"purpose\": \"计算21减去15的结果\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 2,
+        "user": "灵骏集群是什么？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 99,
+        "raw": "{\"plan\": [{\"step\": 1, \"tool\": \"kb_search\", \"args\": {\"query\": \"灵骏集群\"}, \"purpose\": \"获取关于灵骏集群的相关信息\"}]}"
+      },
+      {
+        "i": 3,
+        "user": "GPU 实例的 SLA 怎么保障？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 113,
+        "raw": "{\"plan\": [{\"step\": 1, \"tool\": \"kb_search\", \"args\": {\"query\": \"GPU实例SLA保障\"}, \"purpose\": \"获取关于 GPU 实例 SLA 的相关信息\"}]}"
+      },
+      {
+        "i": 4,
+        "user": "再见",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": true,
+        "has_preamble": false,
+        "length": 163,
+        "raw": "```json\n{\n    \"plan\": [\n        {\n            \"step\": 1,\n            \"tool\": \"calculator\",\n            \"args\": {},\n            \"purpose\": \"无\"\n        }\n    ]\n}\n```"
+      },
+      {
+        "i": 5,
+        "user": "176 减去 21 等于多少？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 150,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"calculator\",\n      \"args\": {\"expression\": \"176 - 21\"},\n      \"purpose\": \"计算176减去21的结果\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 6,
+        "user": "查一下武汉的气温",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 138,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"get_weather\",\n      \"args\": {\"city\": \"武汉\"},\n      \"purpose\": \"获取武汉的当前天气信息\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 7,
+        "user": "请计算 97 乘 6 的结果",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 146,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"calculator\",\n      \"args\": {\"expression\": \"97 * 6\"},\n      \"purpose\": \"计算 97 乘以 6\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 8,
+        "user": "东京和杭州的气温差是多少？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 313,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"kb_search\",\n      \"args\": {\n        \"query\": \"东京和杭州的气温\"\n      },\n      \"purpose\": \"获取东京和杭州的气温信息\"\n    },\n    {\n      \"step\": 2,\n      \"tool\": \"calcul"
+      },
+      {
+        "i": 9,
+        "user": "谢谢",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": true,
+        "has_preamble": false,
+        "length": 168,
+        "raw": "```json\n{\n    \"plan\": [\n        {\n            \"step\": 1,\n            \"tool\": \"calculator\",\n            \"args\": {},\n            \"purpose\": \"无需使用工具\"\n        }\n    ]\n}\n```"
+      },
+      {
+        "i": 10,
+        "user": "杭州减去迪拜的气温",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 396,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"get_weather\",\n      \"args\": {\"city\": \"杭州\"},\n      \"purpose\": \"获取杭州的当前温度\"\n    },\n    {\n      \"step\": 2,\n      \"tool\": \"get_weather\",\n      \"args\": {\""
+      }
+    ]
+  },
+  "dpo": {
+    "summary": {
+      "json_rate": 1.0,
+      "plan_rate": 1.0,
+      "markdown_rate": 0.1,
+      "preamble_rate": 0.0,
+      "avg_length": 167.8
+    },
+    "results": [
+      {
+        "i": 1,
+        "user": "21 减去 15 等于多少？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 148,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"calculator\",\n      \"args\": {\"expression\": \"21 - 15\"},\n      \"purpose\": \"计算21减去15的结果\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 2,
+        "user": "灵骏集群是什么？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 99,
+        "raw": "{\"plan\": [{\"step\": 1, \"tool\": \"kb_search\", \"args\": {\"query\": \"灵骏集群\"}, \"purpose\": \"获取关于灵骏集群的相关信息\"}]}"
+      },
+      {
+        "i": 3,
+        "user": "GPU 实例的 SLA 怎么保障？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 113,
+        "raw": "{\"plan\": [{\"step\": 1, \"tool\": \"kb_search\", \"args\": {\"query\": \"GPU实例SLA保障\"}, \"purpose\": \"获取关于 GPU 实例 SLA 的相关信息\"}]}"
+      },
+      {
+        "i": 4,
+        "user": "再见",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": true,
+        "has_preamble": false,
+        "length": 163,
+        "raw": "```json\n{\n    \"plan\": [\n        {\n            \"step\": 1,\n            \"tool\": \"calculator\",\n            \"args\": {},\n            \"purpose\": \"无\"\n        }\n    ]\n}\n```"
+      },
+      {
+        "i": 5,
+        "user": "176 减去 21 等于多少？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 150,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"calculator\",\n      \"args\": {\"expression\": \"176 - 21\"},\n      \"purpose\": \"计算176减去21的结果\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 6,
+        "user": "查一下武汉的气温",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 138,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"get_weather\",\n      \"args\": {\"city\": \"武汉\"},\n      \"purpose\": \"获取武汉的当前天气信息\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 7,
+        "user": "请计算 97 乘 6 的结果",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 146,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"calculator\",\n      \"args\": {\"expression\": \"97 * 6\"},\n      \"purpose\": \"计算 97 乘以 6\"\n    }\n  ]\n}"
+      },
+      {
+        "i": 8,
+        "user": "东京和杭州的气温差是多少？",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 313,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"kb_search\",\n      \"args\": {\n        \"query\": \"东京和杭州的气温\"\n      },\n      \"purpose\": \"获取东京和杭州的气温信息\"\n    },\n    {\n      \"step\": 2,\n      \"tool\": \"calcul"
+      },
+      {
+        "i": 9,
+        "user": "谢谢",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 12,
+        "raw": "{\"plan\": []}"
+      },
+      {
+        "i": 10,
+        "user": "杭州减去迪拜的气温",
+        "is_json": true,
+        "has_plan": true,
+        "has_markdown": false,
+        "has_preamble": false,
+        "length": 396,
+        "raw": "{\n  \"plan\": [\n    {\n      \"step\": 1,\n      \"tool\": \"get_weather\",\n      \"args\": {\"city\": \"杭州\"},\n      \"purpose\": \"获取杭州的当前温度\"\n    },\n    {\n      \"step\": 2,\n      \"tool\": \"get_weather\",\n      \"args\": {\""
+      }
+    ]
+  }
+}
