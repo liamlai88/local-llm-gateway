@@ -1,0 +1,223 @@
+{
+  "graph_stats": {
+    "nodes": 31,
+    "edges": 24,
+    "build_time_s": 28.99822497367859
+  },
+  "graph_edges": [
+    [
+      "包月套餐 PRO",
+      "ecs.gn7e 实例",
+      "包含"
+    ],
+    [
+      "包月套餐 PRO",
+      "1TB 存储",
+      "包含"
+    ],
+    [
+      "包月套餐 PRO",
+      "100GB 流量",
+      "包含"
+    ],
+    [
+      "包月套餐 PRO",
+      "¥40000/月",
+      "总价"
+    ],
+    [
+      "包月套餐 LITE",
+      "ecs.gn7i 实例",
+      "包含"
+    ],
+    [
+      "包月套餐 LITE",
+      "500GB 存储",
+      "包含"
+    ],
+    [
+      "包月套餐 LITE",
+      "50GB 流量",
+      "包含"
+    ],
+    [
+      "包月套餐 LITE",
+      "¥12000/月",
+      "总价"
+    ],
+    [
+      "ecs.gn7e-c12g1.3xlarge 实例",
+      "NVIDIA A100 GPU",
+      "使用"
+    ],
+    [
+      "ecs.gn7e-c12g1.3xlarge 实例",
+      "¥68/小时",
+      "按量付费"
+    ],
+    [
+      "ecs.gn7e-c12g1.3xlarge 实例",
+      "¥35000",
+      "包月"
+    ],
+    [
+      "ecs.gn7i-c8g1.2xlarge 实例",
+      "NVIDIA A10 GPU",
+      "使用"
+    ],
+    [
+      "ecs.gn7i-c8g1.2xlarge 实例",
+      "¥18/小时",
+      "按量付费"
+    ],
+    [
+      "ecs.gn7i-c8g1.2xlarge 实例",
+      "¥9800",
+      "包月"
+    ],
+    [
+      "NVIDIA A100",
+      "80GB",
+      "显存"
+    ],
+    [
+      "NVIDIA A100",
+      "312 TFLOPS",
+      "算力"
+    ],
+    [
+      "NVIDIA A10",
+      "24GB",
+      "显存"
+    ],
+    [
+      "NVIDIA A10",
+      "125 TFLOPS",
+      "算力"
+    ],
+    [
+      "张三",
+      "技术 VP",
+      "是"
+    ],
+    [
+      "李四",
+      "张三的下属",
+      "是"
+    ],
+    [
+      "李四",
+      "GenAI 平台组组长",
+      "是"
+    ],
+    [
+      "李四",
+      "ecs.gn7i 实例",
+      "负责"
+    ],
+    [
+      "王五",
+      "李四的下属",
+      "是"
+    ],
+    [
+      "王五",
+      "ecs.gn7e 实例",
+      "负责"
+    ]
+  ],
+  "results": {
+    "naive_rag": [
+      {
+        "q": "A100 比 A10 多多少显存？",
+        "answer": "根据知识图谱事实，NVIDIA A100 显存为 80GB，NVIDIA A10 显存为 24GB。  \n计算 A100 比 A10 多的显存：  \n80GB - 24GB = 56GB  \n\n答案：A100 比 A10 多 56GB 显存。",
+        "ok": true,
+        "latency_ms": 11461.9
+      },
+      {
+        "q": "ecs.gn7e 用的 GPU 比 ecs.gn7i 用的 GPU 多多少显存？",
+        "answer": "根据知识图谱事实，ecs.gn7e-c12g1.3xlarge 实例使用 NVIDIA A100 GPU，ecs.gn7i-c8g1.2xlarge 实例使用 NVIDIA A10 GPU。\n\nNVIDIA A100 GPU 显存为 80 GB，NVIDIA A10 GPU 显存为 24 GB。\n\n计算显存差值：  \n80 GB - 24 GB = **56 GB**\n\n答案：**56 GB**",
+        "ok": true,
+        "latency_ms": 9743.5
+      },
+      {
+        "q": "包月套餐 PRO 里的 GPU 实例按量付费每小时多少钱？",
+        "answer": "根据知识图谱事实，包月套餐 PRO 包含 ecs.gn7e-c12g1.3xlarge 实例，该实例的按量付费价格为 ¥68/小时。\n\n因此，包月套餐 PRO 里的 GPU 实例按量付费每小时价格为 **¥68**。",
+        "ok": true,
+        "latency_ms": 7661.4
+      },
+      {
+        "q": "李四的上级负责什么 GPU 实例？",
+        "answer": "根据知识图谱事实：\n\n- 张三是技术 VP，李四是张三的下属。\n- 李四的上级是张三。\n\n但知识图谱中没有提到张三负责任何 GPU 实例。\n\n**答案：无法确定**",
+        "ok": false,
+        "latency_ms": 6299.8
+      },
+      {
+        "q": "张三的下属的下属负责的产品包月多少钱？",
+        "answer": "根据知识图谱事实，张三是技术 VP，李四是张三的下属。但没有提供关于“李四的下属”或其负责的产品包月价格的信息。因此，无法确定张三的下属的下属负责的产品包月价格。\n\n答案：无法确定。",
+        "ok": false,
+        "latency_ms": 7678.8
+      }
+    ],
+    "graphrag": [
+      {
+        "q": "A100 比 A10 多多少显存？",
+        "answer": "ERROR: HTTPSConnectionPool(host='dashscope.aliyuncs.com', port=443): Max retries exceeded with url: /compatible-mode/v1/chat/completions (Caused by SSLError(SSLEOFError(8, '[SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1081)')))",
+        "ok": false,
+        "latency_ms": 0,
+        "seeds": [],
+        "context": ""
+      },
+      {
+        "q": "ecs.gn7e 用的 GPU 比 ecs.gn7i 用的 GPU 多多少显存？",
+        "answer": "根据知识图谱事实，可以推断出以下信息：\n\n- (ecs.gn7e-c12g1.3xlarge 实例) --[使用]--> (NVIDIA A100 GPU)\n- (ecs.gn7i-c8g1.2xlarge 实例) --[使用]--> (NVIDIA A10 GPU)\n\nNVIDIA A100 GPU 的显存为 80GB，而 NVIDIA A10 GPU 的显存为 24GB。\n\n因此，ecs.gn7e 使用的 GPU 比 ecs.gn7i 使用的 GPU 多出的显存为：  \n**80GB - 24GB = 56GB**\n\n答案：**56GB**",
+        "ok": true,
+        "latency_ms": 9196.0,
+        "seeds": [
+          "ecs.gn7e 实例",
+          "ecs.gn7i 实例",
+          "NVIDIA A100 GPU",
+          "NVIDIA A10 GPU"
+        ],
+        "context": "(包月套餐 PRO) --[包含]--> (ecs.gn7e 实例)\n(包月套餐 PRO) --[包含]--> (1TB 存储)\n(包月套餐 PRO) --[包含]--> (100GB 流量)\n(包月套餐 PRO) --[总价]--> (¥40000/月)\n(包月套餐 LITE) --[包含]--> (ecs.gn7i 实例)\n(包月套餐 LITE) --[包含]--> (500GB 存储)\n(包月套餐 LITE) --[包含]--> (50GB 流量)\n(包月套餐 LITE) --[总价]--> (¥12000/月)\n(ecs.gn7e-c12g1.3xlarge 实例) --[使用]--> (NVIDIA A100 GPU)\n(ecs.gn7e-c12g1.3xlarge 实例) --[按量付费]--> (¥68/小时)\n(ecs.gn7e-c12g1.3xlarge 实例) --[包月]--> (¥35000)\n(ecs.gn7i-c8g1.2xlarge 实例) --[使用]--> (NVIDIA A10 GPU)\n(ecs.gn7i-c8g1.2xlarge 实例) --[按量付费]--> (¥18/小时)\n(ecs.gn7i-c8g1.2xlarge 实例) --[包月]--> (¥9800)\n(李四) --[是]--> (张三的下属)\n(李四) --[是]--> (GenAI 平台组组长)\n(李四) --[负责]--> (ecs.gn7i 实例)\n(王五) --[是]--> (李四的下属)\n(王五) --[负责]--> (ecs.gn7e 实例)"
+      },
+      {
+        "q": "包月套餐 PRO 里的 GPU 实例按量付费每小时多少钱？",
+        "answer": "根据知识图谱事实，包月套餐 PRO 包含 (ecs.gn7e-c12g1.3xlarge 实例)，而 (ecs.gn7e-c12g1.3xlarge 实例) 的按量付费价格为 ¥68/小时。\n\n因此，包月套餐 PRO 里的 GPU 实例按量付费每小时的价格是 **¥68**。",
+        "ok": true,
+        "latency_ms": 5017.3,
+        "seeds": [
+          "包月套餐 PRO",
+          "¥68/小时"
+        ],
+        "context": "(包月套餐 PRO) --[包含]--> (ecs.gn7e 实例)\n(包月套餐 PRO) --[包含]--> (1TB 存储)\n(包月套餐 PRO) --[包含]--> (100GB 流量)\n(包月套餐 PRO) --[总价]--> (¥40000/月)\n(ecs.gn7e-c12g1.3xlarge 实例) --[使用]--> (NVIDIA A100 GPU)\n(ecs.gn7e-c12g1.3xlarge 实例) --[按量付费]--> (¥68/小时)\n(ecs.gn7e-c12g1.3xlarge 实例) --[包月]--> (¥35000)\n(王五) --[负责]--> (ecs.gn7e 实例)"
+      },
+      {
+        "q": "李四的上级负责什么 GPU 实例？",
+        "answer": "根据知识图谱事实，(王五) --[是]--> (李四的下属)，因此李四的上级是王五的上级。但知识图谱中没有直接给出李四的上级是谁，因此无法确定李四的上级负责什么 GPU 实例。\n\n答案：无法确定。",
+        "ok": false,
+        "latency_ms": 4079.6,
+        "seeds": [
+          "李四的下属",
+          "NVIDIA A100",
+          "NVIDIA A10"
+        ],
+        "context": "(NVIDIA A100) --[显存]--> (80GB)\n(NVIDIA A100) --[算力]--> (312 TFLOPS)\n(NVIDIA A10) --[显存]--> (24GB)\n(NVIDIA A10) --[算力]--> (125 TFLOPS)\n(王五) --[是]--> (李四的下属)\n(王五) --[负责]--> (ecs.gn7e 实例)"
+      },
+      {
+        "q": "张三的下属的下属负责的产品包月多少钱？",
+        "answer": "根据知识图谱事实，张三的下属是李四。李四负责的是 ecs.gn7i 实例，而 ecs.gn7i 实例属于包月套餐 LITE。包月套餐 LITE 的总价为 ¥12000/月。\n\n因此，张三的下属的下属负责的产品包月价格为：  \n**¥12000/月**",
+        "ok": false,
+        "latency_ms": 4505.2,
+        "seeds": [
+          "张三的下属",
+          "包月套餐 PRO",
+          "包月套餐 LITE",
+          "¥40000/月",
+          "¥12000/月"
+        ],
+        "context": "(包月套餐 PRO) --[包含]--> (ecs.gn7e 实例)\n(包月套餐 PRO) --[包含]--> (1TB 存储)\n(包月套餐 PRO) --[包含]--> (100GB 流量)\n(包月套餐 PRO) --[总价]--> (¥40000/月)\n(包月套餐 LITE) --[包含]--> (ecs.gn7i 实例)\n(包月套餐 LITE) --[包含]--> (500GB 存储)\n(包月套餐 LITE) --[包含]--> (50GB 流量)\n(包月套餐 LITE) --[总价]--> (¥12000/月)\n(李四) --[是]--> (张三的下属)\n(李四) --[是]--> (GenAI 平台组组长)\n(李四) --[负责]--> (ecs.gn7i 实例)\n(王五) --[负责]--> (ecs.gn7e 实例)"
+      }
+    ]
+  }
+}

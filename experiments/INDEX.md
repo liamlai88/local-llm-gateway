@@ -20,6 +20,7 @@
 | 10 | [Dify 对比手写](10-Dify对比手写.md) | 1 小时拖出审核 API，4/4 | Dify ≠ 替代代码，是组织效率 |
 | 11 | [LangChain 与 LangGraph 对比](11-LangChain与LangGraph对比.md) | StateGraph 4/4 / 533ms / -62% 代码 | 框架做 80% + 创新做剩下的 20% |
 | 12 | [Reflection 范式负面验证](12-Reflection范式负面验证.md) | 87.5% → 87.5%，+38% 延迟 | Reflection 只能修推理错，修不了事实错 |
+| 13 | [GraphRAG 多跳检索负面验证](13-GraphRAG多跳检索负面验证.md) | Naive 100% > GraphRAG 75% | 抽取质量决定一切，小 KB 朴素 RAG 已够用 |
 
 **核心叙事链**：
 ```
