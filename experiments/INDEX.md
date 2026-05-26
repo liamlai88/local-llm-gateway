@@ -27,6 +27,7 @@
 | 16 | [DPO 偏好对齐](16-DPO偏好对齐.md) | Markdown 包裹率 20%→10%，输出长度 -8.5% | SFT 拉地板，DPO 抬天花板 |
 | 17 | [Prompt Injection 防御](17-PromptInjection防御.md) | RAG/Agent 失守 25%→0-6%，pure_llm 加防御反升 | 正则 sanitize 是低垂果实，过度防御有反作用 |
 | 18 | [语义缓存降本](18-语义缓存降本.md) | v1 28% → v2 40% 命中率，C 同义 4/10→10/10 | 三层架构对 cache 同样有效；rerank 是相对排序 |
+| 19 | [A/B Testing + 在线评测 + 自动回滚](19-ABTesting在线评测.md) | CoT 长度 +186% / 延迟 +40%（显著），质量无显著差 | A/B 是 prompt 工程底线；决策引擎拦工程师拍脑袋 |
 
 **核心叙事链**：
 ```

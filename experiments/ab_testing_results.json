@@ -1,0 +1,434 @@
+{
+  "stats": {
+    "A_simple": {
+      "n": 15,
+      "faithfulness": 0.8486666666666667,
+      "relevance": 1.0,
+      "latency_ms": 1617.3666666666666,
+      "length": 39.333333333333336,
+      "avg_input_tokens": 299.4,
+      "avg_output_tokens": 27.466666666666665
+    },
+    "B_cot": {
+      "n": 15,
+      "faithfulness": 0.828,
+      "relevance": 0.95,
+      "latency_ms": 2265.1200000000003,
+      "length": 112.0,
+      "avg_input_tokens": 351.26666666666665,
+      "avg_output_tokens": 76.4
+    },
+    "_tests": {
+      "faithfulness": {
+        "t": -0.174,
+        "df": 27.2,
+        "p": 0.5692,
+        "significant": false,
+        "mean_a": 0.8487,
+        "mean_b": 0.828,
+        "delta": -0.0207
+      },
+      "relevance": {
+        "t": -1.382,
+        "df": 14.0,
+        "p": 0.9165,
+        "significant": false,
+        "mean_a": 1.0,
+        "mean_b": 0.95,
+        "delta": -0.05
+      },
+      "length": {
+        "t": 8.491,
+        "df": 23.5,
+        "p": 0.0,
+        "significant": true,
+        "mean_a": 39.3333,
+        "mean_b": 112.0,
+        "delta": 72.6667
+      },
+      "latency_ms": {
+        "t": 4.188,
+        "df": 21.1,
+        "p": 0.0,
+        "significant": true,
+        "mean_a": 1617.3667,
+        "mean_b": 2265.12,
+        "delta": 647.7533
+      }
+    },
+    "_compared": [
+      "A_simple",
+      "B_cot"
+    ]
+  },
+  "decision": {
+    "decision": "hold",
+    "reason": "无统计显著差异，继续观察"
+  },
+  "records": {
+    "A_simple": [
+      {
+        "user_id": "u001",
+        "variant": "A_simple",
+        "query": "ecs.gn7e 配什么 GPU？",
+        "answer": "ecs.gn7e 配备 NVIDIA A100 GPU，拥有 80GB 显存。",
+        "latency_ms": 1868.2,
+        "input_tokens": 301,
+        "output_tokens": 24,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 39
+      },
+      {
+        "user_id": "u002",
+        "variant": "A_simple",
+        "query": "包月套餐 PRO 多少钱？",
+        "answer": "包月套餐 PRO 价格是 40000 元/月。",
+        "latency_ms": 1431.9,
+        "input_tokens": 300,
+        "output_tokens": 18,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 23
+      },
+      {
+        "user_id": "u003",
+        "variant": "A_simple",
+        "query": "A100 显存多大",
+        "answer": "NVIDIA A100 显存为 80GB。",
+        "latency_ms": 1380.0,
+        "input_tokens": 300,
+        "output_tokens": 15,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 21
+      },
+      {
+        "user_id": "u005",
+        "variant": "A_simple",
+        "query": "ecs.gn7i 适合什么场景",
+        "answer": "ECS.GN7I 适合中等规模的深度学习训练和推理场景，如图像识别、自然语言处理等。其配置为 NVIDIA A10 GPU，24GB 显存，性价比高。",
+        "latency_ms": 1662.2,
+        "input_tokens": 300,
+        "output_tokens": 47,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 75
+      },
+      {
+        "user_id": "u008",
+        "variant": "A_simple",
+        "query": "A10 和 A100 性能差距",
+        "answer": "A100 性能远超 A10，算力是 A10 的 2.5 倍以上。适合高性能计算和大规模 AI 训练。",
+        "latency_ms": 2044.0,
+        "input_tokens": 303,
+        "output_tokens": 39,
+        "faithfulness": 0.5,
+        "relevance": 1.0,
+        "length": 50
+      },
+      {
+        "user_id": "u013",
+        "variant": "A_simple",
+        "query": "SLA 是多少",
+        "answer": "SLA 是 99.95% 可用性，故障 30 分钟内响应。",
+        "latency_ms": 1293.8,
+        "input_tokens": 295,
+        "output_tokens": 24,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 29
+      },
+      {
+        "user_id": "u015",
+        "variant": "A_simple",
+        "query": "A100 算力多强",
+        "answer": "NVIDIA A100 GPU 提供 312 TFLOPS 算力，是目前市场上最强的 GPU 之一。",
+        "latency_ms": 1363.4,
+        "input_tokens": 301,
+        "output_tokens": 30,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 50
+      },
+      {
+        "user_id": "u016",
+        "variant": "A_simple",
+        "query": "退款多久到账",
+        "answer": "退款将在审核通过后3个工作日内到账。需在购买后7天内申请。",
+        "latency_ms": 1841.6,
+        "input_tokens": 294,
+        "output_tokens": 19,
+        "faithfulness": 0.99,
+        "relevance": 1.0,
+        "length": 29
+      },
+      {
+        "user_id": "u017",
+        "variant": "A_simple",
+        "query": "买包月比按量付费划算吗",
+        "answer": "包月通常更划算，尤其长期使用时。按需付费适合短期或灵活需求。",
+        "latency_ms": 1359.9,
+        "input_tokens": 300,
+        "output_tokens": 20,
+        "faithfulness": 0.5,
+        "relevance": 1.0,
+        "length": 30
+      },
+      {
+        "user_id": "u020",
+        "variant": "A_simple",
+        "query": "新加坡可以使用 ecs.gn7e 吗",
+        "answer": "可以，ecs.gn7e 支持新加坡地区。",
+        "latency_ms": 1906.7,
+        "input_tokens": 301,
+        "output_tokens": 13,
+        "faithfulness": 0.0,
+        "relevance": 1.0,
+        "length": 20
+      },
+      {
+        "user_id": "u024",
+        "variant": "A_simple",
+        "query": "工单响应多快",
+        "answer": "普通工单24小时内响应，紧急工单30分钟内响应。",
+        "latency_ms": 1226.2,
+        "input_tokens": 296,
+        "output_tokens": 17,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 24
+      },
+      {
+        "user_id": "u025",
+        "variant": "A_simple",
+        "query": "包月套餐 PRO 流量超了怎么算",
+        "answer": "包月套餐 PRO 含 100GB 流量，超出部分按 0.8 元/GB 计费。",
+        "latency_ms": 1429.1,
+        "input_tokens": 302,
+        "output_tokens": 30,
+        "faithfulness": 0.99,
+        "relevance": 1.0,
+        "length": 38
+      },
+      {
+        "user_id": "u026",
+        "variant": "A_simple",
+        "query": "GPU 实例多久能交付",
+        "answer": "GPU 实例下单后通常 5-10 分钟内即可交付。如需帮助，请随时告知。",
+        "latency_ms": 1685.9,
+        "input_tokens": 297,
+        "output_tokens": 24,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 36
+      },
+      {
+        "user_id": "u027",
+        "variant": "A_simple",
+        "query": "A10 性价比怎么样",
+        "answer": "A10 GPU 性价比高，适合中等规模的 AI 训练和推理任务，按量费用为 ¥18/小时，包月 ¥9800。若需更高性能，可考虑 A100 机型。",
+        "latency_ms": 1749.9,
+        "input_tokens": 299,
+        "output_tokens": 55,
+        "faithfulness": 0.75,
+        "relevance": 1.0,
+        "length": 73
+      },
+      {
+        "user_id": "u030",
+        "variant": "A_simple",
+        "query": "ecs.gn7e 包月有折扣吗",
+        "answer": "目前 ecs.gn7e 包月价格为 ¥35000/月，无额外折扣。如需更优惠方案，可考虑包月套餐 PRO。",
+        "latency_ms": 2017.7,
+        "input_tokens": 302,
+        "output_tokens": 37,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 53
+      }
+    ],
+    "B_cot": [
+      {
+        "user_id": "u004",
+        "variant": "B_cot",
+        "query": "怎么开通 GPU 实例",
+        "answer": "1. 用户需要开通 GPU 实例以进行高性能计算任务。  \n2. 可通过阿里云官网或控制台选择 ECS 产品，筛选并购买 ecs.gn7e 或 ecs.gn7i 实例。  \n3. 建议根据需求选择包月或按量付费，包月更经济且适合长期使用。",
+        "latency_ms": 2139.6,
+        "input_tokens": 350,
+        "output_tokens": 74,
+        "faithfulness": 0.67,
+        "relevance": 1.0,
+        "length": 119
+      },
+      {
+        "user_id": "u006",
+        "variant": "B_cot",
+        "query": "退款政策",
+        "answer": "1. 用户询问的是关于包月产品的退款政策。\n2. 包月产品可在购买后7天内按未使用天数比例申请退款。\n3. 建议在决定购买前确认使用需求，以充分利用退款政策。",
+        "latency_ms": 1678.2,
+        "input_tokens": 347,
+        "output_tokens": 52,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 79
+      },
+      {
+        "user_id": "u007",
+        "variant": "B_cot",
+        "query": "包年和包月哪个划算",
+        "answer": "1. 用户询问包年和包月哪个更划算。  \n2. 包月价格为 ¥40000/月（PRO套餐）或 ¥12000/月（LITE套餐），包年通常会有一定折扣，具体需根据使用时长计算。  \n3. 建议根据实际使用周期选择，长期稳定需求推荐包年，短期或不确定需求推荐包月。",
+        "latency_ms": 1980.4,
+        "input_tokens": 352,
+        "output_tokens": 90,
+        "faithfulness": 0.75,
+        "relevance": 1.0,
+        "length": 130
+      },
+      {
+        "user_id": "u009",
+        "variant": "B_cot",
+        "query": "技术支持响应时间",
+        "answer": "1. 用户询问的是技术支持的响应时间。  \n2. 普通工单 24 小时响应，紧急工单 30 分钟内响应。  \n3. 建议在遇到紧急问题时优先提交紧急工单以获得更快处理。",
+        "latency_ms": 2129.1,
+        "input_tokens": 348,
+        "output_tokens": 60,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 84
+      },
+      {
+        "user_id": "u010",
+        "variant": "B_cot",
+        "query": "我能试用吗",
+        "answer": "1. 您想了解是否可以试用阿里云的GPU服务器服务。  \n2. 阿里云提供按量付费模式，您可以先按小时付费试用，例如 ecs.gn7e 按量 ¥68/小时，ecs.gn7i 按量 ¥18/小时。  \n3. 建议您先通过阿里云官网注册账号并开通服务，体验后再决定是否转为包月套餐。",
+        "latency_ms": 2589.7,
+        "input_tokens": 349,
+        "output_tokens": 99,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 139
+      },
+      {
+        "user_id": "u011",
+        "variant": "B_cot",
+        "query": "包月套餐 LITE 比 PRO 便宜多少",
+        "answer": "1. 用户询问包月套餐 LITE 与 PRO 的价格差。\n2. 包月套餐 LITE 为 ¥12000/月，PRO 为 ¥40000/月，差价为 ¥28000。\n3. 建议根据实际需求选择配置，若对存储和流量需求较低，LITE 套餐更具性价比。",
+        "latency_ms": 3584.5,
+        "input_tokens": 357,
+        "output_tokens": 86,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 121
+      },
+      {
+        "user_id": "u012",
+        "variant": "B_cot",
+        "query": "gn7e 按量付费每小时多少",
+        "answer": "1. 用户询问的是 ecs.gn7e 实例的按量付费价格。  \n2. ecs.gn7e 按量付费价格为每小时 ¥68。  \n3. 建议根据实际使用时长选择按量付费，若长期使用可考虑包月套餐更划算。",
+        "latency_ms": 2387.3,
+        "input_tokens": 356,
+        "output_tokens": 67,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 98
+      },
+      {
+        "user_id": "u014",
+        "variant": "B_cot",
+        "query": "包月套餐含哪些资源",
+        "answer": "1. 用户询问包月套餐包含哪些资源。  \n2. 包月套餐 PRO 含 ecs.gn7e 实例、1TB 存储和 100GB 流量，包月套餐 LITE 含 ecs.gn7i 实例、500GB 存储和 50GB 流量。  \n3. 建议根据实际业务需求选择合适的套餐，避免资源浪费。",
+        "latency_ms": 2332.8,
+        "input_tokens": 351,
+        "output_tokens": 94,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 137
+      },
+      {
+        "user_id": "u018",
+        "variant": "B_cot",
+        "query": "怎么提交工单",
+        "answer": "1. 用户需要提交工单以寻求技术支持。  \n2. 您可以通过阿里云官网的“控制台”进入“工单管理”页面，点击“创建工单”填写相关信息。  \n3. 紧急问题建议选择“紧急”优先级，阿里云将在 30 分钟内响应。",
+        "latency_ms": 2255.8,
+        "input_tokens": 349,
+        "output_tokens": 69,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 104
+      },
+      {
+        "user_id": "u019",
+        "variant": "B_cot",
+        "query": "ecs.gn7e 包月一年总共多少钱",
+        "answer": "1. 用户询问 ecs.gn7e 包月一年的总费用。  \n2. ecs.gn7e 包月价格为 ¥35000/月，一年共计 ¥420000。  \n3. 建议提前确认是否需要额外存储或流量资源，以避免后续增加成本。",
+        "latency_ms": 1948.4,
+        "input_tokens": 356,
+        "output_tokens": 72,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 105
+      },
+      {
+        "user_id": "u021",
+        "variant": "B_cot",
+        "query": "gn7i 适合大模型训练吗",
+        "answer": "1. 用户询问 ecs.gn7i 是否适合用于大模型训练。  \n2. ecs.gn7i 配备 NVIDIA A10 GPU，24GB 显存，适合中等规模的模型训练。  \n3. 若需更大显存和算力，建议选择 ecs.gn7e 实例。",
+        "latency_ms": 1967.8,
+        "input_tokens": 354,
+        "output_tokens": 70,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 115
+      },
+      {
+        "user_id": "u022",
+        "variant": "B_cot",
+        "query": "我们公司想批量购买",
+        "answer": "1. 理解用户需求：您公司想批量购买阿里云GPU实例服务。\n2. 核心答案：您可以选择包月套餐，如PRO（含ecs.gn7e + 1TB存储 + 100GB流量，¥40000/月）或LITE（含ecs.gn7i + 500GB存储 + 50GB流量，¥12000/月），也可根据具体需求定制配置。\n3. 建议：建议联系阿里云销售团队获取批量采购的专属优惠和定制化方案。",
+        "latency_ms": 3270.2,
+        "input_tokens": 350,
+        "output_tokens": 128,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 184
+      },
+      {
+        "user_id": "u023",
+        "variant": "B_cot",
+        "query": "试用账号有什么限制",
+        "answer": "1. 用户需求：您询问试用账号的限制。  \n2. 核心答案：试用账号通常不支持包月套餐，仅限按量付费实例，且有资源使用上限。  \n3. 建议：建议先申请免费试用，体验后再根据实际需求选择合适的套餐。",
+        "latency_ms": 1945.3,
+        "input_tokens": 350,
+        "output_tokens": 68,
+        "faithfulness": 0.0,
+        "relevance": 0.75,
+        "length": 99
+      },
+      {
+        "user_id": "u028",
+        "variant": "B_cot",
+        "query": "包月可以提前退订吗",
+        "answer": "1. 用户询问是否可以提前退订包月服务。  \n2. 包月服务可在购买后 7 天内申请按未使用天数比例退款。  \n3. 建议在退订前确认剩余使用天数，以便计算退款金额。",
+        "latency_ms": 1767.6,
+        "input_tokens": 352,
+        "output_tokens": 59,
+        "faithfulness": 1.0,
+        "relevance": 1.0,
+        "length": 83
+      },
+      {
+        "user_id": "u029",
+        "variant": "B_cot",
+        "query": "客服电话是多少",
+        "answer": "1. 用户询问的是阿里云的客服电话。  \n2. 阿里云客服电话是 400-888-8888。  \n3. 如需紧急技术支持，建议通过阿里云官网提交工单，可获得更快响应。",
+        "latency_ms": 2000.1,
+        "input_tokens": 348,
+        "output_tokens": 58,
+        "faithfulness": 0.0,
+        "relevance": 0.5,
+        "length": 83
+      }
+    ]
+  }
+}
