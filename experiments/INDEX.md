@@ -25,6 +25,7 @@
 | 15 | [RAGAS 评测 GraphRAG](15-RAGAS评测GraphRAG.md) | Naive F=0.79/CP=0.40/CR=0.67 vs Graph F=0.62/CP=0.16/CR=0.44 | RAGAS 自动评测印证 #13 — 双重实证 |
 | — | [成本-质量决策矩阵](cost_quality_matrix.md) | LoRA ¥1.2/月 vs gpt-4o ¥7020/月，准确率持平 | "能用规则别用 LLM，能微调别用闭源" |
 | 16 | [DPO 偏好对齐](16-DPO偏好对齐.md) | Markdown 包裹率 20%→10%，输出长度 -8.5% | SFT 拉地板，DPO 抬天花板 |
+| 17 | [Prompt Injection 防御](17-PromptInjection防御.md) | RAG/Agent 失守 25%→0-6%，pure_llm 加防御反升 | 正则 sanitize 是低垂果实，过度防御有反作用 |
 
 **核心叙事链**：
 ```
