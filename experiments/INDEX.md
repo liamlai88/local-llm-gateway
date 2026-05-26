@@ -26,6 +26,7 @@
 | — | [成本-质量决策矩阵](cost_quality_matrix.md) | LoRA ¥1.2/月 vs gpt-4o ¥7020/月，准确率持平 | "能用规则别用 LLM，能微调别用闭源" |
 | 16 | [DPO 偏好对齐](16-DPO偏好对齐.md) | Markdown 包裹率 20%→10%，输出长度 -8.5% | SFT 拉地板，DPO 抬天花板 |
 | 17 | [Prompt Injection 防御](17-PromptInjection防御.md) | RAG/Agent 失守 25%→0-6%，pure_llm 加防御反升 | 正则 sanitize 是低垂果实，过度防御有反作用 |
+| 18 | [语义缓存降本](18-语义缓存降本.md) | v1 28% → v2 40% 命中率，C 同义 4/10→10/10 | 三层架构对 cache 同样有效；rerank 是相对排序 |
 
 **核心叙事链**：
 ```

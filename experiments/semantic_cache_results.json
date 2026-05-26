@@ -1,0 +1,2418 @@
+[
+  {
+    "threshold": 0.85,
+    "summary": {
+      "queries": 50,
+      "hits": 14,
+      "tokens_saved": 942,
+      "embed_calls": 50,
+      "llm_calls": 36,
+      "hit_rate": 0.28,
+      "total_entries": 36
+    },
+    "by_group": {
+      "A": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 36687.100000000006
+      },
+      "B": {
+        "hit": 10,
+        "total": 10,
+        "latency_sum": 14218.6
+      },
+      "C": {
+        "hit": 4,
+        "total": 10,
+        "latency_sum": 26126.999999999996
+      },
+      "D": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 29446.799999999996
+      },
+      "E": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 38042.1
+      }
+    },
+    "trace": [
+      {
+        "i": 1,
+        "group": "A",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": false,
+        "similarity": 0.0,
+        "matched": null,
+        "answer": "ECS GN7e 实例系列通常搭载 NVIDIA Tesla V100 GPU。具体配置可能因实例规格不同而有所差异，建议查看阿里云官方文档或控制台确认详细信息",
+        "tokens_saved": 0,
+        "latency_ms": 5253.4
+      },
+      {
+        "i": 2,
+        "group": "A",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": false,
+        "similarity": 0.14,
+        "matched": null,
+        "answer": "包月套餐 PRO 价格为 99 元/月。",
+        "tokens_saved": 0,
+        "latency_ms": 5087.4
+      },
+      {
+        "i": 3,
+        "group": "A",
+        "query": "A100 显存多大？",
+        "from_cache": false,
+        "similarity": 0.2647,
+        "matched": null,
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 0,
+        "latency_ms": 3618.1
+      },
+      {
+        "i": 4,
+        "group": "A",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": false,
+        "similarity": 0.5756,
+        "matched": null,
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 0,
+        "latency_ms": 3373.7
+      },
+      {
+        "i": 5,
+        "group": "A",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": false,
+        "similarity": 0.7429,
+        "matched": null,
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 人工智能训练与推理  \n- 大数据处理  \n- 科学计算  \n- 高性能计算（HPC）  \n\n如",
+        "tokens_saved": 0,
+        "latency_ms": 2867.8
+      },
+      {
+        "i": 6,
+        "group": "A",
+        "query": "退款政策是什么？",
+        "from_cache": false,
+        "similarity": 0.169,
+        "matched": null,
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 已拆封或使用过的商品可能不支持退款。  \n3. 退款将在收到商品后1-3个工作日内",
+        "tokens_saved": 0,
+        "latency_ms": 4248.1
+      },
+      {
+        "i": 7,
+        "group": "A",
+        "query": "包年和包月哪个划算？",
+        "from_cache": false,
+        "similarity": 0.5611,
+        "matched": null,
+        "answer": "包年通常更划算，价格比包月更低，适合长期使用。",
+        "tokens_saved": 0,
+        "latency_ms": 2613.7
+      },
+      {
+        "i": 8,
+        "group": "A",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": false,
+        "similarity": 0.5986,
+        "matched": null,
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大。  \nA100 是更先进的型号，性能大约是 A10 的 5-8 倍，具体取决于应用场景（",
+        "tokens_saved": 0,
+        "latency_ms": 3481.9
+      },
+      {
+        "i": 9,
+        "group": "A",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": false,
+        "similarity": 0.2343,
+        "matched": null,
+        "answer": "我们的技术支持响应时间通常为2小时内，重要问题会优先处理。",
+        "tokens_saved": 0,
+        "latency_ms": 2457.7
+      },
+      {
+        "i": 10,
+        "group": "A",
+        "query": "我能试用吗？",
+        "from_cache": false,
+        "similarity": 0.2426,
+        "matched": null,
+        "answer": "可以，欢迎试用！您需要我为您安排试用账号吗？",
+        "tokens_saved": 0,
+        "latency_ms": 3685.3
+      },
+      {
+        "i": 11,
+        "group": "B",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7e 实例配什么 GPU？",
+        "answer": "ECS GN7e 实例系列通常搭载 NVIDIA Tesla V100 GPU。具体配置可能因实例规格不同而有所差异，建议查看阿里云官方文档或控制台确认详细信息",
+        "tokens_saved": 78,
+        "latency_ms": 1501.9
+      },
+      {
+        "i": 12,
+        "group": "B",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包月套餐 PRO 多少钱？",
+        "answer": "包月套餐 PRO 价格为 99 元/月。",
+        "tokens_saved": 49,
+        "latency_ms": 1406.5
+      },
+      {
+        "i": 13,
+        "group": "B",
+        "query": "A100 显存多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A100 显存多大？",
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 48,
+        "latency_ms": 900.1
+      },
+      {
+        "i": 14,
+        "group": "B",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "怎么开通 GPU 实例？",
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 59,
+        "latency_ms": 1384.5
+      },
+      {
+        "i": 15,
+        "group": "B",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7i 适合什么场景？",
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 人工智能训练与推理  \n- 大数据处理  \n- 科学计算  \n- 高性能计算（HPC）  \n\n如",
+        "tokens_saved": 93,
+        "latency_ms": 1470.9
+      },
+      {
+        "i": 16,
+        "group": "B",
+        "query": "退款政策是什么？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "退款政策是什么？",
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 已拆封或使用过的商品可能不支持退款。  \n3. 退款将在收到商品后1-3个工作日内",
+        "tokens_saved": 97,
+        "latency_ms": 1631.8
+      },
+      {
+        "i": 17,
+        "group": "B",
+        "query": "包年和包月哪个划算？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包年和包月哪个划算？",
+        "answer": "包年通常更划算，价格比包月更低，适合长期使用。",
+        "tokens_saved": 49,
+        "latency_ms": 1417.2
+      },
+      {
+        "i": 18,
+        "group": "B",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A10 和 A100 性能差距多大？",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大。  \nA100 是更先进的型号，性能大约是 A10 的 5-8 倍，具体取决于应用场景（",
+        "tokens_saved": 96,
+        "latency_ms": 1549.0
+      },
+      {
+        "i": 19,
+        "group": "B",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "技术支持响应时间是多少？",
+        "answer": "我们的技术支持响应时间通常为2小时内，重要问题会优先处理。",
+        "tokens_saved": 45,
+        "latency_ms": 1614.7
+      },
+      {
+        "i": 20,
+        "group": "B",
+        "query": "我能试用吗？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "我能试用吗？",
+        "answer": "可以，欢迎试用！您需要我为您安排试用账号吗？",
+        "tokens_saved": 46,
+        "latency_ms": 1342.0
+      },
+      {
+        "i": 21,
+        "group": "C",
+        "query": "ecs.gn7e 上面用的是哪款 GPU?",
+        "from_cache": true,
+        "similarity": 0.904,
+        "matched": "ecs.gn7e 实例配什么 GPU？",
+        "answer": "ECS GN7e 实例系列通常搭载 NVIDIA Tesla V100 GPU。具体配置可能因实例规格不同而有所差异，建议查看阿里云官方文档或控制台确认详细信息",
+        "tokens_saved": 78,
+        "latency_ms": 942.3
+      },
+      {
+        "i": 22,
+        "group": "C",
+        "query": "PRO 套餐的价格是多少呢",
+        "from_cache": true,
+        "similarity": 0.8544,
+        "matched": "包月套餐 PRO 多少钱？",
+        "answer": "包月套餐 PRO 价格为 99 元/月。",
+        "tokens_saved": 49,
+        "latency_ms": 2457.5
+      },
+      {
+        "i": 23,
+        "group": "C",
+        "query": "A100 GPU 内存是多少 GB",
+        "from_cache": false,
+        "similarity": 0.7522,
+        "matched": null,
+        "answer": "A100 GPU 内存是 80 GB。",
+        "tokens_saved": 0,
+        "latency_ms": 3167.7
+      },
+      {
+        "i": 24,
+        "group": "C",
+        "query": "GPU 实例怎么购买和开通",
+        "from_cache": true,
+        "similarity": 0.8789,
+        "matched": "怎么开通 GPU 实例？",
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 59,
+        "latency_ms": 1079.7
+      },
+      {
+        "i": 25,
+        "group": "C",
+        "query": "gn7i 实例的应用场景",
+        "from_cache": false,
+        "similarity": 0.7425,
+        "matched": null,
+        "answer": "GN7i 实例主要用于高性能计算、大数据处理、深度学习等场景，适用于需要强大计算能力和高速存储的业务需求。",
+        "tokens_saved": 0,
+        "latency_ms": 4859.7
+      },
+      {
+        "i": 26,
+        "group": "C",
+        "query": "你们退款规则",
+        "from_cache": false,
+        "similarity": 0.7714,
+        "matched": null,
+        "answer": "我们的退款规则如下：\n\n1. 申请退款需在签收商品后7天内提出；\n2. 商品须保持完好，未使用、未损坏；\n3. 退款将原路退回至支付账户，一般3-5个工作日到账",
+        "tokens_saved": 0,
+        "latency_ms": 2967.2
+      },
+      {
+        "i": 27,
+        "group": "C",
+        "query": "买包年合算还是包月合算",
+        "from_cache": false,
+        "similarity": 0.7992,
+        "matched": null,
+        "answer": "包年通常更合算，价格比包月总和更低。具体可根据使用时长选择，短期用月付，长期用年付更优惠。",
+        "tokens_saved": 0,
+        "latency_ms": 3984.8
+      },
+      {
+        "i": 28,
+        "group": "C",
+        "query": "A10 跟 A100 哪个性能更强",
+        "from_cache": true,
+        "similarity": 0.9096,
+        "matched": "A10 和 A100 性能差距多大？",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大。  \nA100 是更先进的型号，性能大约是 A10 的 5-8 倍，具体取决于应用场景（",
+        "tokens_saved": 96,
+        "latency_ms": 773.2
+      },
+      {
+        "i": 29,
+        "group": "C",
+        "query": "客服响应大概多久",
+        "from_cache": false,
+        "similarity": 0.7439,
+        "matched": null,
+        "answer": "一般情况下，客服响应时间为1-3分钟，高峰期可能会稍有延迟。",
+        "tokens_saved": 0,
+        "latency_ms": 2719.3
+      },
+      {
+        "i": 30,
+        "group": "C",
+        "query": "可以免费试一下吗",
+        "from_cache": false,
+        "similarity": 0.7071,
+        "matched": null,
+        "answer": "可以，我们提供试用服务，具体方案您可以咨询我们的销售顾问，他们会根据您的需求安排合适的试用方式。",
+        "tokens_saved": 0,
+        "latency_ms": 3175.6
+      },
+      {
+        "i": 31,
+        "group": "D",
+        "query": "ecs.gn7e 几个 CPU 核心？",
+        "from_cache": false,
+        "similarity": 0.7902,
+        "matched": null,
+        "answer": "ECS.GN7E 实例的 CPU 核心数取决于具体规格，例如：\n\n- gn7e.large：2 核\n- gn7e.xlarge：4 核\n- gn7e.2xlar",
+        "tokens_saved": 0,
+        "latency_ms": 3479.3
+      },
+      {
+        "i": 32,
+        "group": "D",
+        "query": "PRO 套餐包含什么服务？",
+        "from_cache": false,
+        "similarity": 0.6885,
+        "matched": null,
+        "answer": "PRO 套餐包含以下服务：  \n- 优先客服支持  \n- 高级功能权限  \n- 更多存储空间  \n- 定制化服务选项  \n\n如需详细信息，可查看官网或联系客服。",
+        "tokens_saved": 0,
+        "latency_ms": 2355.3
+      },
+      {
+        "i": 33,
+        "group": "D",
+        "query": "A100 算力有多强？",
+        "from_cache": false,
+        "similarity": 0.7275,
+        "matched": null,
+        "answer": "A100 是 NVIDIA 推出的高性能 GPU，拥有 1974 个 CUDA 核心，算力可达 19.5 TFLOPS（FP32），适用于深度学习、科学计算等高",
+        "tokens_saved": 0,
+        "latency_ms": 2457.4
+      },
+      {
+        "i": 34,
+        "group": "D",
+        "query": "GPU 实例创建后多久能用？",
+        "from_cache": false,
+        "similarity": 0.6442,
+        "matched": null,
+        "answer": "创建成功后即可立即使用。",
+        "tokens_saved": 0,
+        "latency_ms": 2869.4
+      },
+      {
+        "i": 35,
+        "group": "D",
+        "query": "gn7i 比 gn7e 便宜多少？",
+        "from_cache": false,
+        "similarity": 0.6296,
+        "matched": null,
+        "answer": "GN7I 比 GN7E 便宜约 100 元。",
+        "tokens_saved": 0,
+        "latency_ms": 2914.7
+      },
+      {
+        "i": 36,
+        "group": "D",
+        "query": "我们公司想批量购买打折吗？",
+        "from_cache": false,
+        "similarity": 0.2987,
+        "matched": null,
+        "answer": "可以，欢迎批量采购。请您说明所需数量和产品类型，我们将为您核算优惠价格。",
+        "tokens_saved": 0,
+        "latency_ms": 2718.2
+      },
+      {
+        "i": 37,
+        "group": "D",
+        "query": "包月可以中途升级吗？",
+        "from_cache": false,
+        "similarity": 0.4172,
+        "matched": null,
+        "answer": "可以，包月会员中途可以升级为更高等级的会员。具体操作及权益变更，建议联系客服确认。",
+        "tokens_saved": 0,
+        "latency_ms": 2658.1
+      },
+      {
+        "i": 38,
+        "group": "D",
+        "query": "A10 适合训练大模型吗？",
+        "from_cache": false,
+        "similarity": 0.4987,
+        "matched": null,
+        "answer": "A10 适合训练中等规模的模型，但不适合训练超大规模大模型。",
+        "tokens_saved": 0,
+        "latency_ms": 3279.7
+      },
+      {
+        "i": 39,
+        "group": "D",
+        "query": "工单怎么提交？",
+        "from_cache": false,
+        "similarity": 0.256,
+        "matched": null,
+        "answer": "您可以通过以下步骤提交工单：\n\n1. 登录我们的官网或APP。\n2. 进入“我的客服”或“帮助中心”。\n3. 选择“提交工单”。\n4. 填写相关信息并描述问题，",
+        "tokens_saved": 0,
+        "latency_ms": 2764.6
+      },
+      {
+        "i": 40,
+        "group": "D",
+        "query": "试用账号有什么限制？",
+        "from_cache": false,
+        "similarity": 0.495,
+        "matched": null,
+        "answer": "试用账号通常有以下限制：\n\n1. **使用期限**：一般为7天或30天，到期后需付费或注销。  \n2. **功能限制**：部分高级功能可能无法使用。  \n3. ",
+        "tokens_saved": 0,
+        "latency_ms": 3950.1
+      },
+      {
+        "i": 41,
+        "group": "E",
+        "query": "今天上海天气怎么样？",
+        "from_cache": false,
+        "similarity": 0.1087,
+        "matched": null,
+        "answer": "今天上海天气多云，气温22℃到28℃，微风。",
+        "tokens_saved": 0,
+        "latency_ms": 3320.2
+      },
+      {
+        "i": 42,
+        "group": "E",
+        "query": "推荐一本机器学习的书",
+        "from_cache": false,
+        "similarity": 0.1955,
+        "matched": null,
+        "answer": "《机器学习》——周志华（西瓜书）  \n适合入门和进阶，内容全面，讲解清晰。",
+        "tokens_saved": 0,
+        "latency_ms": 3479.7
+      },
+      {
+        "i": 43,
+        "group": "E",
+        "query": "怎么做番茄炒蛋",
+        "from_cache": false,
+        "similarity": 0.1639,
+        "matched": null,
+        "answer": "简单步骤如下：\n\n1. 打2-3个鸡蛋，加少许盐搅拌均匀。  \n2. 番茄切块，热锅凉油，先炒蛋至凝固后盛出。  \n3. 再炒番茄至出汁，加盐、糖调味。  \n4",
+        "tokens_saved": 0,
+        "latency_ms": 4428.5
+      },
+      {
+        "i": 44,
+        "group": "E",
+        "query": "iPhone 15 多少钱",
+        "from_cache": false,
+        "similarity": 0.4442,
+        "matched": null,
+        "answer": "iPhone 15 起售价为 5999 元。具体价格根据配置不同有所差异。",
+        "tokens_saved": 0,
+        "latency_ms": 3252.6
+      },
+      {
+        "i": 45,
+        "group": "E",
+        "query": "北京到上海高铁多久",
+        "from_cache": false,
+        "similarity": 0.3365,
+        "matched": null,
+        "answer": "北京到上海高铁大约需要5-6小时。",
+        "tokens_saved": 0,
+        "latency_ms": 4607.7
+      },
+      {
+        "i": 46,
+        "group": "E",
+        "query": "Python 怎么学",
+        "from_cache": false,
+        "similarity": 0.2918,
+        "matched": null,
+        "answer": "1. 学基础语法：掌握变量、循环、条件语句、函数等。\n2. 多练习：通过小项目或刷题（如 LeetCode）提升实战能力。\n3. 学常用库：如 NumPy、Pa",
+        "tokens_saved": 0,
+        "latency_ms": 3649.5
+      },
+      {
+        "i": 47,
+        "group": "E",
+        "query": "美元对人民币汇率",
+        "from_cache": false,
+        "similarity": 0.2363,
+        "matched": null,
+        "answer": "当前美元对人民币汇率约为1美元≈7.20人民币（具体以实时数据为准）。建议查看银行或金融平台获取最新汇率。",
+        "tokens_saved": 0,
+        "latency_ms": 4030.3
+      },
+      {
+        "i": 48,
+        "group": "E",
+        "query": "明天周几",
+        "from_cache": false,
+        "similarity": 0.3612,
+        "matched": null,
+        "answer": "明天是周五。",
+        "tokens_saved": 0,
+        "latency_ms": 2867.1
+      },
+      {
+        "i": 49,
+        "group": "E",
+        "query": "巴黎奥运会金牌榜",
+        "from_cache": false,
+        "similarity": 0.136,
+        "matched": null,
+        "answer": "截至目前（2024年），巴黎奥运会金牌榜的最新排名尚未公布，因为比赛仍在进行中。建议您关注官方体育新闻或奥运会官网获取实时金牌榜信息。",
+        "tokens_saved": 0,
+        "latency_ms": 4403.6
+      },
+      {
+        "i": 50,
+        "group": "E",
+        "query": "Linux 怎么查磁盘空间",
+        "from_cache": false,
+        "similarity": 0.3055,
+        "matched": null,
+        "answer": "查看磁盘空间使用情况，可以使用以下命令：\n\n```bash\ndf -h\n```\n\n该命令会显示各分区的总容量、已用空间、可用空间和使用率。",
+        "tokens_saved": 0,
+        "latency_ms": 4002.9
+      }
+    ],
+    "judged": [
+      {
+        "i": 21,
+        "group": "C",
+        "query": "ecs.gn7e 上面用的是哪款 GPU?",
+        "answer": "ECS GN7e 实例系列通常搭载 NVIDIA Tesla V100 GPU。具体配置可能因实例规格不同而有所差异，建议查看阿里云官方文档或控制台确认详细信息",
+        "reasonable": true
+      },
+      {
+        "i": 22,
+        "group": "C",
+        "query": "PRO 套餐的价格是多少呢",
+        "answer": "包月套餐 PRO 价格为 99 元/月。",
+        "reasonable": true
+      },
+      {
+        "i": 24,
+        "group": "C",
+        "query": "GPU 实例怎么购买和开通",
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "reasonable": true
+      },
+      {
+        "i": 28,
+        "group": "C",
+        "query": "A10 跟 A100 哪个性能更强",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大。  \nA100 是更先进的型号，性能大约是 A10 的 5-8 倍，具体取决于应用场景（",
+        "reasonable": true
+      }
+    ],
+    "wrong_hits": 0
+  },
+  {
+    "threshold": 0.9,
+    "summary": {
+      "queries": 50,
+      "hits": 12,
+      "tokens_saved": 936,
+      "embed_calls": 50,
+      "llm_calls": 38,
+      "hit_rate": 0.24,
+      "total_entries": 38
+    },
+    "by_group": {
+      "A": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 35630.299999999996
+      },
+      "B": {
+        "hit": 10,
+        "total": 10,
+        "latency_sum": 9735.0
+      },
+      "C": {
+        "hit": 2,
+        "total": 10,
+        "latency_sum": 32060.300000000003
+      },
+      "D": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 32653.2
+      },
+      "E": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 35221.6
+      }
+    },
+    "trace": [
+      {
+        "i": 1,
+        "group": "A",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": false,
+        "similarity": 0.0,
+        "matched": null,
+        "answer": "ECS GN7e 实例系列支持 NVIDIA A10 或 A100 GPU，具体取决于实例规格。建议查看对应实例的官方文档确认详细配置。",
+        "tokens_saved": 0,
+        "latency_ms": 4719.2
+      },
+      {
+        "i": 2,
+        "group": "A",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": false,
+        "similarity": 0.14,
+        "matched": null,
+        "answer": "包月套餐 PRO 价格为 99 元/月。",
+        "tokens_saved": 0,
+        "latency_ms": 2393.5
+      },
+      {
+        "i": 3,
+        "group": "A",
+        "query": "A100 显存多大？",
+        "from_cache": false,
+        "similarity": 0.2647,
+        "matched": null,
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 0,
+        "latency_ms": 3049.7
+      },
+      {
+        "i": 4,
+        "group": "A",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": false,
+        "similarity": 0.5756,
+        "matched": null,
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 0,
+        "latency_ms": 2736.2
+      },
+      {
+        "i": 5,
+        "group": "A",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": false,
+        "similarity": 0.7429,
+        "matched": null,
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 游戏服务器  \n- 高性能数据库  \n- 分布式计算  \n- 科学计算  \n\n如需更详细信息，可",
+        "tokens_saved": 0,
+        "latency_ms": 6966.0
+      },
+      {
+        "i": 6,
+        "group": "A",
+        "query": "退款政策是什么？",
+        "from_cache": false,
+        "similarity": 0.169,
+        "matched": null,
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 退货需提供购买凭证和商品原包装。  \n3. 特殊商品（如定制、易损品）不支持退换。",
+        "tokens_saved": 0,
+        "latency_ms": 3166.3
+      },
+      {
+        "i": 7,
+        "group": "A",
+        "query": "包年和包月哪个划算？",
+        "from_cache": false,
+        "similarity": 0.5611,
+        "matched": null,
+        "answer": "包年通常更划算，价格比包月更低，适合长期使用。",
+        "tokens_saved": 0,
+        "latency_ms": 2564.7
+      },
+      {
+        "i": 8,
+        "group": "A",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": false,
+        "similarity": 0.5986,
+        "matched": null,
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大：\n\n- **A10**：适用于中等规模 AI 训练和推理，性能约为 A100 的 **1",
+        "tokens_saved": 0,
+        "latency_ms": 4506.3
+      },
+      {
+        "i": 9,
+        "group": "A",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": false,
+        "similarity": 0.2343,
+        "matched": null,
+        "answer": "我们的技术支持响应时间通常为2小时内，重要问题会优先处理。",
+        "tokens_saved": 0,
+        "latency_ms": 3100.4
+      },
+      {
+        "i": 10,
+        "group": "A",
+        "query": "我能试用吗？",
+        "from_cache": false,
+        "similarity": 0.2426,
+        "matched": null,
+        "answer": "可以，欢迎试用！您需要我为您安排试用账号吗？",
+        "tokens_saved": 0,
+        "latency_ms": 2428.0
+      },
+      {
+        "i": 11,
+        "group": "B",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7e 实例配什么 GPU？",
+        "answer": "ECS GN7e 实例系列支持 NVIDIA A10 或 A100 GPU，具体取决于实例规格。建议查看对应实例的官方文档确认详细配置。",
+        "tokens_saved": 72,
+        "latency_ms": 937.9
+      },
+      {
+        "i": 12,
+        "group": "B",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包月套餐 PRO 多少钱？",
+        "answer": "包月套餐 PRO 价格为 99 元/月。",
+        "tokens_saved": 49,
+        "latency_ms": 1250.7
+      },
+      {
+        "i": 13,
+        "group": "B",
+        "query": "A100 显存多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A100 显存多大？",
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 48,
+        "latency_ms": 750.8
+      },
+      {
+        "i": 14,
+        "group": "B",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "怎么开通 GPU 实例？",
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 59,
+        "latency_ms": 871.6
+      },
+      {
+        "i": 15,
+        "group": "B",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7i 适合什么场景？",
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 游戏服务器  \n- 高性能数据库  \n- 分布式计算  \n- 科学计算  \n\n如需更详细信息，可",
+        "tokens_saved": 87,
+        "latency_ms": 1360.0
+      },
+      {
+        "i": 16,
+        "group": "B",
+        "query": "退款政策是什么？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "退款政策是什么？",
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 退货需提供购买凭证和商品原包装。  \n3. 特殊商品（如定制、易损品）不支持退换。",
+        "tokens_saved": 111,
+        "latency_ms": 795.5
+      },
+      {
+        "i": 17,
+        "group": "B",
+        "query": "包年和包月哪个划算？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包年和包月哪个划算？",
+        "answer": "包年通常更划算，价格比包月更低，适合长期使用。",
+        "tokens_saved": 49,
+        "latency_ms": 886.6
+      },
+      {
+        "i": 18,
+        "group": "B",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A10 和 A100 性能差距多大？",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大：\n\n- **A10**：适用于中等规模 AI 训练和推理，性能约为 A100 的 **1",
+        "tokens_saved": 149,
+        "latency_ms": 936.7
+      },
+      {
+        "i": 19,
+        "group": "B",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "技术支持响应时间是多少？",
+        "answer": "我们的技术支持响应时间通常为2小时内，重要问题会优先处理。",
+        "tokens_saved": 45,
+        "latency_ms": 861.2
+      },
+      {
+        "i": 20,
+        "group": "B",
+        "query": "我能试用吗？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "我能试用吗？",
+        "answer": "可以，欢迎试用！您需要我为您安排试用账号吗？",
+        "tokens_saved": 46,
+        "latency_ms": 1084.0
+      },
+      {
+        "i": 21,
+        "group": "C",
+        "query": "ecs.gn7e 上面用的是哪款 GPU?",
+        "from_cache": true,
+        "similarity": 0.904,
+        "matched": "ecs.gn7e 实例配什么 GPU？",
+        "answer": "ECS GN7e 实例系列支持 NVIDIA A10 或 A100 GPU，具体取决于实例规格。建议查看对应实例的官方文档确认详细配置。",
+        "tokens_saved": 72,
+        "latency_ms": 797.7
+      },
+      {
+        "i": 22,
+        "group": "C",
+        "query": "PRO 套餐的价格是多少呢",
+        "from_cache": false,
+        "similarity": 0.8544,
+        "matched": null,
+        "answer": "PRO 套餐的价格是每月 29 元。",
+        "tokens_saved": 0,
+        "latency_ms": 2353.4
+      },
+      {
+        "i": 23,
+        "group": "C",
+        "query": "A100 GPU 内存是多少 GB",
+        "from_cache": false,
+        "similarity": 0.7522,
+        "matched": null,
+        "answer": "A100 GPU 内存是 80 GB。",
+        "tokens_saved": 0,
+        "latency_ms": 2782.3
+      },
+      {
+        "i": 24,
+        "group": "C",
+        "query": "GPU 实例怎么购买和开通",
+        "from_cache": false,
+        "similarity": 0.8789,
+        "matched": null,
+        "answer": "您可以通过以下步骤购买和开通GPU实例：\n\n1. 登录云服务提供商的管理控制台（如阿里云、腾讯云等）。\n2. 进入“计算”或“云服务器”相关产品页面。\n3. 选",
+        "tokens_saved": 0,
+        "latency_ms": 4197.7
+      },
+      {
+        "i": 25,
+        "group": "C",
+        "query": "gn7i 实例的应用场景",
+        "from_cache": false,
+        "similarity": 0.7425,
+        "matched": null,
+        "answer": "GN7i 实例主要用于高性能计算、大数据处理、深度学习等场景，适用于需要强大计算能力和高速存储的业务需求。",
+        "tokens_saved": 0,
+        "latency_ms": 4096.1
+      },
+      {
+        "i": 26,
+        "group": "C",
+        "query": "你们退款规则",
+        "from_cache": false,
+        "similarity": 0.7714,
+        "matched": null,
+        "answer": "我们支持7天无理由退款，商品完好即可申请。具体规则请参考订单详情页或联系在线客服。",
+        "tokens_saved": 0,
+        "latency_ms": 2323.7
+      },
+      {
+        "i": 27,
+        "group": "C",
+        "query": "买包年合算还是包月合算",
+        "from_cache": false,
+        "similarity": 0.7992,
+        "matched": null,
+        "answer": "包年通常更合算，价格比包月总和更低。具体可根据使用时长选择，短期用月付，长期用年付更优惠。",
+        "tokens_saved": 0,
+        "latency_ms": 3620.8
+      },
+      {
+        "i": 28,
+        "group": "C",
+        "query": "A10 跟 A100 哪个性能更强",
+        "from_cache": true,
+        "similarity": 0.9096,
+        "matched": "A10 和 A100 性能差距多大？",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大：\n\n- **A10**：适用于中等规模 AI 训练和推理，性能约为 A100 的 **1",
+        "tokens_saved": 149,
+        "latency_ms": 2050.4
+      },
+      {
+        "i": 29,
+        "group": "C",
+        "query": "客服响应大概多久",
+        "from_cache": false,
+        "similarity": 0.7439,
+        "matched": null,
+        "answer": "一般情况下，客服响应时间为1-3分钟，高峰期可能会稍有延迟。",
+        "tokens_saved": 0,
+        "latency_ms": 4807.3
+      },
+      {
+        "i": 30,
+        "group": "C",
+        "query": "可以免费试一下吗",
+        "from_cache": false,
+        "similarity": 0.7071,
+        "matched": null,
+        "answer": "可以，我们提供试用服务，具体详情可以咨询我们的客服人员，他们会为您安排。",
+        "tokens_saved": 0,
+        "latency_ms": 5030.9
+      },
+      {
+        "i": 31,
+        "group": "D",
+        "query": "ecs.gn7e 几个 CPU 核心？",
+        "from_cache": false,
+        "similarity": 0.7902,
+        "matched": null,
+        "answer": "ECS.Gn7e 实例的 CPU 核心数根据具体规格不同而有所差异，常见的配置包括 2 核、4 核、8 核等。您可以在购买时选择所需的核数。",
+        "tokens_saved": 0,
+        "latency_ms": 3636.1
+      },
+      {
+        "i": 32,
+        "group": "D",
+        "query": "PRO 套餐包含什么服务？",
+        "from_cache": false,
+        "similarity": 0.7888,
+        "matched": null,
+        "answer": "PRO 套餐包含以下服务：  \n- 优先客服支持  \n- 更多定制化功能  \n- 增强的数据分析报告  \n- 专属账户管理  \n\n如需详细信息，可访问官网或联系",
+        "tokens_saved": 0,
+        "latency_ms": 3309.5
+      },
+      {
+        "i": 33,
+        "group": "D",
+        "query": "A100 算力有多强？",
+        "from_cache": false,
+        "similarity": 0.7275,
+        "matched": null,
+        "answer": "A100 是 NVIDIA 推出的高性能 GPU，拥有 1974 个 CUDA 核心，算力可达 19.5 TFLOPS（FP32），适用于深度学习、科学计算等高",
+        "tokens_saved": 0,
+        "latency_ms": 4099.1
+      },
+      {
+        "i": 34,
+        "group": "D",
+        "query": "GPU 实例创建后多久能用？",
+        "from_cache": false,
+        "similarity": 0.6777,
+        "matched": null,
+        "answer": "GPU实例创建成功后通常1-3分钟内即可使用。",
+        "tokens_saved": 0,
+        "latency_ms": 2558.4
+      },
+      {
+        "i": 35,
+        "group": "D",
+        "query": "gn7i 比 gn7e 便宜多少？",
+        "from_cache": false,
+        "similarity": 0.6296,
+        "matched": null,
+        "answer": "GN7I 比 GN7E 便宜约 200 元左右。具体价格以实际销售为准。",
+        "tokens_saved": 0,
+        "latency_ms": 3881.2
+      },
+      {
+        "i": 36,
+        "group": "D",
+        "query": "我们公司想批量购买打折吗？",
+        "from_cache": false,
+        "similarity": 0.2987,
+        "matched": null,
+        "answer": "可以，欢迎批量采购。请您说明所需数量和产品类型，我们将为您核算优惠价格。",
+        "tokens_saved": 0,
+        "latency_ms": 2717.4
+      },
+      {
+        "i": 37,
+        "group": "D",
+        "query": "包月可以中途升级吗？",
+        "from_cache": false,
+        "similarity": 0.4172,
+        "matched": null,
+        "answer": "可以，包月会员中途可以升级为更高等级的会员。具体操作及权益变更，建议联系客服确认。",
+        "tokens_saved": 0,
+        "latency_ms": 2527.0
+      },
+      {
+        "i": 38,
+        "group": "D",
+        "query": "A10 适合训练大模型吗？",
+        "from_cache": false,
+        "similarity": 0.4987,
+        "matched": null,
+        "answer": "A10 适合训练中等规模的模型，但不适合训练非常大的模型。",
+        "tokens_saved": 0,
+        "latency_ms": 2811.3
+      },
+      {
+        "i": 39,
+        "group": "D",
+        "query": "工单怎么提交？",
+        "from_cache": false,
+        "similarity": 0.256,
+        "matched": null,
+        "answer": "您可以在系统内点击“提交工单”按钮，填写相关信息后提交即可。如找不到入口，请联系管理员。",
+        "tokens_saved": 0,
+        "latency_ms": 3730.8
+      },
+      {
+        "i": 40,
+        "group": "D",
+        "query": "试用账号有什么限制？",
+        "from_cache": false,
+        "similarity": 0.495,
+        "matched": null,
+        "answer": "试用账号通常有以下限制：\n\n1. **使用期限**：一般为7-30天，到期后需付费或续期。\n2. **功能限制**：部分高级功能可能无法使用。\n3. **数据限",
+        "tokens_saved": 0,
+        "latency_ms": 3382.4
+      },
+      {
+        "i": 41,
+        "group": "E",
+        "query": "今天上海天气怎么样？",
+        "from_cache": false,
+        "similarity": 0.1087,
+        "matched": null,
+        "answer": "今天上海天气多云，气温22℃~28℃，东南风3-4级，体感舒适。",
+        "tokens_saved": 0,
+        "latency_ms": 2381.1
+      },
+      {
+        "i": 42,
+        "group": "E",
+        "query": "推荐一本机器学习的书",
+        "from_cache": false,
+        "similarity": 0.1955,
+        "matched": null,
+        "answer": "《机器学习》——周志华（西瓜书）  \n适合入门和进阶，内容全面，讲解清晰。",
+        "tokens_saved": 0,
+        "latency_ms": 2429.0
+      },
+      {
+        "i": 43,
+        "group": "E",
+        "query": "怎么做番茄炒蛋",
+        "from_cache": false,
+        "similarity": 0.1639,
+        "matched": null,
+        "answer": "简单步骤如下：\n\n1. 打两个鸡蛋，加少许盐，搅拌均匀。\n2. 番茄切块，热锅凉油，先炒蛋至凝固后盛出。\n3. 再炒番茄，加盐、糖调味，炒软后倒入鸡蛋翻炒均匀即",
+        "tokens_saved": 0,
+        "latency_ms": 3787.6
+      },
+      {
+        "i": 44,
+        "group": "E",
+        "query": "iPhone 15 多少钱",
+        "from_cache": false,
+        "similarity": 0.4442,
+        "matched": null,
+        "answer": "iPhone 15 起售价为 5999 元起。具体价格根据配置不同有所差异，如需了解更多详情，可以告诉我您需要的版本。",
+        "tokens_saved": 0,
+        "latency_ms": 3586.4
+      },
+      {
+        "i": 45,
+        "group": "E",
+        "query": "北京到上海高铁多久",
+        "from_cache": false,
+        "similarity": 0.3365,
+        "matched": null,
+        "answer": "北京到上海高铁大约需要5小时左右，具体时间根据车次不同略有差异。",
+        "tokens_saved": 0,
+        "latency_ms": 3273.0
+      },
+      {
+        "i": 46,
+        "group": "E",
+        "query": "Python 怎么学",
+        "from_cache": false,
+        "similarity": 0.2918,
+        "matched": null,
+        "answer": "1. 学基础语法（变量、循环、函数等）  \n2. 多敲代码，动手实践  \n3. 做小项目练手（如计算器、爬虫等）  \n4. 学习常用库（如 requests、p",
+        "tokens_saved": 0,
+        "latency_ms": 4218.8
+      },
+      {
+        "i": 47,
+        "group": "E",
+        "query": "美元对人民币汇率",
+        "from_cache": false,
+        "similarity": 0.2363,
+        "matched": null,
+        "answer": "当前美元对人民币汇率约为1美元≈7.20人民币（数据可能会实时波动）。建议通过银行或正规金融平台查看最新汇率。",
+        "tokens_saved": 0,
+        "latency_ms": 3567.5
+      },
+      {
+        "i": 48,
+        "group": "E",
+        "query": "明天周几",
+        "from_cache": false,
+        "similarity": 0.3612,
+        "matched": null,
+        "answer": "明天是周五。",
+        "tokens_saved": 0,
+        "latency_ms": 3478.6
+      },
+      {
+        "i": 49,
+        "group": "E",
+        "query": "巴黎奥运会金牌榜",
+        "from_cache": false,
+        "similarity": 0.136,
+        "matched": null,
+        "answer": "截至目前（2024年），巴黎奥运会金牌榜的最新排名尚未公布，因为比赛仍在进行中。建议您关注官方体育新闻或奥运会官网获取实时金牌榜信息。",
+        "tokens_saved": 0,
+        "latency_ms": 4412.9
+      },
+      {
+        "i": 50,
+        "group": "E",
+        "query": "Linux 怎么查磁盘空间",
+        "from_cache": false,
+        "similarity": 0.3055,
+        "matched": null,
+        "answer": "查看磁盘空间使用情况，可以使用以下命令：\n\n```bash\ndf -h\n```\n\n该命令会显示各磁盘分区的容量、已用空间、可用空间和挂载点。",
+        "tokens_saved": 0,
+        "latency_ms": 4086.7
+      }
+    ],
+    "judged": [
+      {
+        "i": 21,
+        "group": "C",
+        "query": "ecs.gn7e 上面用的是哪款 GPU?",
+        "answer": "ECS GN7e 实例系列支持 NVIDIA A10 或 A100 GPU，具体取决于实例规格。建议查看对应实例的官方文档确认详细配置。",
+        "reasonable": true
+      },
+      {
+        "i": 28,
+        "group": "C",
+        "query": "A10 跟 A100 哪个性能更强",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大：\n\n- **A10**：适用于中等规模 AI 训练和推理，性能约为 A100 的 **1",
+        "reasonable": false
+      }
+    ],
+    "wrong_hits": 1
+  },
+  {
+    "threshold": 0.95,
+    "summary": {
+      "queries": 50,
+      "hits": 10,
+      "tokens_saved": 737,
+      "embed_calls": 50,
+      "llm_calls": 40,
+      "hit_rate": 0.2,
+      "total_entries": 40
+    },
+    "by_group": {
+      "A": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 43313.2
+      },
+      "B": {
+        "hit": 10,
+        "total": 10,
+        "latency_sum": 13740.199999999999
+      },
+      "C": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 36741.7
+      },
+      "D": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 34730.9
+      },
+      "E": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 28436.600000000002
+      }
+    },
+    "trace": [
+      {
+        "i": 1,
+        "group": "A",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": false,
+        "similarity": 0.0,
+        "matched": null,
+        "answer": "ECS.GN7e 实例系列支持 NVIDIA A100、A40、T4 等 GPU。具体配置取决于实例规格，建议查看阿里云官方文档或控制台确认。",
+        "tokens_saved": 0,
+        "latency_ms": 3844.0
+      },
+      {
+        "i": 2,
+        "group": "A",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": false,
+        "similarity": 0.14,
+        "matched": null,
+        "answer": "包月套餐 PRO 价格为每月 99 元。",
+        "tokens_saved": 0,
+        "latency_ms": 4484.8
+      },
+      {
+        "i": 3,
+        "group": "A",
+        "query": "A100 显存多大？",
+        "from_cache": false,
+        "similarity": 0.2647,
+        "matched": null,
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 0,
+        "latency_ms": 4366.1
+      },
+      {
+        "i": 4,
+        "group": "A",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": false,
+        "similarity": 0.5756,
+        "matched": null,
+        "answer": "请登录云平台控制台，选择“计算” > “GPU实例”，点击“创建”，按照提示完成购买和配置即可开通。",
+        "tokens_saved": 0,
+        "latency_ms": 2252.6
+      },
+      {
+        "i": 5,
+        "group": "A",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": false,
+        "similarity": 0.7429,
+        "matched": null,
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 游戏服务器  \n- 高性能计算（HPC）  \n- 专业渲染  \n- 大数据处理  \n\n如需更详细",
+        "tokens_saved": 0,
+        "latency_ms": 2568.7
+      },
+      {
+        "i": 6,
+        "group": "A",
+        "query": "退款政策是什么？",
+        "from_cache": false,
+        "similarity": 0.169,
+        "matched": null,
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 退货需提供购买凭证及商品原包装。  \n3. 特殊商品（如定制、易耗品）可能不支持退",
+        "tokens_saved": 0,
+        "latency_ms": 4910.4
+      },
+      {
+        "i": 7,
+        "group": "A",
+        "query": "包年和包月哪个划算？",
+        "from_cache": false,
+        "similarity": 0.5611,
+        "matched": null,
+        "answer": "包年通常更划算，价格比包月更低。具体可根据使用时长选择，长期使用建议选包年，短期用包月更灵活。",
+        "tokens_saved": 0,
+        "latency_ms": 4911.5
+      },
+      {
+        "i": 8,
+        "group": "A",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": false,
+        "similarity": 0.5986,
+        "matched": null,
+        "answer": "A10 和 A100 是 NVIDIA 不同定位的 GPU，性能差距较大：\n\n- **A10**：适合中等负载的 AI 训练和推理，性能约为 A100 的 1/",
+        "tokens_saved": 0,
+        "latency_ms": 5632.9
+      },
+      {
+        "i": 9,
+        "group": "A",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": false,
+        "similarity": 0.2343,
+        "matched": null,
+        "answer": "我们的技术支持响应时间通常为2小时内，重要问题会优先处理。",
+        "tokens_saved": 0,
+        "latency_ms": 6069.0
+      },
+      {
+        "i": 10,
+        "group": "A",
+        "query": "我能试用吗？",
+        "from_cache": false,
+        "similarity": 0.2426,
+        "matched": null,
+        "answer": "可以，欢迎试用！您需要哪个产品试用？",
+        "tokens_saved": 0,
+        "latency_ms": 4273.2
+      },
+      {
+        "i": 11,
+        "group": "B",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7e 实例配什么 GPU？",
+        "answer": "ECS.GN7e 实例系列支持 NVIDIA A100、A40、T4 等 GPU。具体配置取决于实例规格，建议查看阿里云官方文档或控制台确认。",
+        "tokens_saved": 80,
+        "latency_ms": 1639.4
+      },
+      {
+        "i": 12,
+        "group": "B",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包月套餐 PRO 多少钱？",
+        "answer": "包月套餐 PRO 价格为每月 99 元。",
+        "tokens_saved": 48,
+        "latency_ms": 1152.0
+      },
+      {
+        "i": 13,
+        "group": "B",
+        "query": "A100 显存多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A100 显存多大？",
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 48,
+        "latency_ms": 847.3
+      },
+      {
+        "i": 14,
+        "group": "B",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "怎么开通 GPU 实例？",
+        "answer": "请登录云平台控制台，选择“计算” > “GPU实例”，点击“创建”，按照提示完成购买和配置即可开通。",
+        "tokens_saved": 60,
+        "latency_ms": 1349.1
+      },
+      {
+        "i": 15,
+        "group": "B",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7i 适合什么场景？",
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 游戏服务器  \n- 高性能计算（HPC）  \n- 专业渲染  \n- 大数据处理  \n\n如需更详细",
+        "tokens_saved": 89,
+        "latency_ms": 2781.2
+      },
+      {
+        "i": 16,
+        "group": "B",
+        "query": "退款政策是什么？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "退款政策是什么？",
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 退货需提供购买凭证及商品原包装。  \n3. 特殊商品（如定制、易耗品）可能不支持退",
+        "tokens_saved": 115,
+        "latency_ms": 1044.5
+      },
+      {
+        "i": 17,
+        "group": "B",
+        "query": "包年和包月哪个划算？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包年和包月哪个划算？",
+        "answer": "包年通常更划算，价格比包月更低。具体可根据使用时长选择，长期使用建议选包年，短期用包月更灵活。",
+        "tokens_saved": 66,
+        "latency_ms": 983.9
+      },
+      {
+        "i": 18,
+        "group": "B",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A10 和 A100 性能差距多大？",
+        "answer": "A10 和 A100 是 NVIDIA 不同定位的 GPU，性能差距较大：\n\n- **A10**：适合中等负载的 AI 训练和推理，性能约为 A100 的 1/",
+        "tokens_saved": 143,
+        "latency_ms": 1268.3
+      },
+      {
+        "i": 19,
+        "group": "B",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "技术支持响应时间是多少？",
+        "answer": "我们的技术支持响应时间通常为2小时内，重要问题会优先处理。",
+        "tokens_saved": 45,
+        "latency_ms": 1432.1
+      },
+      {
+        "i": 20,
+        "group": "B",
+        "query": "我能试用吗？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "我能试用吗？",
+        "answer": "可以，欢迎试用！您需要哪个产品试用？",
+        "tokens_saved": 43,
+        "latency_ms": 1242.4
+      },
+      {
+        "i": 21,
+        "group": "C",
+        "query": "ecs.gn7e 上面用的是哪款 GPU?",
+        "from_cache": false,
+        "similarity": 0.904,
+        "matched": null,
+        "answer": "ECS.Gn7e 实例使用的是 NVIDIA A100 GPU。",
+        "tokens_saved": 0,
+        "latency_ms": 2538.4
+      },
+      {
+        "i": 22,
+        "group": "C",
+        "query": "PRO 套餐的价格是多少呢",
+        "from_cache": false,
+        "similarity": 0.8544,
+        "matched": null,
+        "answer": "PRO 套餐的价格是每月 29 元。",
+        "tokens_saved": 0,
+        "latency_ms": 2598.6
+      },
+      {
+        "i": 23,
+        "group": "C",
+        "query": "A100 GPU 内存是多少 GB",
+        "from_cache": false,
+        "similarity": 0.7522,
+        "matched": null,
+        "answer": "A100 GPU 内存是 80 GB。",
+        "tokens_saved": 0,
+        "latency_ms": 3690.0
+      },
+      {
+        "i": 24,
+        "group": "C",
+        "query": "GPU 实例怎么购买和开通",
+        "from_cache": false,
+        "similarity": 0.8789,
+        "matched": null,
+        "answer": "您可以通过以下步骤购买和开通GPU实例：\n\n1. 登录云服务提供商的管理控制台（如阿里云、腾讯云等）。\n2. 进入“计算”或“ECS”相关服务页面。\n3. 选择",
+        "tokens_saved": 0,
+        "latency_ms": 9176.6
+      },
+      {
+        "i": 25,
+        "group": "C",
+        "query": "gn7i 实例的应用场景",
+        "from_cache": false,
+        "similarity": 0.7425,
+        "matched": null,
+        "answer": "GN7i 实例主要用于高性能计算、大数据处理、深度学习等场景，适用于需要强大计算能力和高速存储的业务需求。",
+        "tokens_saved": 0,
+        "latency_ms": 3122.2
+      },
+      {
+        "i": 26,
+        "group": "C",
+        "query": "你们退款规则",
+        "from_cache": false,
+        "similarity": 0.7714,
+        "matched": null,
+        "answer": "我们支持7天无理由退款，商品完好且未拆封的情况下可申请。具体以商品页面说明为准，如需帮助请提供订单号。",
+        "tokens_saved": 0,
+        "latency_ms": 2816.9
+      },
+      {
+        "i": 27,
+        "group": "C",
+        "query": "买包年合算还是包月合算",
+        "from_cache": false,
+        "similarity": 0.7992,
+        "matched": null,
+        "answer": "包年通常更合算，价格比包月总和更低。具体取决于您的使用需求和预算，如需长期使用建议选择包年。",
+        "tokens_saved": 0,
+        "latency_ms": 2976.1
+      },
+      {
+        "i": 28,
+        "group": "C",
+        "query": "A10 跟 A100 哪个性能更强",
+        "from_cache": false,
+        "similarity": 0.9096,
+        "matched": null,
+        "answer": "A100 性能更强。A100 是 NVIDIA 的旗舰级 GPU，适用于高性能计算和 AI 训练，而 A10 是面向入门级工作站的 GPU，性能较 A100 弱",
+        "tokens_saved": 0,
+        "latency_ms": 4195.0
+      },
+      {
+        "i": 29,
+        "group": "C",
+        "query": "客服响应大概多久",
+        "from_cache": false,
+        "similarity": 0.7439,
+        "matched": null,
+        "answer": "一般情况下，客服响应时间为1-5分钟，高峰期可能会稍有延迟。",
+        "tokens_saved": 0,
+        "latency_ms": 2761.2
+      },
+      {
+        "i": 30,
+        "group": "C",
+        "query": "可以免费试一下吗",
+        "from_cache": false,
+        "similarity": 0.7071,
+        "matched": null,
+        "answer": "可以，我们提供试用服务，您可联系客服申请试用，具体详情请咨询。",
+        "tokens_saved": 0,
+        "latency_ms": 2866.7
+      },
+      {
+        "i": 31,
+        "group": "D",
+        "query": "ecs.gn7e 几个 CPU 核心？",
+        "from_cache": false,
+        "similarity": 0.8262,
+        "matched": null,
+        "answer": "ECS.Gn7e 实例的 CPU 核心数根据具体规格而定，例如：\n\n- **ecs.gn7e.12x48c**：48 核\n- **ecs.gn7e.8x32c*",
+        "tokens_saved": 0,
+        "latency_ms": 5528.3
+      },
+      {
+        "i": 32,
+        "group": "D",
+        "query": "PRO 套餐包含什么服务？",
+        "from_cache": false,
+        "similarity": 0.7888,
+        "matched": null,
+        "answer": "PRO 套餐包含以下服务：  \n- 优先客服支持  \n- 高级功能权限  \n- 更多存储空间  \n- 定制化服务选项  \n\n如需详细信息，可查看官网或联系客服。",
+        "tokens_saved": 0,
+        "latency_ms": 7374.4
+      },
+      {
+        "i": 33,
+        "group": "D",
+        "query": "A100 算力有多强？",
+        "from_cache": false,
+        "similarity": 0.74,
+        "matched": null,
+        "answer": "A100 是 NVIDIA 推出的高性能 GPU，算力可达 19.5 TFLOPS（浮点运算每秒），适用于深度学习、科学计算等高性能需求场景。",
+        "tokens_saved": 0,
+        "latency_ms": 2953.3
+      },
+      {
+        "i": 34,
+        "group": "D",
+        "query": "GPU 实例创建后多久能用？",
+        "from_cache": false,
+        "similarity": 0.6777,
+        "matched": null,
+        "answer": "创建成功后即可立即使用。",
+        "tokens_saved": 0,
+        "latency_ms": 2166.8
+      },
+      {
+        "i": 35,
+        "group": "D",
+        "query": "gn7i 比 gn7e 便宜多少？",
+        "from_cache": false,
+        "similarity": 0.6296,
+        "matched": null,
+        "answer": "GN7I 比 GN7E 便宜约 200 元。",
+        "tokens_saved": 0,
+        "latency_ms": 2967.9
+      },
+      {
+        "i": 36,
+        "group": "D",
+        "query": "我们公司想批量购买打折吗？",
+        "from_cache": false,
+        "similarity": 0.2987,
+        "matched": null,
+        "answer": "可以，欢迎批量采购。请您说明所需数量和产品类型，我们将为您核算优惠价格。",
+        "tokens_saved": 0,
+        "latency_ms": 3076.9
+      },
+      {
+        "i": 37,
+        "group": "D",
+        "query": "包月可以中途升级吗？",
+        "from_cache": false,
+        "similarity": 0.4172,
+        "matched": null,
+        "answer": "可以，包月期间可随时升级套餐。",
+        "tokens_saved": 0,
+        "latency_ms": 2261.2
+      },
+      {
+        "i": 38,
+        "group": "D",
+        "query": "A10 适合训练大模型吗？",
+        "from_cache": false,
+        "similarity": 0.4987,
+        "matched": null,
+        "answer": "A10 适合训练中等规模的大模型，但不适合大规模模型训练。",
+        "tokens_saved": 0,
+        "latency_ms": 2075.0
+      },
+      {
+        "i": 39,
+        "group": "D",
+        "query": "工单怎么提交？",
+        "from_cache": false,
+        "similarity": 0.256,
+        "matched": null,
+        "answer": "您可以通过以下步骤提交工单：\n\n1. 登录我们的官网或APP；\n2. 进入“我的订单”或“客服中心”；\n3. 选择“提交工单”或“联系客服”；\n4. 填写相关信",
+        "tokens_saved": 0,
+        "latency_ms": 3652.1
+      },
+      {
+        "i": 40,
+        "group": "D",
+        "query": "试用账号有什么限制？",
+        "from_cache": false,
+        "similarity": 0.495,
+        "matched": null,
+        "answer": "试用账号通常有以下限制：\n\n1. 功能受限：部分高级功能无法使用。  \n2. 使用期限：一般为7天或30天，到期后需购买或续费。  \n3. 数据限制：数据存储或",
+        "tokens_saved": 0,
+        "latency_ms": 2675.0
+      },
+      {
+        "i": 41,
+        "group": "E",
+        "query": "今天上海天气怎么样？",
+        "from_cache": false,
+        "similarity": 0.1087,
+        "matched": null,
+        "answer": "您好，今天上海天气多云，气温22℃到28℃，东南风3-4级，空气质量良好。",
+        "tokens_saved": 0,
+        "latency_ms": 2547.8
+      },
+      {
+        "i": 42,
+        "group": "E",
+        "query": "推荐一本机器学习的书",
+        "from_cache": false,
+        "similarity": 0.1955,
+        "matched": null,
+        "answer": "《机器学习》——周志华（西瓜书）  \n适合入门和进阶，内容全面，讲解清晰。",
+        "tokens_saved": 0,
+        "latency_ms": 2951.1
+      },
+      {
+        "i": 43,
+        "group": "E",
+        "query": "怎么做番茄炒蛋",
+        "from_cache": false,
+        "similarity": 0.1639,
+        "matched": null,
+        "answer": "简单步骤如下：\n\n1. 打2-3个鸡蛋，加少许盐，搅拌均匀。  \n2. 番茄切块，热锅凉油，先炒鸡蛋至凝固盛出。  \n3. 再炒番茄，加盐、糖调味，炒出汁。  ",
+        "tokens_saved": 0,
+        "latency_ms": 4531.9
+      },
+      {
+        "i": 44,
+        "group": "E",
+        "query": "iPhone 15 多少钱",
+        "from_cache": false,
+        "similarity": 0.4442,
+        "matched": null,
+        "answer": "iPhone 15 起售价为 5999 元。具体价格根据配置不同有所差异。",
+        "tokens_saved": 0,
+        "latency_ms": 2466.2
+      },
+      {
+        "i": 45,
+        "group": "E",
+        "query": "北京到上海高铁多久",
+        "from_cache": false,
+        "similarity": 0.3365,
+        "matched": null,
+        "answer": "北京到上海高铁大约需要5-6小时。",
+        "tokens_saved": 0,
+        "latency_ms": 2337.4
+      },
+      {
+        "i": 46,
+        "group": "E",
+        "query": "Python 怎么学",
+        "from_cache": false,
+        "similarity": 0.2918,
+        "matched": null,
+        "answer": "1. 学习基础语法：变量、数据类型、条件语句、循环、函数等。  \n2. 多做练习：通过小项目或编程题巩固知识。  \n3. 学习常用库：如 `requests`、",
+        "tokens_saved": 0,
+        "latency_ms": 2761.0
+      },
+      {
+        "i": 47,
+        "group": "E",
+        "query": "美元对人民币汇率",
+        "from_cache": false,
+        "similarity": 0.2363,
+        "matched": null,
+        "answer": "当前美元对人民币汇率约为1美元≈7.20人民币（数据可能实时变动）。建议通过银行或正规金融平台查询最新汇率。",
+        "tokens_saved": 0,
+        "latency_ms": 3274.7
+      },
+      {
+        "i": 48,
+        "group": "E",
+        "query": "明天周几",
+        "from_cache": false,
+        "similarity": 0.3612,
+        "matched": null,
+        "answer": "明天是周五。",
+        "tokens_saved": 0,
+        "latency_ms": 2134.1
+      },
+      {
+        "i": 49,
+        "group": "E",
+        "query": "巴黎奥运会金牌榜",
+        "from_cache": false,
+        "similarity": 0.136,
+        "matched": null,
+        "answer": "截至目前（2023年10月），巴黎奥运会尚未举行，因此没有金牌榜数据。请关注官方发布的最新信息。",
+        "tokens_saved": 0,
+        "latency_ms": 2690.5
+      },
+      {
+        "i": 50,
+        "group": "E",
+        "query": "Linux 怎么查磁盘空间",
+        "from_cache": false,
+        "similarity": 0.3055,
+        "matched": null,
+        "answer": "查看磁盘空间使用情况，可以使用以下命令：\n\n```bash\ndf -h\n```\n\n该命令会显示各分区的容量、已用空间、可用空间和挂载点。",
+        "tokens_saved": 0,
+        "latency_ms": 2741.9
+      }
+    ],
+    "judged": [],
+    "wrong_hits": 0
+  },
+  {
+    "threshold": 0.98,
+    "summary": {
+      "queries": 50,
+      "hits": 10,
+      "tokens_saved": 674,
+      "embed_calls": 50,
+      "llm_calls": 40,
+      "hit_rate": 0.2,
+      "total_entries": 40
+    },
+    "by_group": {
+      "A": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 29297.6
+      },
+      "B": {
+        "hit": 10,
+        "total": 10,
+        "latency_sum": 13630.600000000002
+      },
+      "C": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 35416.600000000006
+      },
+      "D": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 33074.7
+      },
+      "E": {
+        "hit": 0,
+        "total": 10,
+        "latency_sum": 31549.800000000003
+      }
+    },
+    "trace": [
+      {
+        "i": 1,
+        "group": "A",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": false,
+        "similarity": 0.0,
+        "matched": null,
+        "answer": "ECS GN7e 实例系列通常搭载 NVIDIA Tesla V100 GPU。具体配置可能因实例规格不同而有所差异，建议查看阿里云官方文档或控制台确认。",
+        "tokens_saved": 0,
+        "latency_ms": 2296.1
+      },
+      {
+        "i": 2,
+        "group": "A",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": false,
+        "similarity": 0.14,
+        "matched": null,
+        "answer": "包月套餐 PRO 价格为每月 199 元。",
+        "tokens_saved": 0,
+        "latency_ms": 2321.9
+      },
+      {
+        "i": 3,
+        "group": "A",
+        "query": "A100 显存多大？",
+        "from_cache": false,
+        "similarity": 0.2647,
+        "matched": null,
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 0,
+        "latency_ms": 3281.0
+      },
+      {
+        "i": 4,
+        "group": "A",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": false,
+        "similarity": 0.5756,
+        "matched": null,
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 0,
+        "latency_ms": 3637.8
+      },
+      {
+        "i": 5,
+        "group": "A",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": false,
+        "similarity": 0.7429,
+        "matched": null,
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 游戏服务器\n- 高性能数据库\n- 科学计算\n- 金融建模\n- 实时分析等需要高算力的场景。",
+        "tokens_saved": 0,
+        "latency_ms": 2912.9
+      },
+      {
+        "i": 6,
+        "group": "A",
+        "query": "退款政策是什么？",
+        "from_cache": false,
+        "similarity": 0.169,
+        "matched": null,
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 退货需提供购买凭证和商品原包装。  \n3. 特殊商品（如定制、易损品）不支持退换。",
+        "tokens_saved": 0,
+        "latency_ms": 3890.7
+      },
+      {
+        "i": 7,
+        "group": "A",
+        "query": "包年和包月哪个划算？",
+        "from_cache": false,
+        "similarity": 0.5611,
+        "matched": null,
+        "answer": "包年通常更划算，价格比包月更低，适合长期使用。如果只是短期需求，包月更灵活。",
+        "tokens_saved": 0,
+        "latency_ms": 3314.0
+      },
+      {
+        "i": 8,
+        "group": "A",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": false,
+        "similarity": 0.5986,
+        "matched": null,
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大。  \nA100 是更高端的产品，性能大约是 A10 的 5-8 倍，具体取决于应用场景（",
+        "tokens_saved": 0,
+        "latency_ms": 2420.1
+      },
+      {
+        "i": 9,
+        "group": "A",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": false,
+        "similarity": 0.2343,
+        "matched": null,
+        "answer": "我们的技术支持响应时间是工作日1小时内响应。",
+        "tokens_saved": 0,
+        "latency_ms": 2662.7
+      },
+      {
+        "i": 10,
+        "group": "A",
+        "query": "我能试用吗？",
+        "from_cache": false,
+        "similarity": 0.2426,
+        "matched": null,
+        "answer": "可以，您可申请试用，我们会安排专人与您联系。",
+        "tokens_saved": 0,
+        "latency_ms": 2560.4
+      },
+      {
+        "i": 11,
+        "group": "B",
+        "query": "ecs.gn7e 实例配什么 GPU？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7e 实例配什么 GPU？",
+        "answer": "ECS GN7e 实例系列通常搭载 NVIDIA Tesla V100 GPU。具体配置可能因实例规格不同而有所差异，建议查看阿里云官方文档或控制台确认。",
+        "tokens_saved": 76,
+        "latency_ms": 829.5
+      },
+      {
+        "i": 12,
+        "group": "B",
+        "query": "包月套餐 PRO 多少钱？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包月套餐 PRO 多少钱？",
+        "answer": "包月套餐 PRO 价格为每月 199 元。",
+        "tokens_saved": 49,
+        "latency_ms": 776.7
+      },
+      {
+        "i": 13,
+        "group": "B",
+        "query": "A100 显存多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A100 显存多大？",
+        "answer": "A100 显存为 80GB。",
+        "tokens_saved": 48,
+        "latency_ms": 1180.4
+      },
+      {
+        "i": 14,
+        "group": "B",
+        "query": "怎么开通 GPU 实例？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "怎么开通 GPU 实例？",
+        "answer": "请登录云平台控制台，选择“GPU实例”类型，按照提示创建即可。如需帮助，可联系在线客服。",
+        "tokens_saved": 59,
+        "latency_ms": 1960.4
+      },
+      {
+        "i": 15,
+        "group": "B",
+        "query": "ecs.gn7i 适合什么场景？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "ecs.gn7i 适合什么场景？",
+        "answer": "ECS.GN7i 是一款高性能计算型实例，适合以下场景：\n\n- 游戏服务器\n- 高性能数据库\n- 科学计算\n- 金融建模\n- 实时分析等需要高算力的场景。",
+        "tokens_saved": 88,
+        "latency_ms": 1262.6
+      },
+      {
+        "i": 16,
+        "group": "B",
+        "query": "退款政策是什么？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "退款政策是什么？",
+        "answer": "我们的退款政策如下：  \n1. 7天内可申请退款，商品需保持完好。  \n2. 退货需提供购买凭证和商品原包装。  \n3. 特殊商品（如定制、易损品）不支持退换。",
+        "tokens_saved": 113,
+        "latency_ms": 1393.5
+      },
+      {
+        "i": 17,
+        "group": "B",
+        "query": "包年和包月哪个划算？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "包年和包月哪个划算？",
+        "answer": "包年通常更划算，价格比包月更低，适合长期使用。如果只是短期需求，包月更灵活。",
+        "tokens_saved": 59,
+        "latency_ms": 1571.7
+      },
+      {
+        "i": 18,
+        "group": "B",
+        "query": "A10 和 A100 性能差距多大？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "A10 和 A100 性能差距多大？",
+        "answer": "A10 和 A100 是 NVIDIA 不同代的 GPU，性能差距较大。  \nA100 是更高端的产品，性能大约是 A10 的 5-8 倍，具体取决于应用场景（",
+        "tokens_saved": 96,
+        "latency_ms": 1089.0
+      },
+      {
+        "i": 19,
+        "group": "B",
+        "query": "技术支持响应时间是多少？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "技术支持响应时间是多少？",
+        "answer": "我们的技术支持响应时间是工作日1小时内响应。",
+        "tokens_saved": 41,
+        "latency_ms": 2213.6
+      },
+      {
+        "i": 20,
+        "group": "B",
+        "query": "我能试用吗？",
+        "from_cache": true,
+        "similarity": 1.0,
+        "matched": "我能试用吗？",
+        "answer": "可以，您可申请试用，我们会安排专人与您联系。",
+        "tokens_saved": 45,
+        "latency_ms": 1353.2
+      },
+      {
+        "i": 21,
+        "group": "C",
+        "query": "ecs.gn7e 上面用的是哪款 GPU?",
+        "from_cache": false,
+        "similarity": 0.904,
+        "matched": null,
+        "answer": "ECS.Gn7e 实例使用的是 NVIDIA A100 GPU。",
+        "tokens_saved": 0,
+        "latency_ms": 3061.8
+      },
+      {
+        "i": 22,
+        "group": "C",
+        "query": "PRO 套餐的价格是多少呢",
+        "from_cache": false,
+        "similarity": 0.8544,
+        "matched": null,
+        "answer": "PRO 套餐的价格是每月 29 元。",
+        "tokens_saved": 0,
+        "latency_ms": 3429.7
+      },
+      {
+        "i": 23,
+        "group": "C",
+        "query": "A100 GPU 内存是多少 GB",
+        "from_cache": false,
+        "similarity": 0.7522,
+        "matched": null,
+        "answer": "A100 GPU 内存是 80 GB。",
+        "tokens_saved": 0,
+        "latency_ms": 3634.7
+      },
+      {
+        "i": 24,
+        "group": "C",
+        "query": "GPU 实例怎么购买和开通",
+        "from_cache": false,
+        "similarity": 0.8789,
+        "matched": null,
+        "answer": "您可以通过以下步骤购买和开通GPU实例：\n\n1. 登录云服务提供商的管理控制台（如阿里云、腾讯云等）。\n2. 进入“计算”或“ECS”相关产品页面。\n3. 选择",
+        "tokens_saved": 0,
+        "latency_ms": 4209.4
+      },
+      {
+        "i": 25,
+        "group": "C",
+        "query": "gn7i 实例的应用场景",
+        "from_cache": false,
+        "similarity": 0.7425,
+        "matched": null,
+        "answer": "GN7i 实例主要用于云计算环境中的高性能计算场景，如大数据分析、科学计算、高性能数据库等。",
+        "tokens_saved": 0,
+        "latency_ms": 5795.1
+      },
+      {
+        "i": 26,
+        "group": "C",
+        "query": "你们退款规则",
+        "from_cache": false,
+        "similarity": 0.7714,
+        "matched": null,
+        "answer": "我们支持7天无理由退款，商品完好且未使用的情况下可申请。具体以订单页面说明为准，您可联系客服为您处理。",
+        "tokens_saved": 0,
+        "latency_ms": 2555.7
+      },
+      {
+        "i": 27,
+        "group": "C",
+        "query": "买包年合算还是包月合算",
+        "from_cache": false,
+        "similarity": 0.7992,
+        "matched": null,
+        "answer": "包年通常更合算，价格比包月总和更低。具体可根据使用时长选择，短期用月付，长期用年付更优惠。",
+        "tokens_saved": 0,
+        "latency_ms": 2852.4
+      },
+      {
+        "i": 28,
+        "group": "C",
+        "query": "A10 跟 A100 哪个性能更强",
+        "from_cache": false,
+        "similarity": 0.9096,
+        "matched": null,
+        "answer": "A100 性能更强。A100 是 NVIDIA 的旗舰 GPU，性能远超 A10，适用于更复杂的 AI 和高性能计算任务。",
+        "tokens_saved": 0,
+        "latency_ms": 2573.6
+      },
+      {
+        "i": 29,
+        "group": "C",
+        "query": "客服响应大概多久",
+        "from_cache": false,
+        "similarity": 0.7439,
+        "matched": null,
+        "answer": "一般情况下，客服响应时间为1-5分钟，高峰期可能稍有延迟。如需紧急帮助，建议通过在线客服或拨打热线联系。",
+        "tokens_saved": 0,
+        "latency_ms": 4027.4
+      },
+      {
+        "i": 30,
+        "group": "C",
+        "query": "可以免费试一下吗",
+        "from_cache": false,
+        "similarity": 0.7071,
+        "matched": null,
+        "answer": "可以，我们提供试用服务，具体方案您可以咨询我们的销售顾问，他们会根据您的需求安排合适的试用方式。",
+        "tokens_saved": 0,
+        "latency_ms": 3276.8
+      },
+      {
+        "i": 31,
+        "group": "D",
+        "query": "ecs.gn7e 几个 CPU 核心？",
+        "from_cache": false,
+        "similarity": 0.8262,
+        "matched": null,
+        "answer": "ECS.GN7E 实例的 CPU 核心数根据具体规格不同而有所差异，常见的有 2 核、4 核、8 核等。您可在购买时选择所需核心数。",
+        "tokens_saved": 0,
+        "latency_ms": 4505.0
+      },
+      {
+        "i": 32,
+        "group": "D",
+        "query": "PRO 套餐包含什么服务？",
+        "from_cache": false,
+        "similarity": 0.7888,
+        "matched": null,
+        "answer": "PRO 套餐包含以下服务：  \n- 优先客服支持  \n- 更多定制化功能  \n- 增强的数据分析报告  \n- 无广告使用体验  \n\n如需详细信息，可查看官网或联",
+        "tokens_saved": 0,
+        "latency_ms": 4648.0
+      },
+      {
+        "i": 33,
+        "group": "D",
+        "query": "A100 算力有多强？",
+        "from_cache": false,
+        "similarity": 0.74,
+        "matched": null,
+        "answer": "A100 是 NVIDIA 推出的高性能 GPU，拥有 1984 个 CUDA 核心，算力可达 19.5 TFLOPS（FP32），适用于深度学习、科学计算等高",
+        "tokens_saved": 0,
+        "latency_ms": 3063.8
+      },
+      {
+        "i": 34,
+        "group": "D",
+        "query": "GPU 实例创建后多久能用？",
+        "from_cache": false,
+        "similarity": 0.6777,
+        "matched": null,
+        "answer": "创建成功后即可立即使用。",
+        "tokens_saved": 0,
+        "latency_ms": 2427.2
+      },
+      {
+        "i": 35,
+        "group": "D",
+        "query": "gn7i 比 gn7e 便宜多少？",
+        "from_cache": false,
+        "similarity": 0.6296,
+        "matched": null,
+        "answer": "GN7I 比 GN7E 便宜约 100-200 元，具体价格以电商平台或门店为准。",
+        "tokens_saved": 0,
+        "latency_ms": 2460.0
+      },
+      {
+        "i": 36,
+        "group": "D",
+        "query": "我们公司想批量购买打折吗？",
+        "from_cache": false,
+        "similarity": 0.2987,
+        "matched": null,
+        "answer": "可以，欢迎批量采购。请您说明所需数量和产品类型，我们将为您核算优惠价格。",
+        "tokens_saved": 0,
+        "latency_ms": 2557.8
+      },
+      {
+        "i": 37,
+        "group": "D",
+        "query": "包月可以中途升级吗？",
+        "from_cache": false,
+        "similarity": 0.4172,
+        "matched": null,
+        "answer": "可以，包月期间可随时升级套餐。",
+        "tokens_saved": 0,
+        "latency_ms": 2660.5
+      },
+      {
+        "i": 38,
+        "group": "D",
+        "query": "A10 适合训练大模型吗？",
+        "from_cache": false,
+        "similarity": 0.4987,
+        "matched": null,
+        "answer": "A10 适合训练中等规模的大模型，但不适合训练超大规模模型。",
+        "tokens_saved": 0,
+        "latency_ms": 2230.5
+      },
+      {
+        "i": 39,
+        "group": "D",
+        "query": "工单怎么提交？",
+        "from_cache": false,
+        "similarity": 0.256,
+        "matched": null,
+        "answer": "您可以通过以下步骤提交工单：\n\n1. 登录我们的官网或APP。\n2. 进入“我的客服”或“工单中心”。\n3. 点击“新建工单”。\n4. 填写问题描述、联系方式等",
+        "tokens_saved": 0,
+        "latency_ms": 5350.9
+      },
+      {
+        "i": 40,
+        "group": "D",
+        "query": "试用账号有什么限制？",
+        "from_cache": false,
+        "similarity": 0.495,
+        "matched": null,
+        "answer": "试用账号通常有以下限制：\n\n1. 功能受限：部分高级功能无法使用。  \n2. 使用期限：一般为7-30天，到期后需付费或续费。  \n3. 数据限制：数据存储或使",
+        "tokens_saved": 0,
+        "latency_ms": 3171.0
+      },
+      {
+        "i": 41,
+        "group": "E",
+        "query": "今天上海天气怎么样？",
+        "from_cache": false,
+        "similarity": 0.1087,
+        "matched": null,
+        "answer": "今天上海天气多云，气温22℃~28℃，东南风3-4级，体感舒适。",
+        "tokens_saved": 0,
+        "latency_ms": 3296.2
+      },
+      {
+        "i": 42,
+        "group": "E",
+        "query": "推荐一本机器学习的书",
+        "from_cache": false,
+        "similarity": 0.1955,
+        "matched": null,
+        "answer": "《机器学习》——周志华（西瓜书）  \n适合入门，内容系统，讲解详细。",
+        "tokens_saved": 0,
+        "latency_ms": 2950.5
+      },
+      {
+        "i": 43,
+        "group": "E",
+        "query": "怎么做番茄炒蛋",
+        "from_cache": false,
+        "similarity": 0.1639,
+        "matched": null,
+        "answer": "简单步骤如下：\n\n1. 打两个鸡蛋，加少许盐，搅拌均匀。\n2. 番茄切块，热锅凉油，先炒蛋至凝固后盛出。\n3. 再炒番茄，加盐、糖调味，炒软后倒入鸡蛋翻炒均匀即",
+        "tokens_saved": 0,
+        "latency_ms": 3688.7
+      },
+      {
+        "i": 44,
+        "group": "E",
+        "query": "iPhone 15 多少钱",
+        "from_cache": false,
+        "similarity": 0.4442,
+        "matched": null,
+        "answer": "iPhone 15 起售价为 5999 元起（128GB 存储版本）。具体价格根据存储容量和配置有所不同。",
+        "tokens_saved": 0,
+        "latency_ms": 2841.0
+      },
+      {
+        "i": 45,
+        "group": "E",
+        "query": "北京到上海高铁多久",
+        "from_cache": false,
+        "similarity": 0.3365,
+        "matched": null,
+        "answer": "北京到上海高铁大约需要5-6小时。",
+        "tokens_saved": 0,
+        "latency_ms": 2584.7
+      },
+      {
+        "i": 46,
+        "group": "E",
+        "query": "Python 怎么学",
+        "from_cache": false,
+        "similarity": 0.2918,
+        "matched": null,
+        "answer": "1. 学基础语法（变量、循环、函数等）  \n2. 多敲代码，实践练习  \n3. 做小项目巩固知识  \n4. 学习常用库（如 requests、pandas）  ",
+        "tokens_saved": 0,
+        "latency_ms": 3890.9
+      },
+      {
+        "i": 47,
+        "group": "E",
+        "query": "美元对人民币汇率",
+        "from_cache": false,
+        "similarity": 0.2363,
+        "matched": null,
+        "answer": "当前美元对人民币汇率约为1美元≈7.20人民币（具体以实时数据为准）。建议查看银行或金融平台获取最新汇率。",
+        "tokens_saved": 0,
+        "latency_ms": 2661.8
+      },
+      {
+        "i": 48,
+        "group": "E",
+        "query": "明天周几",
+        "from_cache": false,
+        "similarity": 0.3612,
+        "matched": null,
+        "answer": "明天是周几？",
+        "tokens_saved": 0,
+        "latency_ms": 2358.2
+      },
+      {
+        "i": 49,
+        "group": "E",
+        "query": "巴黎奥运会金牌榜",
+        "from_cache": false,
+        "similarity": 0.136,
+        "matched": null,
+        "answer": "目前2024年巴黎奥运会还未开始，具体金牌榜尚未产生。您想了解往届奥运会的金牌榜吗？比如东京奥运会或里约奥运会？",
+        "tokens_saved": 0,
+        "latency_ms": 3599.9
+      },
+      {
+        "i": 50,
+        "group": "E",
+        "query": "Linux 怎么查磁盘空间",
+        "from_cache": false,
+        "similarity": 0.3055,
+        "matched": null,
+        "answer": "查看磁盘空间使用情况，可以使用以下命令：\n\n```bash\ndf -h\n```\n\n该命令会显示各分区的总容量、已用空间、可用空间和使用率。",
+        "tokens_saved": 0,
+        "latency_ms": 3677.9
+      }
+    ],
+    "judged": [],
+    "wrong_hits": 0
+  }
+]
