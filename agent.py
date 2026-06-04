@@ -456,9 +456,9 @@ def build_executor_prompt(
 {history if history else "(无)"}
 
 【当前步骤】
-Step {current["step"]}: 调用 {current["tool"]}
-原计划参数: {json.dumps(current["args"], ensure_ascii=False)}
-本步目的: {current["purpose"]}
+Step {current.get("step", "?")}: 调用 {current.get("tool", "")}
+原计划参数: {json.dumps(current.get("args", {}), ensure_ascii=False)}
+本步目的: {current.get("purpose", "")}
 
 【你的任务】
 基于已执行结果，输出当前 step 的最终参数。如果原计划参数包含 <stepN_xxx> 占位符，请用前面 step 的实际结果替换。

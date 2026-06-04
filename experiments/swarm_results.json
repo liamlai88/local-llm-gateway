@@ -1,0 +1,82 @@
+{
+  "provider": "bailian",
+  "model": "qwen-turbo",
+  "A_serial": {
+    "mode": "serial",
+    "wall_ms": 5830.5,
+    "steps": [
+      {
+        "agent": "英文文案",
+        "output": "Conquer the desert, build your empire, win without spending a dime.",
+        "latency_ms": 1468.7,
+        "chars": 67
+      },
+      {
+        "agent": "阿拉伯语文案",
+        "output": "استمتع بحرب الصحراء الحقيقية وابنِ إمبراطوريتك دون دفع أي ريال!",
+        "latency_ms": 1880.7,
+        "chars": 63
+      },
+      {
+        "agent": "泰语文案",
+        "output": "สู้ในทะเลทราย ลุ้นชัยชนะ ไม่ต้องจ่ายเงินก็ขึ้นอันดับ!",
+        "latency_ms": 2481.0,
+        "chars": 53
+      }
+    ]
+  },
+  "B_swarm": {
+    "mode": "swarm_parallel",
+    "wall_ms": 4429.1,
+    "fan_out_ms": 1939.7,
+    "gather_ms": 2489.4,
+    "steps": [
+      {
+        "agent": "英文文案",
+        "output": "Conquer the desert, unite with allies, rise without spending a dime.",
+        "latency_ms": 1202.1,
+        "chars": 68
+      },
+      {
+        "agent": "阿拉伯语文案",
+        "output": "استمتع بحرب الصحراء الحقيقية وابنِ إمبراطوريتك دون دفع أي ريال!",
+        "latency_ms": 1563.7,
+        "chars": 63
+      },
+      {
+        "agent": "泰语文案",
+        "output": "สู้ในทะเลทราย สร้างจักรวรรดิ ไม่ต้องเสียเงินก็ขึ้นอันดับ!",
+        "latency_ms": 1937.7,
+        "chars": 57
+      }
+    ],
+    "final": "以下是整理好的多语种标语清单，适用于对外发布使用：\n\nConquer the desert, unite with allies, rise without spending a dime.  \nاستمتع بحرب الصحراء الحقيقية وابنِ إمبراطوريتك دون دفع أي ريال!  \nสู้ในทะเลทราย สร้างจักรวรรดิ ไม่ต้องเสียเงินก็ขึ้นอันดับ!"
+  },
+  "fanout_speedup": 3.01,
+  "C_routing": [
+    {
+      "query": "A100 按量付费一小时多少钱？",
+      "routed_to": "billing",
+      "reason": "计费查询",
+      "answer": "A100 按量付费每小时约 1.2 美元（具体价格以云服务商实时报价为准）。",
+      "route_ms": 1266.2,
+      "answer_ms": 1789.2
+    },
+    {
+      "query": "调用 gateway 报 429 是什么原因？",
+      "routed_to": "tech",
+      "reason": "接口限流",
+      "answer": "请求过多，触发了限流机制。",
+      "route_ms": 2478.3,
+      "answer_ms": 1022.1
+    },
+    {
+      "query": "中东地区用户生成内容要过哪些审核？",
+      "routed_to": "policy",
+      "reason": "审核政策",
+      "answer": "中东地区用户生成内容需遵守当地法律法规，包括但不限于宗教敏感性、政治中立性、文化价值观及反恐法规，具体内容审核政策因国家而异，需结合具体国家的法律要求进行合规审查。",
+      "route_ms": 1535.6,
+      "answer_ms": 1411.0
+    }
+  ]
+}
