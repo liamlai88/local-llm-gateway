@@ -4,6 +4,7 @@ RAG 模块 v3 - 懒加载依赖，启动不依赖外部包
 - BM25:   关键词检索（rank-bm25 + jieba 中文分词）
 - Hybrid: RRF 倒数排名融合
 """
+
 import os
 import re
 import importlib
@@ -119,6 +120,7 @@ def embed(texts: List[str]) -> List[List[float]]:
         raise RuntimeError("DASHSCOPE_API_KEY 未设置")
 
     import requests
+
     api_key = os.getenv("DASHSCOPE_API_KEY")
     url = "https://dashscope.aliyuncs.com/compatible-mode/v1/embeddings"
     headers = {
@@ -126,17 +128,34 @@ def embed(texts: List[str]) -> List[List[float]]:
         "Content-Type": "application/json",
     }
 
+    import time
+
     all_embeds = []
     for i in range(0, len(texts), 10):
-        batch = texts[i:i + 10]
-        resp = requests.post(
-            url, headers=headers,
-            json={"model": "text-embedding-v2", "input": batch, "encoding_format": "float"},
-            timeout=30,
-        )
-        data = resp.json()
-        if "data" not in data:
-            raise RuntimeError(f"Embedding failed: {data.get('error', data)}")
+        batch = texts[i : i + 10]
+        # 网络抖动/限流时退避重试 3 次，避免单次失败直接 500
+        last_err = None
+        for attempt in range(3):
+            try:
+                resp = requests.post(
+                    url,
+                    headers=headers,
+                    json={
+                        "model": "text-embedding-v2",
+                        "input": batch,
+                        "encoding_format": "float",
+                    },
+                    timeout=30,
+                )
+                data = resp.json()
+                if "data" in data:
+                    break
+                last_err = RuntimeError(f"Embedding failed: {data.get('error', data)}")
+            except requests.RequestException as e:
+                last_err = e
+            time.sleep(2**attempt)
+        else:
+            raise last_err
         for item in data["data"]:
             all_embeds.append(item["embedding"])
     return all_embeds
@@ -165,8 +184,13 @@ def add_document(doc_id: str, content: str, metadata: Dict = None) -> Dict:
         return {"chunks": 0}
     embeds = embed(chunks)
     ids = [f"{doc_id}__{i}" for i in range(len(chunks))]
-    metadatas = [{"doc_id": doc_id, "chunk_idx": i, **(metadata or {})} for i in range(len(chunks))]
-    _get_collection().add(ids=ids, embeddings=embeds, documents=chunks, metadatas=metadatas)
+    metadatas = [
+        {"doc_id": doc_id, "chunk_idx": i, **(metadata or {})}
+        for i in range(len(chunks))
+    ]
+    _get_collection().add(
+        ids=ids, embeddings=embeds, documents=chunks, metadatas=metadatas
+    )
     _rebuild_bm25()
     return {"doc_id": doc_id, "chunks": len(chunks)}
 
@@ -176,7 +200,13 @@ def search_vector(query: str, top_k: int = 5) -> List[Dict]:
     qe = embed([query])[0]
     res = _get_collection().query(query_embeddings=[qe], n_results=top_k)
     return [
-        {"id": id_, "content": doc, "metadata": meta, "score": 1.0 / (1.0 + dist), "method": "vector"}
+        {
+            "id": id_,
+            "content": doc,
+            "metadata": meta,
+            "score": 1.0 / (1.0 + dist),
+            "method": "vector",
+        }
         for id_, doc, meta, dist in zip(
             res["ids"][0], res["documents"][0], res["metadatas"][0], res["distances"][0]
         )
@@ -193,10 +223,14 @@ def search_bm25(query: str, top_k: int = 5) -> List[Dict]:
     top_idx = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)[:top_k]
     return [
         {
-            "id": _bm25_ids[i], "content": _bm25_chunks[i], "metadata": _bm25_metadatas[i],
-            "score": float(scores[i]), "method": "bm25",
+            "id": _bm25_ids[i],
+            "content": _bm25_chunks[i],
+            "metadata": _bm25_metadatas[i],
+            "score": float(scores[i]),
+            "method": "bm25",
         }
-        for i in top_idx if scores[i] > 0
+        for i in top_idx
+        if scores[i] > 0
     ]
 
 
@@ -213,8 +247,11 @@ def search_hybrid(query: str, top_k: int = 5, k: int = 60) -> List[Dict]:
     sorted_ids = sorted(rrf.keys(), key=lambda x: rrf[x], reverse=True)[:top_k]
     return [
         {
-            "id": id_, "content": chunks[id_]["content"], "metadata": chunks[id_]["metadata"],
-            "score": rrf[id_], "method": "hybrid",
+            "id": id_,
+            "content": chunks[id_]["content"],
+            "metadata": chunks[id_]["metadata"],
+            "score": rrf[id_],
+            "method": "hybrid",
         }
         for id_ in sorted_ids
     ]
@@ -233,8 +270,11 @@ def rerank(query: str, candidates: List[Dict], top_k: int = 3) -> List[Dict]:
 
     # 用 dashscope native API (rerank 没有 OpenAI 兼容模式), 用 requests 直接调避免 SDK 编码 bug
     import requests
+
     api_key = os.getenv("DASHSCOPE_API_KEY")
-    url = "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
+    url = (
+        "https://dashscope.aliyuncs.com/api/v1/services/rerank/text-rerank/text-rerank"
+    )
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
@@ -242,7 +282,8 @@ def rerank(query: str, candidates: List[Dict], top_k: int = 3) -> List[Dict]:
 
     docs = [c["content"] for c in candidates]
     resp = requests.post(
-        url, headers=headers,
+        url,
+        headers=headers,
         json={
             "model": "gte-rerank",
             "input": {"query": query, "documents": docs},
@@ -267,7 +308,9 @@ def rerank(query: str, candidates: List[Dict], top_k: int = 3) -> List[Dict]:
     return results
 
 
-def search(query: str, top_k: int = 3, mode: str = "hybrid", use_rerank: bool = False) -> List[Dict]:
+def search(
+    query: str, top_k: int = 3, mode: str = "hybrid", use_rerank: bool = False
+) -> List[Dict]:
     """
     统一检索入口
     - mode: vector / bm25 / hybrid
@@ -293,7 +336,13 @@ def search(query: str, top_k: int = 3, mode: str = "hybrid", use_rerank: bool = 
 
 def clear_all():
     """彻底清空：删 collection + 删所有 ID + 重置内存"""
-    global _collection, _chroma_client, _bm25_index, _bm25_chunks, _bm25_ids, _bm25_metadatas
+    global \
+        _collection, \
+        _chroma_client, \
+        _bm25_index, \
+        _bm25_chunks, \
+        _bm25_ids, \
+        _bm25_metadatas
     require("chromadb")
     # 先把当前 collection 里所有 ID 删掉（兜底）
     try:

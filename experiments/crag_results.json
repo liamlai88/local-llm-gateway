@@ -1,0 +1,236 @@
+{
+  "naive_noguard": {
+    "answerable_acc": 1.0,
+    "unanswerable_safe": 1.0,
+    "total_calls": 6,
+    "rows": [
+      {
+        "q": "NVIDIA A100 显存多大？",
+        "type": "answerable",
+        "must_any": [
+          "80"
+        ],
+        "answer": "答案：NVIDIA A100 的显存是 80GB。",
+        "llm_calls": 1,
+        "latency_ms": 3752.6,
+        "path": "naive-noguard",
+        "correct": 1
+      },
+      {
+        "q": "ecs.gn7e 按量付费每小时多少钱？",
+        "type": "answerable",
+        "must_any": [
+          "68"
+        ],
+        "answer": "答案：¥68/小时。",
+        "llm_calls": 1,
+        "latency_ms": 1873.8,
+        "path": "naive-noguard",
+        "correct": 1
+      },
+      {
+        "q": "包月套餐 PRO 总价多少？",
+        "type": "answerable",
+        "must_any": [
+          "40000",
+          "4万"
+        ],
+        "answer": "答案：¥40000/月。",
+        "llm_calls": 1,
+        "latency_ms": 2018.1,
+        "path": "naive-noguard",
+        "correct": 1
+      },
+      {
+        "q": "最便宜的 GPU 实例按量付费每小时多少钱？",
+        "type": "answerable",
+        "must_any": [
+          "18"
+        ],
+        "answer": "根据提供的资料，最便宜的 GPU 实例是 **ecs.gn7i-c8g1.2xlarge**，其按量付费价格为 **¥18/小时**。\n\n答案：**¥18**",
+        "llm_calls": 1,
+        "latency_ms": 2363.0,
+        "path": "naive-noguard",
+        "correct": 1
+      },
+      {
+        "q": "H100 的显存是多少 GB？",
+        "type": "unanswerable",
+        "must_any": [],
+        "answer": "答案：资料中未提及 H100 的显存信息。",
+        "llm_calls": 1,
+        "latency_ms": 3062.2,
+        "path": "naive-noguard",
+        "correct": 1
+      },
+      {
+        "q": "你们支持 AMD MI300 加速卡吗？",
+        "type": "unanswerable",
+        "must_any": [],
+        "answer": "答案：目前资料中未提及支持 AMD MI300 加速卡，仅提到支持 NVIDIA A100 和 A10 GPU。是否支持 AMD MI300 需根据具体服务提供商的最新信息确认。",
+        "llm_calls": 1,
+        "latency_ms": 3795.6,
+        "path": "naive-noguard",
+        "correct": 1
+      }
+    ]
+  },
+  "naive": {
+    "answerable_acc": 1.0,
+    "unanswerable_safe": 1.0,
+    "total_calls": 6,
+    "rows": [
+      {
+        "q": "NVIDIA A100 显存多大？",
+        "type": "answerable",
+        "must_any": [
+          "80"
+        ],
+        "answer": "答案：80GB。",
+        "llm_calls": 1,
+        "latency_ms": 2142.8,
+        "path": "naive",
+        "correct": 1
+      },
+      {
+        "q": "ecs.gn7e 按量付费每小时多少钱？",
+        "type": "answerable",
+        "must_any": [
+          "68"
+        ],
+        "answer": "答案：¥68/小时。",
+        "llm_calls": 1,
+        "latency_ms": 1884.2,
+        "path": "naive",
+        "correct": 1
+      },
+      {
+        "q": "包月套餐 PRO 总价多少？",
+        "type": "answerable",
+        "must_any": [
+          "40000",
+          "4万"
+        ],
+        "answer": "答案：¥40000/月。",
+        "llm_calls": 1,
+        "latency_ms": 3068.1,
+        "path": "naive",
+        "correct": 1
+      },
+      {
+        "q": "最便宜的 GPU 实例按量付费每小时多少钱？",
+        "type": "answerable",
+        "must_any": [
+          "18"
+        ],
+        "answer": "答案：18元/小时",
+        "llm_calls": 1,
+        "latency_ms": 2746.4,
+        "path": "naive",
+        "correct": 1
+      },
+      {
+        "q": "H100 的显存是多少 GB？",
+        "type": "unanswerable",
+        "must_any": [],
+        "answer": "信息不足，无法回答。",
+        "llm_calls": 1,
+        "latency_ms": 2455.7,
+        "path": "naive",
+        "correct": 1
+      },
+      {
+        "q": "你们支持 AMD MI300 加速卡吗？",
+        "type": "unanswerable",
+        "must_any": [],
+        "answer": "信息不足，无法回答。",
+        "llm_calls": 1,
+        "latency_ms": 3060.9,
+        "path": "naive",
+        "correct": 1
+      }
+    ]
+  },
+  "crag": {
+    "answerable_acc": 1.0,
+    "unanswerable_safe": 1.0,
+    "total_calls": 15,
+    "rows": [
+      {
+        "q": "NVIDIA A100 显存多大？",
+        "type": "answerable",
+        "must_any": [
+          "80"
+        ],
+        "answer": "答案：80GB。",
+        "llm_calls": 2,
+        "latency_ms": 3578.3,
+        "path": "correct→direct",
+        "verdict": "CORRECT",
+        "correct": 1
+      },
+      {
+        "q": "ecs.gn7e 按量付费每小时多少钱？",
+        "type": "answerable",
+        "must_any": [
+          "68"
+        ],
+        "answer": "答案：¥68/小时。",
+        "llm_calls": 2,
+        "latency_ms": 5915.6,
+        "path": "correct→direct",
+        "verdict": "CORRECT",
+        "correct": 1
+      },
+      {
+        "q": "包月套餐 PRO 总价多少？",
+        "type": "answerable",
+        "must_any": [
+          "40000",
+          "4万"
+        ],
+        "answer": "答案：¥40000/月。",
+        "llm_calls": 2,
+        "latency_ms": 3402.9,
+        "path": "correct→direct",
+        "verdict": "CORRECT",
+        "correct": 1
+      },
+      {
+        "q": "最便宜的 GPU 实例按量付费每小时多少钱？",
+        "type": "answerable",
+        "must_any": [
+          "18"
+        ],
+        "answer": "答案：¥18/小时",
+        "llm_calls": 2,
+        "latency_ms": 3869.2,
+        "path": "correct→direct",
+        "verdict": "CORRECT",
+        "correct": 1
+      },
+      {
+        "q": "H100 的显存是多少 GB？",
+        "type": "unanswerable",
+        "must_any": [],
+        "answer": "信息不足，无法回答。",
+        "llm_calls": 4,
+        "latency_ms": 7327.4,
+        "path": "incorrect→rewrite(CORRECT)",
+        "verdict": "INCORRECT",
+        "correct": 1
+      },
+      {
+        "q": "你们支持 AMD MI300 加速卡吗？",
+        "type": "unanswerable",
+        "must_any": [],
+        "answer": "信息不足，无法回答。",
+        "llm_calls": 3,
+        "latency_ms": 5102.6,
+        "path": "incorrect→abstain",
+        "verdict": "INCORRECT",
+        "correct": 1
+      }
+    ]
+  }
+}

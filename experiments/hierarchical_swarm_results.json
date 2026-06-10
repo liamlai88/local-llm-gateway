@@ -1,0 +1,600 @@
+{
+  "provider_strategy": "hybrid (simple=local-1.5B, complex=cloud-turbo)",
+  "A_single_local": {
+    "summary": {
+      "avg_latency_ms": 3016.9,
+      "total_llm_calls": 17,
+      "accuracy": 0.444
+    },
+    "rows": [
+      {
+        "q": "你们营业时间是几点？",
+        "intent": "faq",
+        "must_any": [
+          "24",
+          "全天",
+          "小时"
+        ],
+        "answer": "对不起，由于我没有实时的网络连接或者内部数据源来获取最新的营业时间信息，所以我无法提供准确的答案。请你咨询你的客户群，或者访问公司网站以获取最新的时间表。",
+        "llm_calls": 1,
+        "latency_ms": 1601.7,
+        "correct": 0
+      },
+      {
+        "q": "怎么联系你们客服？",
+        "intent": "faq",
+        "must_any": [
+          "工单",
+          "邮箱",
+          "support"
+        ],
+        "answer": "达到最大循环次数，未能得出答案",
+        "llm_calls": 3,
+        "latency_ms": 7673.3,
+        "correct": 0
+      },
+      {
+        "q": "A100 按量付费一小时多少钱？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "价",
+          "小时",
+          "美元"
+        ],
+        "answer": "A100 按量付费一小时价格为 ¥288.89。",
+        "llm_calls": 2,
+        "latency_ms": 1184.0,
+        "correct": 1
+      },
+      {
+        "q": "包月套餐的费用是多少？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "月",
+          "价"
+        ],
+        "answer": "包月套餐的费用是 ¥12,000。",
+        "llm_calls": 1,
+        "latency_ms": 1726.8,
+        "correct": 1
+      },
+      {
+        "q": "调用 gateway 报 429 是什么原因，如何排查？",
+        "intent": "tech",
+        "must_any": [
+          "限流",
+          "请求",
+          "频率",
+          "重试",
+          "429"
+        ],
+        "answer": "我首先查了北京的城市天气，结果是晴天，气温大概18°C。然后我试着查看 429 状态码的信息。根据我所了解到的知识库和可用工具，如果 IP 地址被添加到禁止请求的名单中，那么可能会看到 429 认证失败。但是没有显示 429 错误的地方。因为这个错误并不是总是出现，而且可能与许多因素有关（例如你的网络问题、防火墙的规则等），所以可能不是 Gateway 的原因。",
+        "llm_calls": 1,
+        "latency_ms": 4003.4,
+        "correct": 1
+      },
+      {
+        "q": "模型连不上为什么会超时，怎么定位？",
+        "intent": "tech",
+        "must_any": [
+          "网络",
+          "超时",
+          "连接",
+          "排查",
+          "日志",
+          "端口"
+        ],
+        "answer": "达到最大循环次数，未能得出答案",
+        "llm_calls": 3,
+        "latency_ms": 3979.2,
+        "correct": 0
+      },
+      {
+        "q": "用户生成的图片要过哪些内容审核才能发？",
+        "intent": "policy",
+        "must_any": [
+          "审核",
+          "合规",
+          "敏感",
+          "政策",
+          "法律"
+        ],
+        "answer": "15 和 6 的乘积是 90。",
+        "llm_calls": 2,
+        "latency_ms": 2111.9,
+        "correct": 0
+      },
+      {
+        "q": "这条广告文案能不能直接发，有没有合规风险？",
+        "intent": "policy",
+        "must_any": [
+          "合规",
+          "风险",
+          "审核",
+          "建议",
+          "法律"
+        ],
+        "answer": "不可以，因为该广告文案可能包含不合法的商业宣传内容或含有误导性的信息，以及不适合的促销策略，这些都属于广告规范中的禁止行为。请务必根据当地法律法规编写符合要求的广告文案，确保其合法性和道德性。",
+        "llm_calls": 2,
+        "latency_ms": 1466.4,
+        "correct": 1
+      },
+      {
+        "q": "帮我看看这个实例适合做什么场景",
+        "intent": "miss",
+        "must_any": [
+          "推理",
+          "训练",
+          "场景",
+          "适合",
+          "渲染"
+        ],
+        "answer": "按产品包月价格计算，一个月的费用约为 ¥33。",
+        "llm_calls": 2,
+        "latency_ms": 3405.1,
+        "correct": 0
+      }
+    ]
+  },
+  "B_reflection_local": {
+    "summary": {
+      "avg_latency_ms": 10566.6,
+      "total_llm_calls": 63,
+      "accuracy": 0.667
+    },
+    "rows": [
+      {
+        "q": "你们营业时间是几点？",
+        "intent": "faq",
+        "must_any": [
+          "24",
+          "全天",
+          "小时"
+        ],
+        "answer": "无法从提供的信息中确定详细的营业时间。建议查询官方渠道获取准确的营业时间。",
+        "llm_calls": 6,
+        "latency_ms": 8225.2,
+        "correct": 0
+      },
+      {
+        "q": "怎么联系你们客服？",
+        "intent": "faq",
+        "must_any": [
+          "工单",
+          "邮箱",
+          "support"
+        ],
+        "answer": "知识库检索失败：Access denied. 对于详情，请参阅：https://help.aliyun.com/zh/model-studio/error-code#access-denied。",
+        "llm_calls": 6,
+        "latency_ms": 6991.2,
+        "correct": 0
+      },
+      {
+        "q": "A100 按量付费一小时多少钱？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "价",
+          "小时",
+          "美元"
+        ],
+        "answer": "步骤1：使用kb_search工具无法获取所需信息。\n\n步骤2：使用calulator工具计算结果。\nA100按量付费一小时的价格是-100元。这意味着实际没有提供一小时100元的正确信息或成本在这种情况下可能不存在或者被隐藏了。",
+        "llm_calls": 5,
+        "latency_ms": 6684.0,
+        "correct": 1
+      },
+      {
+        "q": "包月套餐的费用是多少？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "月",
+          "价"
+        ],
+        "answer": "包月套餐的费用是0.0元。",
+        "llm_calls": 10,
+        "latency_ms": 15490.8,
+        "correct": 1
+      },
+      {
+        "q": "调用 gateway 报 429 是什么原因，如何排查？",
+        "intent": "tech",
+        "must_any": [
+          "限流",
+          "请求",
+          "频率",
+          "重试",
+          "429"
+        ],
+        "answer": "知识库检索失败错误代码：AccessDenied。无法访问API，可能需要验证权限或联系账号管理员。排查方法：\n\n1. 检查身份是否为有权访问Model Studio的角色（如：管理员、开发者等）。\n2. 如果是普通用户，请检查是否有足够的权限获取所需数据及结果，并及时与相关负责人沟通协调。",
+        "llm_calls": 10,
+        "latency_ms": 20030.1,
+        "correct": 0
+      },
+      {
+        "q": "模型连不上为什么会超时，怎么定位？",
+        "intent": "tech",
+        "must_any": [
+          "网络",
+          "超时",
+          "连接",
+          "排查",
+          "日志",
+          "端口"
+        ],
+        "answer": "模型连不上超时可能的原因是权限问题（Access Denied），建议查看以下信息以定位原因：\n1. 访问阿里云Model Studio的路径：https://help.aliyun.com/zh/model-studio/error-code.html#access-denied\n2. 日志中显示的知识库检索失败。",
+        "llm_calls": 6,
+        "latency_ms": 11151.9,
+        "correct": 1
+      },
+      {
+        "q": "用户生成的图片要过哪些内容审核才能发？",
+        "intent": "policy",
+        "must_any": [
+          "审核",
+          "合规",
+          "敏感",
+          "政策",
+          "法律"
+        ],
+        "answer": "图片可能无法通过内容审核。",
+        "llm_calls": 5,
+        "latency_ms": 6036.0,
+        "correct": 1
+      },
+      {
+        "q": "这条广告文案能不能直接发，有没有合规风险？",
+        "intent": "policy",
+        "must_any": [
+          "合规",
+          "风险",
+          "审核",
+          "建议",
+          "法律"
+        ],
+        "answer": "没有找到关于此任务的具体信息或建议。",
+        "llm_calls": 6,
+        "latency_ms": 9500.8,
+        "correct": 1
+      },
+      {
+        "q": "帮我看看这个实例适合做什么场景",
+        "intent": "miss",
+        "must_any": [
+          "推理",
+          "训练",
+          "场景",
+          "适合",
+          "渲染"
+        ],
+        "answer": "知识库检索失败导致无法得知此实例适合做什么场景。",
+        "llm_calls": 9,
+        "latency_ms": 10989.5,
+        "correct": 1
+      }
+    ]
+  },
+  "C_hierarchical": {
+    "summary": {
+      "avg_latency_ms": 5075.0,
+      "total_llm_calls": 18,
+      "accuracy": 0.889
+    },
+    "rows": [
+      {
+        "q": "你们营业时间是几点？",
+        "intent": "faq",
+        "must_any": [
+          "24",
+          "全天",
+          "小时"
+        ],
+        "answer": "我们 7×24 小时提供服务。",
+        "routed_by": "rule",
+        "llm_calls": 0,
+        "latency_ms": 0.0,
+        "provider": "none",
+        "correct": 1
+      },
+      {
+        "q": "怎么联系你们客服？",
+        "intent": "faq",
+        "must_any": [
+          "工单",
+          "邮箱",
+          "support"
+        ],
+        "answer": "可通过工单系统或 support@ 邮箱联系我们。",
+        "routed_by": "rule",
+        "llm_calls": 0,
+        "latency_ms": 0.0,
+        "provider": "none",
+        "correct": 1
+      },
+      {
+        "q": "A100 按量付费一小时多少钱？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "价",
+          "小时",
+          "美元"
+        ],
+        "answer": "某服务 A100 按量付费一小时的价格是根据其CPU时钟速率来定价的，但具体价格因地区不同可能会有所变化。由于该设备没有直接提供按小时计量的信息，因此无法给出确切答案。",
+        "routed_by": "rule",
+        "llm_calls": 1,
+        "latency_ms": 2893.1,
+        "provider": "local",
+        "correct": 1
+      },
+      {
+        "q": "包月套餐的费用是多少？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "月",
+          "价"
+        ],
+        "answer": "包月套餐的费用是 ¥500。",
+        "routed_by": "rule",
+        "llm_calls": 1,
+        "latency_ms": 788.8,
+        "provider": "local",
+        "correct": 1
+      },
+      {
+        "q": "调用 gateway 报 429 是什么原因，如何排查？",
+        "intent": "tech",
+        "must_any": [
+          "限流",
+          "请求",
+          "频率",
+          "重试",
+          "429"
+        ],
+        "answer": "调用 gateway 报 429 通常表示请求过多，触发了限流机制。排查建议：检查调用频率是否超过系统限制，确认是否有异常请求或恶意刷量行为，同时查看网关或服务的限流配置。",
+        "routed_by": "rule",
+        "llm_calls": 3,
+        "latency_ms": 10107.9,
+        "provider": "bailian",
+        "correct": 1
+      },
+      {
+        "q": "模型连不上为什么会超时，怎么定位？",
+        "intent": "tech",
+        "must_any": [
+          "网络",
+          "超时",
+          "连接",
+          "排查",
+          "日志",
+          "端口"
+        ],
+        "answer": "无法连接导致超时，可能由网络问题、服务未启动或配置错误引起，需检查网络状态、服务运行情况及配置信息。",
+        "routed_by": "rule",
+        "llm_calls": 2,
+        "latency_ms": 4483.3,
+        "provider": "bailian",
+        "correct": 1
+      },
+      {
+        "q": "用户生成的图片要过哪些内容审核才能发？",
+        "intent": "policy",
+        "must_any": [
+          "审核",
+          "合规",
+          "敏感",
+          "政策",
+          "法律"
+        ],
+        "answer": "无法获取审核步骤，因知识库检索失败。",
+        "routed_by": "rule",
+        "llm_calls": 4,
+        "latency_ms": 9581.0,
+        "provider": "bailian",
+        "correct": 1
+      },
+      {
+        "q": "这条广告文案能不能直接发，有没有合规风险？",
+        "intent": "policy",
+        "must_any": [
+          "合规",
+          "风险",
+          "审核",
+          "建议",
+          "法律"
+        ],
+        "answer": "最终答案：无法确定合规风险等级，因知识库检索失败且数字提取不明确。",
+        "routed_by": "rule",
+        "llm_calls": 6,
+        "latency_ms": 16176.8,
+        "provider": "bailian",
+        "correct": 1
+      },
+      {
+        "q": "帮我看看这个实例适合做什么场景",
+        "intent": "faq",
+        "must_any": [
+          "推理",
+          "训练",
+          "场景",
+          "适合",
+          "渲染"
+        ],
+        "answer": "（FAQ 未命中）",
+        "routed_by": "llm",
+        "llm_calls": 1,
+        "latency_ms": 1644.0,
+        "provider": "local",
+        "correct": 0
+      }
+    ],
+    "rule_hit_rate": 0.889
+  },
+  "D_hierarchical_local": {
+    "summary": {
+      "avg_latency_ms": 5936.7,
+      "total_llm_calls": 25,
+      "accuracy": 0.556
+    },
+    "rows": [
+      {
+        "q": "你们营业时间是几点？",
+        "intent": "faq",
+        "must_any": [
+          "24",
+          "全天",
+          "小时"
+        ],
+        "answer": "我们 7×24 小时提供服务。",
+        "routed_by": "rule",
+        "llm_calls": 0,
+        "latency_ms": 0.0,
+        "provider": "none",
+        "correct": 1
+      },
+      {
+        "q": "怎么联系你们客服？",
+        "intent": "faq",
+        "must_any": [
+          "工单",
+          "邮箱",
+          "support"
+        ],
+        "answer": "可通过工单系统或 support@ 邮箱联系我们。",
+        "routed_by": "rule",
+        "llm_calls": 0,
+        "latency_ms": 0.0,
+        "provider": "none",
+        "correct": 1
+      },
+      {
+        "q": "A100 按量付费一小时多少钱？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "价",
+          "小时",
+          "美元"
+        ],
+        "answer": "'A100'按量法收费每小时的价格为¥59.83。",
+        "routed_by": "rule",
+        "llm_calls": 1,
+        "latency_ms": 1481.8,
+        "provider": "local",
+        "correct": 1
+      },
+      {
+        "q": "包月套餐的费用是多少？",
+        "intent": "billing",
+        "must_any": [
+          "元",
+          "¥",
+          "月",
+          "价"
+        ],
+        "answer": "不幸的知识库服务目前无法提供包月套餐的具体费用信息。请核实问题是否准确，并可能需通过更常用的服务来查找此信息。",
+        "routed_by": "rule",
+        "llm_calls": 2,
+        "latency_ms": 5322.5,
+        "provider": "local",
+        "correct": 1
+      },
+      {
+        "q": "调用 gateway 报 429 是什么原因，如何排查？",
+        "intent": "tech",
+        "must_any": [
+          "限流",
+          "请求",
+          "频率",
+          "重试",
+          "429"
+        ],
+        "answer": "规划失败: Expecting ',' delimiter: line 4 column 3 (char 100)",
+        "routed_by": "rule",
+        "llm_calls": 1,
+        "latency_ms": 916.3,
+        "provider": "local",
+        "correct": 0
+      },
+      {
+        "q": "模型连不上为什么会超时，怎么定位？",
+        "intent": "tech",
+        "must_any": [
+          "网络",
+          "超时",
+          "连接",
+          "排查",
+          "日志",
+          "端口"
+        ],
+        "answer": "知识库检索失败：Access denied. 详细的访问详情请参阅：https://help.aliyun.com/zh/model-studio/error-code#access-denied. 请求ID分别为774fbaf4-f5bc-916e-a58e-4bc6ef1b1875和bcae229f-0a0a-9825-9d10-f76bcbccf555。",
+        "routed_by": "rule",
+        "llm_calls": 4,
+        "latency_ms": 13180.5,
+        "provider": "local",
+        "correct": 0
+      },
+      {
+        "q": "用户生成的图片要过哪些内容审核才能发？",
+        "intent": "policy",
+        "must_any": [
+          "审核",
+          "合规",
+          "敏感",
+          "政策",
+          "法律"
+        ],
+        "answer": "由于前两步操作失败且无法获取结果，请尝试更完整的审阅流程或在正确的环境下进行此项操作。",
+        "routed_by": "rule",
+        "llm_calls": 11,
+        "latency_ms": 19678.4,
+        "provider": "local",
+        "correct": 0
+      },
+      {
+        "q": "这条广告文案能不能直接发，有没有合规风险？",
+        "intent": "policy",
+        "must_any": [
+          "合规",
+          "风险",
+          "审核",
+          "建议",
+          "法律"
+        ],
+        "answer": "根据知识库检索结果失败的信息反馈，无法进行下一步操作。建议联系专业人士或重新检查文档中可能的遗漏部分。",
+        "routed_by": "rule",
+        "llm_calls": 5,
+        "latency_ms": 10622.7,
+        "provider": "local",
+        "correct": 1
+      },
+      {
+        "q": "帮我看看这个实例适合做什么场景",
+        "intent": "faq",
+        "must_any": [
+          "推理",
+          "训练",
+          "场景",
+          "适合",
+          "渲染"
+        ],
+        "answer": "（FAQ 未命中）",
+        "routed_by": "llm",
+        "llm_calls": 1,
+        "latency_ms": 2227.8,
+        "provider": "local",
+        "correct": 0
+      }
+    ]
+  }
+}
