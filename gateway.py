@@ -2,19 +2,28 @@
 企业级 AI Gateway v2 - 模拟阿里云百炼 MaaS 架构
 新增: 流式输出 / 限流 / 监控面板 / 历史记录
 """
+
 import os
 import time
 import json
+import asyncio
 import logging
 import hashlib
-from collections import defaultdict, deque
+from collections import defaultdict, deque, OrderedDict
+from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Optional
 from fastapi import FastAPI, Request, HTTPException, Header
 from fastapi.responses import StreamingResponse, HTMLResponse, Response
 from pydantic import BaseModel
 import httpx
-from prometheus_client import Counter, Histogram, Gauge, generate_latest, CONTENT_TYPE_LATEST
+from prometheus_client import (
+    Counter,
+    Histogram,
+    Gauge,
+    generate_latest,
+    CONTENT_TYPE_LATEST,
+)
 import rag  # RAG 模块
 import agent as agent_mod  # Agent 模块
 import multi_agent as multi_agent_mod  # Multi-Agent 模块
@@ -23,20 +32,20 @@ import multi_agent as multi_agent_mod  # Multi-Agent 模块
 OLLAMA_BASE = "http://localhost:11434"
 
 MODEL_ROUTES = {
-    "fast":     "qwen2.5-1.5b",
-    "quality":  "qwen2.5-1.5b-q8",
-    "long":     "qwen2.5-1.5b-32k",
+    "fast": "qwen2.5-1.5b",
+    "quality": "qwen2.5-1.5b-q8",
+    "long": "qwen2.5-1.5b-32k",
 }
 
 PRICING = {
-    "qwen2.5-1.5b":      {"input": 0.0003, "output": 0.0006},
-    "qwen2.5-1.5b-q8":   {"input": 0.0008, "output": 0.0016},
-    "qwen2.5-1.5b-32k":  {"input": 0.0010, "output": 0.0020},
+    "qwen2.5-1.5b": {"input": 0.0003, "output": 0.0006},
+    "qwen2.5-1.5b-q8": {"input": 0.0008, "output": 0.0016},
+    "qwen2.5-1.5b-32k": {"input": 0.0010, "output": 0.0020},
 }
 
 # 限流配置（每分钟最大请求数）
 RATE_LIMITS = {
-    "free":       10,
+    "free": 10,
     "enterprise": 1000,
 }
 
@@ -49,18 +58,37 @@ API_KEYS = {
 BANNED_WORDS = ["暴力", "色情", "赌博", "诈骗", "毒品"]
 
 # ========== 状态存储 ==========
-logging.basicConfig(level=logging.INFO, format='%(asctime)s | %(message)s')
+logging.basicConfig(level=logging.INFO, format="%(asctime)s | %(message)s")
 log = logging.getLogger("gateway")
 
-app = FastAPI(title="AI Gateway v2")
+# 共享 HTTP 连接池：复用 TCP 连接，避免每个请求重建 client
+http_client: Optional[httpx.AsyncClient] = None
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global http_client
+    http_client = httpx.AsyncClient(timeout=120)
+    yield
+    await http_client.aclose()
+
+
+app = FastAPI(title="AI Gateway v2", lifespan=lifespan)
 
 stats = {
-    "total_requests": 0, "total_cost": 0.0, "total_tokens": 0,
-    "blocked": 0, "cache_hits": 0,
+    "total_requests": 0,
+    "total_cost": 0.0,
+    "total_tokens": 0,
+    "blocked": 0,
+    "cache_hits": 0,
 }
-recent_logs = deque(maxlen=50)              # 最近50条请求
+recent_logs = deque(maxlen=50)  # 最近50条请求
 rate_window = defaultdict(lambda: deque())  # 每个key的请求时间戳
-response_cache = {}                          # 简单内存缓存 {hash: response}
+
+# 响应缓存：LRU + TTL，防止无上限增长
+CACHE_MAX_ENTRIES = 256
+CACHE_TTL_SECONDS = 600
+response_cache: OrderedDict = OrderedDict()  # {hash: (expire_ts, response)}
 
 # ========== Prometheus 指标 ==========
 # 请求计数器（按用户、模型、状态拆维度）
@@ -139,12 +167,36 @@ def moderate(messages: list) -> Optional[str]:
 
 def cache_key(body: dict) -> str:
     """生成缓存key（基于model+messages的hash）"""
-    import hashlib
-    payload = json.dumps({
-        "model": body.get("model"),
-        "messages": body.get("messages"),
-    }, ensure_ascii=False, sort_keys=True)
+    payload = json.dumps(
+        {
+            "model": body.get("model"),
+            "messages": body.get("messages"),
+        },
+        ensure_ascii=False,
+        sort_keys=True,
+    )
     return hashlib.md5(payload.encode()).hexdigest()
+
+
+def cache_get(ck: str) -> Optional[dict]:
+    """读缓存：过期则删除，命中则移到 LRU 队尾"""
+    item = response_cache.get(ck)
+    if item is None:
+        return None
+    expire_ts, data = item
+    if time.time() > expire_ts:
+        del response_cache[ck]
+        return None
+    response_cache.move_to_end(ck)
+    return data
+
+
+def cache_put(ck: str, data: dict):
+    """写缓存：超过容量时淘汰最久未用的"""
+    response_cache[ck] = (time.time() + CACHE_TTL_SECONDS, data)
+    response_cache.move_to_end(ck)
+    while len(response_cache) > CACHE_MAX_ENTRIES:
+        response_cache.popitem(last=False)
 
 
 def check_rate_limit(key: str, tier: str):
@@ -163,10 +215,12 @@ def check_rate_limit(key: str, tier: str):
 # ========== 业务路由 ==========
 @app.get("/v1/models")
 def list_models():
-    return {"data": [
-        {"id": k, "actual": v, "pricing": PRICING.get(v, {})}
-        for k, v in MODEL_ROUTES.items()
-    ]}
+    return {
+        "data": [
+            {"id": k, "actual": v, "pricing": PRICING.get(v, {})}
+            for k, v in MODEL_ROUTES.items()
+        ]
+    }
 
 
 @app.post("/v1/chat/completions")
@@ -192,12 +246,17 @@ async def chat(request: Request, authorization: Optional[str] = Header(None)):
     # 中间件2: 缓存命中（仅非流式）
     if not is_stream:
         ck = cache_key(body)
-        if ck in response_cache:
+        cached = cache_get(ck)
+        if cached is not None:
             stats["cache_hits"] += 1
             m_cache.labels(result="hit").inc()
             m_requests.labels(user=user["name"], model=actual, status="cache_hit").inc()
-            cached = response_cache[ck].copy()
-            cached["x_gateway"] = {**cached.get("x_gateway", {}), "cache": "HIT", "cost_cny": 0}
+            cached = cached.copy()
+            cached["x_gateway"] = {
+                **cached.get("x_gateway", {}),
+                "cache": "HIT",
+                "cost_cny": 0,
+            }
             record_request(user, requested, actual, 0, 0, 0, 1, status="cache_hit")
             return cached
         m_cache.labels(result="miss").inc()
@@ -212,9 +271,8 @@ async def chat(request: Request, authorization: Optional[str] = Header(None)):
     m_in_flight.inc()
     start = time.time()
     try:
-        async with httpx.AsyncClient(timeout=120) as client:
-            resp = await client.post(f"{OLLAMA_BASE}/v1/chat/completions", json=body)
-            data = resp.json()
+        resp = await http_client.post(f"{OLLAMA_BASE}/v1/chat/completions", json=body)
+        data = resp.json()
     finally:
         m_in_flight.dec()
 
@@ -239,8 +297,9 @@ async def chat(request: Request, authorization: Optional[str] = Header(None)):
         "latency_ms": round(latency * 1000, 1),
         "cache": "MISS",
     }
-    # 写入缓存
-    response_cache[cache_key(body)] = data
+    # 写入缓存（只缓存成功响应，错误响应缓存后会在上游恢复时持续污染）
+    if resp.status_code == 200 and "choices" in data:
+        cache_put(ck, data)
     return data
 
 
@@ -248,26 +307,39 @@ async def stream_chat(body, user, requested, actual):
     """流式输出 - SSE 协议"""
     start = time.time()
     p_tok = c_tok = 0
-    async with httpx.AsyncClient(timeout=120) as client:
-        async with client.stream("POST", f"{OLLAMA_BASE}/v1/chat/completions", json=body) as resp:
+    m_in_flight.inc()
+    try:
+        async with http_client.stream(
+            "POST", f"{OLLAMA_BASE}/v1/chat/completions", json=body
+        ) as resp:
             async for line in resp.aiter_lines():
                 if line.startswith("data: "):
                     chunk = line[6:]
                     if chunk.strip() == "[DONE]":
-                        yield f"data: [DONE]\n\n"
+                        yield "data: [DONE]\n\n"
                         break
                     try:
                         obj = json.loads(chunk)
                         if "usage" in obj and obj["usage"]:
                             p_tok = obj["usage"].get("prompt_tokens", 0)
                             c_tok = obj["usage"].get("completion_tokens", 0)
-                    except:
+                    except (json.JSONDecodeError, KeyError):
                         pass
                     yield f"data: {chunk}\n\n"
+    finally:
+        m_in_flight.dec()
 
     latency = time.time() - start
     cost = calc_cost(actual, p_tok, c_tok)
-    record_request(user, requested, actual, p_tok, c_tok, cost, latency)
+    # 流式请求同样上报 Prometheus，否则监控里看不到流式流量
+    m_requests.labels(user=user["name"], model=actual, status="ok_stream").inc()
+    m_latency.labels(model=actual).observe(latency)
+    m_tokens.labels(direction="input", model=actual).inc(p_tok)
+    m_tokens.labels(direction="output", model=actual).inc(c_tok)
+    m_cost.labels(model=actual).inc(cost)
+    record_request(
+        user, requested, actual, p_tok, c_tok, cost, latency, status="ok_stream"
+    )
 
 
 def record_request(user, requested, actual, p_tok, c_tok, cost, latency, status="ok"):
@@ -312,8 +384,12 @@ def health():
 
     issues = []
     if not rag_ready:
-        missing = [k for k, v in deps.items() if not v and k in ("chromadb", "dashscope")]
-        issues.append(f"RAG 不可用，缺依赖: {missing} → pip install {' '.join(missing)}")
+        missing = [
+            k for k, v in deps.items() if not v and k in ("chromadb", "dashscope")
+        ]
+        issues.append(
+            f"RAG 不可用，缺依赖: {missing} → pip install {' '.join(missing)}"
+        )
     if not bm25_ready:
         missing = [k for k, v in deps.items() if not v and k in ("rank_bm25", "jieba")]
         issues.append(f"BM25 不可用，缺依赖: {missing} → pip install rank-bm25 jieba")
@@ -339,45 +415,62 @@ def health():
 def _rag_safe(func):
     """装饰器：把 RAG 的 RuntimeError 转成 503 + 友好提示"""
     from functools import wraps
+
     @wraps(func)
     async def wrapper(*args, **kwargs):
         try:
             return await func(*args, **kwargs)
         except RuntimeError as e:
             raise HTTPException(503, str(e))
+
     return wrapper
+
+
+class RagUploadBody(BaseModel):
+    content: str
+    doc_id: Optional[str] = None
+    metadata: Optional[dict] = None
+
+
+class RagQueryBody(BaseModel):
+    question: str
+    top_k: int = 3
+    mode: str = "hybrid"  # vector / bm25 / hybrid
+    rerank: bool = False
+    model: str = "fast"
 
 
 @app.post("/v1/rag/documents")
 @_rag_safe
-async def rag_upload(request: Request, authorization: Optional[str] = Header(None)):
+async def rag_upload(body: RagUploadBody, authorization: Optional[str] = Header(None)):
     """上传文档到知识库（自动切块+向量化）"""
     auth(authorization)
-    body = await request.json()
-    doc_id = body.get("doc_id") or hashlib.md5(body.get("content", "").encode()).hexdigest()[:8]
-    return rag.add_document(doc_id, body["content"], body.get("metadata"))
+    doc_id = body.doc_id or hashlib.md5(body.content.encode()).hexdigest()[:8]
+    # rag 模块是同步阻塞代码（embedding 走 requests），丢线程池避免卡事件循环
+    return await asyncio.to_thread(
+        rag.add_document, doc_id, body.content, body.metadata
+    )
 
 
 @app.post("/v1/rag/query")
 @_rag_safe
-async def rag_query(request: Request, authorization: Optional[str] = Header(None)):
+async def rag_query(body: RagQueryBody, authorization: Optional[str] = Header(None)):
     """RAG 查询：检索 + 增强生成"""
     key, user = auth(authorization)
-    body = await request.json()
-    question = body["question"]
-    top_k = body.get("top_k", 3)
-    mode = body.get("mode", "hybrid")  # vector / bm25 / hybrid
-    use_rerank = body.get("rerank", False)
-    requested_model = body.get("model", "fast")
-    actual_model = resolve_model(requested_model)
+    question = body.question
+    actual_model = resolve_model(body.model)
 
-    # Step 1: 检索（可选 Rerank 精排）
+    # Step 1: 检索（可选 Rerank 精排）——同步代码丢线程池
     start = time.time()
-    chunks = rag.search(question, top_k=top_k, mode=mode, use_rerank=use_rerank)
+    chunks = await asyncio.to_thread(
+        rag.search, question, body.top_k, body.mode, body.rerank
+    )
     retrieval_ms = (time.time() - start) * 1000
 
     # Step 2: 拼接增强 Prompt
-    context = "\n\n".join([f"[文档片段{i+1}] {c['content']}" for i, c in enumerate(chunks)])
+    context = "\n\n".join(
+        [f"[文档片段{i + 1}] {c['content']}" for i, c in enumerate(chunks)]
+    )
     augmented_prompt = f"""请基于以下文档内容回答用户问题。如果文档中没有相关信息，请明确说明"文档中没有相关信息"，不要编造。
 
 {context}
@@ -388,16 +481,18 @@ async def rag_query(request: Request, authorization: Optional[str] = Header(None
 
     # Step 3: 调用 LLM
     gen_start = time.time()
-    async with httpx.AsyncClient(timeout=120) as client:
-        resp = await client.post(
-            f"{OLLAMA_BASE}/v1/chat/completions",
-            json={
-                "model": actual_model,
-                "messages": [{"role": "user", "content": augmented_prompt}],
-            },
-        )
-        data = resp.json()
+    resp = await http_client.post(
+        f"{OLLAMA_BASE}/v1/chat/completions",
+        json={
+            "model": actual_model,
+            "messages": [{"role": "user", "content": augmented_prompt}],
+        },
+    )
+    data = resp.json()
     gen_ms = (time.time() - gen_start) * 1000
+
+    if "choices" not in data:
+        raise HTTPException(502, f"LLM 调用失败: {data.get('error', data)}")
 
     # 提取统计
     usage = data.get("usage", {})
@@ -410,14 +505,23 @@ async def rag_query(request: Request, authorization: Optional[str] = Header(None
     m_tokens.labels(direction="input", model=actual_model).inc(p_tok)
     m_tokens.labels(direction="output", model=actual_model).inc(c_tok)
     m_cost.labels(model=actual_model).inc(cost)
-    record_request(user, "rag", actual_model, p_tok, c_tok, cost, (retrieval_ms + gen_ms) / 1000, status="rag")
+    record_request(
+        user,
+        "rag",
+        actual_model,
+        p_tok,
+        c_tok,
+        cost,
+        (retrieval_ms + gen_ms) / 1000,
+        status="rag",
+    )
 
     return {
         "answer": data["choices"][0]["message"]["content"],
         "sources": chunks,
         "stats": {
-            "retrieval_mode": mode,
-            "rerank": use_rerank,
+            "retrieval_mode": body.mode,
+            "rerank": body.rerank,
             "retrieval_ms": round(retrieval_ms, 1),
             "generation_ms": round(gen_ms, 1),
             "total_ms": round(retrieval_ms + gen_ms, 1),
@@ -437,7 +541,7 @@ def rag_stats():
 @_rag_safe
 async def rag_clear(authorization: Optional[str] = Header(None)):
     auth(authorization)
-    rag.clear_all()
+    await asyncio.to_thread(rag.clear_all)
     return {"status": "cleared"}
 
 
@@ -448,44 +552,65 @@ def agent_list_tools():
     return {"tools": agent_mod.list_tools()}
 
 
-@app.post("/v1/agent/run")
-async def agent_run(request: Request, authorization: Optional[str] = Header(None)):
-    """
-    运行 ReAct Agent
-    body: {"question": str, "max_iterations": int (默认5), "model": str}
-    """
-    key, user = auth(authorization)
-    body = await request.json()
-    question = body["question"]
-    max_iter = body.get("max_iterations", 5)
-    provider = body.get("provider", "local")  # local / bailian
-    few_shot = body.get("few_shot", True)
-    mode = body.get("mode", "react")  # react / plan_execute
-    model_label = body.get("model", "fast")
-    actual_model = model_label if provider == "bailian" else resolve_model(model_label)
+class AgentRunBody(BaseModel):
+    question: str
+    max_iterations: int = 5
+    provider: str = "local"  # local / bailian
+    few_shot: bool = True
+    mode: str = "react"  # react / plan_execute
+    model: str = "fast"
 
+
+@app.post("/v1/agent/run")
+async def agent_run(body: AgentRunBody, authorization: Optional[str] = Header(None)):
+    """运行 ReAct / Plan-Execute Agent"""
+    key, user = auth(authorization)
+    question = body.question
+    provider = body.provider
+    actual_model = body.model if provider == "bailian" else resolve_model(body.model)
+
+    # agent 模块内部用同步 requests 调 LLM，一次跑十几秒；
+    # 直接 await 会阻塞事件循环，其他请求全部冻结 → 丢线程池
     start = time.time()
-    if mode == "plan_execute":
-        result = agent_mod.run_plan_execute_agent(
-            question, max_iterations=max_iter, model=actual_model, provider=provider,
+    if body.mode == "plan_execute":
+        result = await asyncio.to_thread(
+            agent_mod.run_plan_execute_agent,
+            question,
+            max_iterations=body.max_iterations,
+            model=actual_model,
+            provider=provider,
         )
     else:
-        result = agent_mod.run_agent(
-            question, max_iterations=max_iter, model=actual_model,
-            provider=provider, few_shot=few_shot,
+        result = await asyncio.to_thread(
+            agent_mod.run_agent,
+            question,
+            max_iterations=body.max_iterations,
+            model=actual_model,
+            provider=provider,
+            few_shot=body.few_shot,
         )
     total_ms = (time.time() - start) * 1000
 
     # Prometheus 指标
-    m_requests.labels(user=user["name"], model=actual_model, status=f"agent_{result['status']}").inc()
-    record_request(user, "agent", actual_model, 0, 0, 0, total_ms / 1000, status=f"agent:{result['status']}")
+    m_requests.labels(
+        user=user["name"], model=actual_model, status=f"agent_{result['status']}"
+    ).inc()
+    record_request(
+        user,
+        "agent",
+        actual_model,
+        0,
+        0,
+        0,
+        total_ms / 1000,
+        status=f"agent:{result['status']}",
+    )
 
     return {
         **result,
         "model": actual_model,
         "tools_available": [t["name"] for t in agent_mod.list_tools()],
     }
-
 
 
 class MultiAgentRunBody(BaseModel):
@@ -499,7 +624,9 @@ class MultiAgentRunBody(BaseModel):
 
 # ========== Multi-Agent 接口 ==========
 @app.post("/v1/multi-agent/run")
-async def multi_agent_run(body: MultiAgentRunBody, authorization: Optional[str] = Header(None)):
+async def multi_agent_run(
+    body: MultiAgentRunBody, authorization: Optional[str] = Header(None)
+):
     """
     运行 Supervisor/Worker multi-agent demo.
     body: {"question": str, "model": str, "provider": "local|bailian", "llm_final": bool}
@@ -511,8 +638,10 @@ async def multi_agent_run(body: MultiAgentRunBody, authorization: Optional[str] 
     actual_model = model_label if provider == "bailian" else resolve_model(model_label)
     use_llm_final = body.llm_final
 
+    # 同 agent_run：同步阻塞代码丢线程池
     start = time.time()
-    result = multi_agent_mod.run_multi_agent(
+    result = await asyncio.to_thread(
+        multi_agent_mod.run_multi_agent,
         question,
         model=actual_model,
         provider=provider,

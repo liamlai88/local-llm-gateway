@@ -46,11 +46,38 @@ def register_tool(name: str, description: str, parameters: Dict):
     parameters={"expression": "string, 数学表达式如 '15 * 0.6'"},
 )
 def calculator(expression: str) -> str:
+    # AST 白名单求值，替代 eval：
+    # 正则挡得住代码注入（无字母），但挡不住 9**9**9 这种指数爆炸 DoS
+    import ast
+    import operator
+
+    ops = {
+        ast.Add: operator.add,
+        ast.Sub: operator.sub,
+        ast.Mult: operator.mul,
+        ast.Div: operator.truediv,
+        ast.Mod: operator.mod,
+        ast.Pow: operator.pow,
+        ast.USub: operator.neg,
+        ast.UAdd: operator.pos,
+    }
+
+    def _eval(node):
+        if isinstance(node, ast.Expression):
+            return _eval(node.body)
+        if isinstance(node, ast.Constant) and isinstance(node.value, (int, float)):
+            return node.value
+        if isinstance(node, ast.BinOp) and type(node.op) in ops:
+            left, right = _eval(node.left), _eval(node.right)
+            if isinstance(node.op, ast.Pow) and abs(right) > 100:
+                raise ValueError(f"指数过大: {right}")
+            return ops[type(node.op)](left, right)
+        if isinstance(node, ast.UnaryOp) and type(node.op) in ops:
+            return ops[type(node.op)](_eval(node.operand))
+        raise ValueError(f"不允许的表达式节点: {type(node).__name__}")
+
     try:
-        # 安全 eval：只允许数字和基本运算
-        if not re.match(r"^[\d\s\+\-\*\/\.\(\)\%]+$", expression):
-            return f"Error: 表达式包含不允许字符: {expression}"
-        result = eval(expression)
+        result = _eval(ast.parse(expression.strip(), mode="eval"))
         return str(result)
     except Exception as e:
         return f"计算错误: {e}"
